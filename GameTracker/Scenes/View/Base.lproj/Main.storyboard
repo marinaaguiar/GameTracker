@@ -42,7 +42,7 @@
                                 </subviews>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LzQ-aO-jRE">
-                                <rect key="frame" x="0.0" y="103" width="390" height="658"/>
+                                <rect key="frame" x="12" y="103" width="378" height="658"/>
                                 <color key="backgroundColor" name="BackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1U1-Fh-dC2">
                                     <size key="itemSize" width="128" height="128"/>
@@ -62,10 +62,15 @@
                             <constraint firstItem="zlZ-O4-zNI" firstAttribute="trailing" secondItem="oUM-ME-pGp" secondAttribute="trailing" constant="12" id="SFN-wz-26U"/>
                             <constraint firstItem="oUM-ME-pGp" firstAttribute="top" secondItem="zlZ-O4-zNI" secondAttribute="top" id="W5P-Q4-9R1"/>
                             <constraint firstItem="zlZ-O4-zNI" firstAttribute="trailing" secondItem="LzQ-aO-jRE" secondAttribute="trailing" id="bqZ-Qk-UPe"/>
-                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="leading" secondItem="zlZ-O4-zNI" secondAttribute="leading" id="gEc-m4-j6d"/>
+                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="leading" secondItem="zlZ-O4-zNI" secondAttribute="leading" constant="12" id="gEc-m4-j6d"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Explore" image="magnifyingglass" catalog="system" id="220-1y-r8h"/>
+                    <tabBarItem key="tabBarItem" title="Explore" image="magnifyingglass" catalog="system" id="220-1y-r8h">
+                        <color key="badgeColor" name="LightGray"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="collectionView" destination="LzQ-aO-jRE" id="xMu-XZ-K0t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCB-e8-IgH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -92,7 +97,6 @@
         <!--Wishlist-->
         <scene sceneID="WVM-19-Vl2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hSM-oc-BP0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="icb-TU-AT1" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cT7-dk-tpm">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
@@ -100,8 +104,11 @@
                         <viewLayoutGuide key="safeArea" id="YE9-5M-LL6"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Wishlist" image="heart" catalog="system" id="3gW-5N-7pN"/>
+                    <tabBarItem key="tabBarItem" title="Wishlist" image="heart" catalog="system" id="3gW-5N-7pN">
+                        <color key="badgeColor" name="LightGray"/>
+                    </tabBarItem>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hSM-oc-BP0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2796.9230769230767" y="94.549763033175353"/>
         </scene>
@@ -111,8 +118,9 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="50z-GT-P22" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Kbg-TY-qZv">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="Light+Gray"/>
                         <color key="tintColor" name="LightGray"/>
                     </tabBar>
                     <connections>
@@ -136,6 +144,9 @@
         </namedColor>
         <namedColor name="DarkGray">
             <color red="0.4309999942779541" green="0.41999998688697815" blue="0.42800000309944153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Light+Gray">
+            <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightGray">
             <color red="0.63099998235702515" green="0.63099998235702515" blue="0.63099998235702515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

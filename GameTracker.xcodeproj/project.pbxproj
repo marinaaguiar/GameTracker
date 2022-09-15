@@ -16,6 +16,8 @@
 		9CBCEB2D28D360AD001EE791 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB2C28D360AD001EE791 /* CategoriesViewController.swift */; };
 		9CBCEB2F28D360B7001EE791 /* WishlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB2E28D360B7001EE791 /* WishlistViewController.swift */; };
 		9CBCEB3328D36345001EE791 /* APIConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB3228D36345001EE791 /* APIConstant.swift */; };
+		9CBCEB3628D36459001EE791 /* CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB3528D36459001EE791 /* CompositionalLayout.swift */; };
+		9CBCEB3928D3655A001EE791 /* ExplorerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB3828D3655A001EE791 /* ExplorerCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		9CBCEB2C28D360AD001EE791 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		9CBCEB2E28D360B7001EE791 /* WishlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistViewController.swift; sourceTree = "<group>"; };
 		9CBCEB3228D36345001EE791 /* APIConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstant.swift; sourceTree = "<group>"; };
+		9CBCEB3528D36459001EE791 /* CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayout.swift; sourceTree = "<group>"; };
+		9CBCEB3828D3655A001EE791 /* ExplorerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 		9CBCEB0D28D355C3001EE791 /* GameTracker */ = {
 			isa = PBXGroup;
 			children = (
+				9CBCEB3428D3644A001EE791 /* Common */,
 				9CBCEB2728D356CD001EE791 /* Networking */,
 				9CBCEB2528D35683001EE791 /* Scenes */,
 				9CBCEB2428D35670001EE791 /* SceneDelegate */,
@@ -101,9 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				9CBCEB3028D3619A001EE791 /* View */,
-				9CBCEB2B28D36078001EE791 /* WishlistViewController */,
-				9CBCEB2A28D36070001EE791 /* CategoriesViewController */,
 				9CBCEB2628D3568B001EE791 /* ExplorerViewController */,
+				9CBCEB2A28D36070001EE791 /* CategoriesViewController */,
+				9CBCEB2B28D36078001EE791 /* WishlistViewController */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				9CBCEB2828D3571D001EE791 /* ExplorerViewController.swift */,
+				9CBCEB3728D36545001EE791 /* Components */,
 			);
 			path = ExplorerViewController;
 			sourceTree = "<group>";
@@ -154,6 +160,22 @@
 				9CBCEB3228D36345001EE791 /* APIConstant.swift */,
 			);
 			path = APIService;
+			sourceTree = "<group>";
+		};
+		9CBCEB3428D3644A001EE791 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9CBCEB3528D36459001EE791 /* CompositionalLayout.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		9CBCEB3728D36545001EE791 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9CBCEB3828D3655A001EE791 /* ExplorerCollectionViewCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,11 +249,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CBCEB3628D36459001EE791 /* CompositionalLayout.swift in Sources */,
 				9CBCEB0F28D355C3001EE791 /* AppDelegate.swift in Sources */,
 				9CBCEB1128D355C3001EE791 /* SceneDelegate.swift in Sources */,
 				9CBCEB3328D36345001EE791 /* APIConstant.swift in Sources */,
 				9CBCEB2F28D360B7001EE791 /* WishlistViewController.swift in Sources */,
 				9CBCEB2D28D360AD001EE791 /* CategoriesViewController.swift in Sources */,
+				9CBCEB3928D3655A001EE791 /* ExplorerCollectionViewCell.swift in Sources */,
 				9CBCEB2928D3571D001EE791 /* ExplorerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
