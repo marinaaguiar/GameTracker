@@ -1,37 +1,47 @@
 import UIKit
 
+class ExplorerViewController: UIViewController {
 
-enum Section: Int, CaseIterable {
-    case topRanked = 0
-    case popularGames = 1
-    case levelOfComplexity = 2
-    case mechanics = 3
-    case numberOfPlayers = 4
+    var dataSource: UICollectionViewDiffableDataSource<Section, Section>?
+    private let apiService = APIService()
 
-    var sectionTitle: String {
-        switch self {
-        case .topRanked:
-            return "Top Ranked"
-        case .popularGames:
-            return "Popular Games"
-        case .levelOfComplexity:
-            return "LevelOfComplexity"
-        case .mechanics:
-            return "Mechanics"
-        case .numberOfPlayers:
-            return "Number Of Players"
+
+    enum Section: Int, CaseIterable {
+        case topRanked = 0
+        case popularGames = 1
+        case levelOfComplexity = 2
+        case mechanics = 3
+        case numberOfPlayers = 4
+
+        var sectionTitle: String {
+            switch self {
+            case .topRanked:
+                return "Top Ranked"
+            case .popularGames:
+                return "Popular Games"
+            case .levelOfComplexity:
+                return "LevelOfComplexity"
+            case .mechanics:
+                return "Mechanics"
+            case .numberOfPlayers:
+                return "Number Of Players"
+            }
         }
     }
-}
-
-class ExplorerViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-
+        apiService.loadGameList(limitItems: 5, orderedBy: .trending) { result in
+            switch result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     func setupCollectionView() {
@@ -42,7 +52,84 @@ class ExplorerViewController: UIViewController {
         collectionView.delegate = self
         collectionView.collectionViewLayout = createLayout()
         collectionView.allowsMultipleSelection = true
+
+//        configureDataSource()
     }
+
+//    func configureDataSource() {
+////      dataSource = UICollectionViewDiffableDataSource
+////        <Section, Section>(collectionView: collectionView) {
+////          (collectionView: UICollectionView, indexPath: IndexPath, sectionItem: Section) -> UICollectionViewCell? in
+////
+////            let sectionTitle = Section.allCases[indexPath.section]
+////
+////          switch sectionTitle {
+////          case .topRanked:
+////              break
+////          case .popularGames:
+////              break
+////          case .levelOfComplexity:
+////              break
+////          case .mechanics:
+////              break
+////          case .numberOfPlayers:
+////              break
+////          }
+////      }
+//
+//        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+//            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.reuseIdentifier, for: indexPath) as? SectionHeaderView else {
+//                return nil
+//            }
+//
+//            guard let firstItem = self?.dataSource?.itemIdentifier(for: indexPath) else { return nil }
+//            guard let section = self?.dataSource?.snapshot().sectionIdentifier(containingItem: firstItem) else { return nil }
+//            if section.title.isEmpty { return nil }
+//
+//            sectionHeader.title.text = section.title
+//            sectionHeader.subtitle.text = section.subtitle
+//            return sectionHeader
+//        }
+//    }
+
+//    func configureDataSource() {
+//        //      dataSource = UICollectionViewDiffableDataSource
+//        //        <Section, Section>(collectionView: collectionView) {
+//        //          (collectionView: UICollectionView, indexPath: IndexPath, sectionItem: Section) -> UICollectionViewCell? in
+//        //
+//        //            let sectionTitle = Section.allCases[indexPath.section]
+//        //
+//        //          switch sectionTitle {
+//        //          case .topRanked:
+//        //              break
+//        //          case .popularGames:
+//        //              break
+//        //          case .levelOfComplexity:
+//        //              break
+//        //          case .mechanics:
+//        //              break
+//        //          case .numberOfPlayers:
+//        //              break
+//        //          }
+//        //      }
+//
+//        dataSource?.supplementaryViewProvider = { (
+//            collectionView: UICollectionView,
+//            kind: String,
+//            indexPath: IndexPath) -> UICollectionReusableView? in
+//
+//            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+//                ofKind: kind,
+//                withReuseIdentifier: SectionHeaderView.reuseIdentifier,
+//                for: indexPath) as? SectionHeaderView else { fatalError("Cannot create header view") }
+//
+//            supplementaryView.label.text = Section.allCases[indexPath.section].sectionTitle
+//            return supplementaryView
+//        }
+//    }
+
+
+    
 
     func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
@@ -137,6 +224,10 @@ class ExplorerViewController: UIViewController {
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         return sectionHeader
     }
+
+//    func createDataSource() {
+//
+//    }
 }
 
 //MARK: - UICollectionViewDataSource
