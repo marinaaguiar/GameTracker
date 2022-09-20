@@ -1,7 +1,7 @@
 import UIKit
 
 class SectionHeaderView: UICollectionReusableView {
-  static let reuseIdentifier = "header-reuse-identifier"
+  static let reuseIdentifier = "SectionHeaderView"
 
   let label = UILabel()
 
@@ -24,6 +24,7 @@ extension SectionHeaderView {
     label.adjustsFontForContentSizeCategory = true
 
     let inset = CGFloat(10)
+      
     NSLayoutConstraint.activate([
       label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
       label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -inset),

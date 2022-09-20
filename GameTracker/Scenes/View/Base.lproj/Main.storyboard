@@ -42,7 +42,7 @@
                                 </subviews>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LzQ-aO-jRE">
-                                <rect key="frame" x="12" y="103" width="378" height="658"/>
+                                <rect key="frame" x="0.0" y="103" width="390" height="658"/>
                                 <color key="backgroundColor" name="BackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1U1-Fh-dC2">
                                     <size key="itemSize" width="128" height="128"/>
@@ -62,7 +62,7 @@
                             <constraint firstItem="zlZ-O4-zNI" firstAttribute="trailing" secondItem="oUM-ME-pGp" secondAttribute="trailing" constant="12" id="SFN-wz-26U"/>
                             <constraint firstItem="oUM-ME-pGp" firstAttribute="top" secondItem="zlZ-O4-zNI" secondAttribute="top" id="W5P-Q4-9R1"/>
                             <constraint firstItem="zlZ-O4-zNI" firstAttribute="trailing" secondItem="LzQ-aO-jRE" secondAttribute="trailing" id="bqZ-Qk-UPe"/>
-                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="leading" secondItem="zlZ-O4-zNI" secondAttribute="leading" constant="12" id="gEc-m4-j6d"/>
+                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="leading" secondItem="zlZ-O4-zNI" secondAttribute="leading" id="gEc-m4-j6d"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Explore" image="magnifyingglass" catalog="system" id="220-1y-r8h">

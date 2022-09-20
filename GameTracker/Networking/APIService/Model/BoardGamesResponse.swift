@@ -1,10 +1,11 @@
 import Foundation
 
 struct BoardGamesAtlasResponse: Codable {
-    let games: [GamesReponse]
+    let games: [GameResponse]
 }
 
-struct GamesReponse: Codable {
+struct GameResponse: Codable, Hashable {
+
     let id: String
     let name: String
     let price: String
@@ -25,8 +26,19 @@ struct GamesReponse: Codable {
     let rulesUrl: String?
     let numUserRatings: Int
     let averageUserRating: Double
-    let averageLearningComplexity: Int
+    let averageLearningComplexity: Double
     let rank: Int
+
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(identifier)
+    }
+
+    static func == (lhs: GameResponse, rhs: GameResponse) -> Bool {
+      return lhs.identifier == rhs.identifier
+    }
+
+  private let identifier = UUID()
+
 }
 
 struct Mechanics: Codable {
@@ -43,7 +55,7 @@ struct Designers: Codable {
     let id: String
 }
 
-private extension GamesReponse {
+private extension GameResponse {
     enum CodingKeys: String, CodingKey {
         case yearPublished = "year_published"
         case minPlayers = "min_players"
