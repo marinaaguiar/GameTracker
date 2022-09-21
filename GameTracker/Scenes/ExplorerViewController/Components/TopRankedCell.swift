@@ -34,13 +34,13 @@ class TopRankedCell: UICollectionViewCell, SelfConfiguringCell {
         }
     }
 
-    func setup() {
+    private func setup() {
         contentContainer.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(contentContainer)
 
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .redraw
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
@@ -54,19 +54,11 @@ class TopRankedCell: UICollectionViewCell, SelfConfiguringCell {
           contentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
           contentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-          imageView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
+          imageView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor, constant: CGFloat(10)),
           imageView.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
           imageView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor),
           imageView.topAnchor.constraint(equalTo: contentContainer.topAnchor)
         ])
-
-    }
-
-    func setupActivityIndicator() {
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(activityIndicator)
-        activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
     }
 
     private func updateActivityIndicatorStatus(isLoading: Bool) {
@@ -80,10 +72,17 @@ class TopRankedCell: UICollectionViewCell, SelfConfiguringCell {
         }
     }
 
+    private func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = .gray
+        contentView.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+    }
+
     func configure(with item: GameResponse) {
         guard let url = URL(string: "\(item.imageUrl)") else { return }
         photoURL = url
-
         updateActivityIndicatorStatus(isLoading: true)
 
         imageView.kf.setImage(with: photoURL) { [self] result in
@@ -93,7 +92,6 @@ class TopRankedCell: UICollectionViewCell, SelfConfiguringCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-//        setupActivityIndicator()
         fatalError("init(coder:) has not been implemented")
     }
 }
