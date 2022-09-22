@@ -1,15 +1,14 @@
 //
-//  TopRankedCell.swift
+//  ImageGameCell.swift
 //  GameTracker
 //
-//  Created by Marina Aguiar on 9/16/22.
+//  Created by Marina Aguiar on 9/22/22.
 //
-
 import UIKit
 import Kingfisher
 
-class TopRankedCell: UICollectionViewCell, SelfConfiguringCell {
-    static let reuseIdentifier: String = "TopRankedCell"
+class ImageGameCell: UICollectionViewCell, SelfConfiguringCell {
+    static let reuseIdentifier: String = "ImageGameCell"
     private var downloadTask: DownloadTask?
 
     private let imageView = UIImageView()
@@ -19,7 +18,7 @@ class TopRankedCell: UICollectionViewCell, SelfConfiguringCell {
     private var photoURL: URL? {
         didSet {
             setup()
-            activityIndicator.isHidden = true 
+            activityIndicator.isHidden = true
         }
     }
 

@@ -9,11 +9,11 @@ struct GameResponse: Codable, Hashable {
     let id: String
     let name: String
     let price: String
-    let yearPublished: Int
-    let minPlayers: Int
-    let maxPlayers: Int
-    let playtime: String
-    let minAge: Int
+    let yearPublished: Int?
+    let minPlayers: Int?
+    let maxPlayers: Int?
+    let playtime: String?
+    let minAge: Int?
     let description: String
     let commentary: String
     let thumbUrl: String

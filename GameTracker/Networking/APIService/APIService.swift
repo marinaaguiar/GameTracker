@@ -58,6 +58,7 @@ class APIService {
     enum OrderedBy: String {
         case rank
         case trending
+        case average_user_rating
     }
 
     func loadGameList(limitItems: Int, orderedBy: OrderedBy,completion: @escaping ((Result<BoardGamesAtlasResponse, Error>) -> Void)) {

@@ -38,17 +38,28 @@ class ComplexityLevelCell: UICollectionViewCell, StandardConfiguringCell {
 
 extension ComplexityLevelCell {
     func setup() {
-        backgroundColor = Color.backgroundColor
+        contentView.addSubview(contentContainer)
+        contentContainer.backgroundColor = .white
+        contentContainer.clipsToBounds = true
+        contentContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentContainer.layer.cornerRadius = 20
 
-        addSubview(label)
+        contentContainer.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.textColor = Color.darkGray
         label.font = UIFont.boldSystemFont(ofSize: 15)
-
+        label.textAlignment = .center
+        label.numberOfLines = 1
         let inset = CGFloat(5)
 
         NSLayoutConstraint.activate([
+            contentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            contentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
+            contentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
+
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
             label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -inset),
             label.topAnchor.constraint(equalTo: topAnchor, constant: inset),

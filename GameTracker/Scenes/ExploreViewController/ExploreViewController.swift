@@ -1,24 +1,24 @@
 import UIKit
 
-class ExplorerViewController: UIViewController {
+class ExploreViewController: UIViewController {
     struct State: Hashable {
         enum SectionType: Int {
-            case topRanked = 0
+            case trendingGames = 0
             case popularGames
             case complexityLevel
-            case mechanics
+            case topRated
             case numberOfPlayers
 
             var title: String {
                 switch self {
-                case .topRanked:
-                    return "Top Ranked"
+                case .trendingGames:
+                    return "Trending Games"
                 case .popularGames:
                     return "Popular Games"
                 case .complexityLevel:
                     return "ComplexityLevel"
-                case .mechanics:
-                    return "Mechanics"
+                case .topRated:
+                    return "Top Rated"
                 case .numberOfPlayers:
                     return "Number Of Players"
                 }
@@ -37,7 +37,7 @@ class ExplorerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchTopRankedGames()
+        fetchTrendingGames()
     }
 
     override func viewDidLoad() {
@@ -50,19 +50,21 @@ class ExplorerViewController: UIViewController {
         collectionView.collectionViewLayout = createLayout()
         collectionView.allowsMultipleSelection = true
 
+        collectionView.register(ImageGameCell.self, forCellWithReuseIdentifier: ImageGameCell.reuseIdentifier)
+
         collectionView.register(
             SectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
-        collectionView.register(
-            TopRankedCell.self,
-            forCellWithReuseIdentifier: TopRankedCell.reuseIdentifier
-        )
-        collectionView.register(
-            PopularGamesCell.self,
-            forCellWithReuseIdentifier: PopularGamesCell.reuseIdentifier
-        )
+//        collectionView.register(
+//            TrendingGamesCell.self,
+//            forCellWithReuseIdentifier: TrendingGamesCell.reuseIdentifier
+//        )
+//        collectionView.register(
+//            PopularGamesCell.self,
+//            forCellWithReuseIdentifier: PopularGamesCell.reuseIdentifier
+//        )
         collectionView.register(
             ComplexityLevelCell.self,
             forCellWithReuseIdentifier: ComplexityLevelCell.reuseIdentifier
@@ -94,12 +96,14 @@ class ExplorerViewController: UIViewController {
             let section = State.SectionType(rawValue: indexPath.section)
 
             switch section {
-            case .topRanked:
-                return self.configure(TopRankedCell.self, with: item, for: indexPath)
+            case .trendingGames:
+                return self.configure(ImageGameCell.self, with: item, for: indexPath)
             case .popularGames:
-                return self.configure(PopularGamesCell.self, with: item, for: indexPath)
+                return self.configure(ImageGameCell.self, with: item, for: indexPath)
             case .complexityLevel:
                 return self.configure(ComplexityLevelCell.self, for: indexPath)
+            case .topRated:
+                return self.configure(ImageGameCell.self, with: item, for: indexPath)
             default:
                 return UICollectionViewCell()
             }
@@ -129,7 +133,7 @@ class ExplorerViewController: UIViewController {
 
         var snapshot = NSDiffableDataSourceSnapshot<State.SectionType, GameResponse>()
 
-        let sections: [State.SectionType] = [.topRanked, .popularGames]
+        let sections: [State.SectionType] = [.trendingGames, .popularGames, .topRated]
         snapshot.appendSections(sections)
 
         for section in sections {
@@ -144,13 +148,13 @@ class ExplorerViewController: UIViewController {
             let section = State.SectionType(rawValue: sectionIndex)
 
             switch section {
-            case .topRanked:
+            case .trendingGames:
                 return self.createMediumSizeTableSection()
             case .popularGames:
                 return self.createBigSizeTableSection()
             case .complexityLevel:
                 return self.createSmallSizeTableSection()
-            case .mechanics:
+            case .topRated:
                 return self.createMediumSizeTableSection()
             case .numberOfPlayers:
                 return self.createSmallSizeTableSection()
@@ -233,21 +237,21 @@ class ExplorerViewController: UIViewController {
 
 }
 
-extension ExplorerViewController: UICollectionViewDelegate {
+extension ExploreViewController: UICollectionViewDelegate {
 
 }
 
-extension ExplorerViewController {
+extension ExploreViewController {
 
-    func fetchTopRankedGames() {
-        apiService.loadGameList(limitItems: 30, orderedBy: .rank) { result in
+    func fetchTrendingGames() {
+        apiService.loadGameList(limitItems: 30, orderedBy: .trending) { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
-                    self.state.games[.topRanked] = data.games
+                    self.state.games[.trendingGames] = data.games
                     self.fetchPopularGames()
                 }
-                print("Load TopRankedGames sucessfully")
+                print("Load TrendingGames sucessfully")
             case .failure(let error):
                 print(error)
             }
@@ -255,12 +259,12 @@ extension ExplorerViewController {
     }
 
     func fetchPopularGames() {
-        apiService.loadGameList(limitItems: 30, orderedBy: .trending) { result in
+        apiService.loadGameList(limitItems: 30, orderedBy: .rank) { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.state.games[.popularGames] = data.games
-                    self.reloadData()
+                    self.fetchTopRatedGames()
                 }
                 print(data)
                 print("Load PopularGames sucessfully")
@@ -270,4 +274,19 @@ extension ExplorerViewController {
         }
     }
 
+    func fetchTopRatedGames() {
+        apiService.loadGameList(limitItems: 30, orderedBy: .average_user_rating) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.state.games[.topRated] = data.games
+                    self.reloadData()
+                }
+                print(data)
+                print("Load PopularGames sucessfully")
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
