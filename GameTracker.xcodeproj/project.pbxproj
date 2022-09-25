@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9C3BB5AE28D8A7F300C36836 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3BB5AD28D8A7F300C36836 /* Game.swift */; };
 		9C3BB5B028D8B3EF00C36836 /* PopularGamesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3BB5AF28D8B3EF00C36836 /* PopularGamesCell.swift */; };
 		9C3F515028D3A22C00CCEA93 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F514F28D3A22C00CCEA93 /* SectionHeaderView.swift */; };
 		9C3F515828D4780D00CCEA93 /* BoardGamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F515728D4780D00CCEA93 /* BoardGamesResponse.swift */; };
@@ -38,7 +37,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9C3BB5AD28D8A7F300C36836 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		9C3BB5AF28D8B3EF00C36836 /* PopularGamesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularGamesCell.swift; sourceTree = "<group>"; };
 		9C3F514F28D3A22C00CCEA93 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		9C3F515728D4780D00CCEA93 /* BoardGamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGamesResponse.swift; sourceTree = "<group>"; };
@@ -84,10 +82,9 @@
 		9C3F515128D3AAA200CCEA93 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9C3BB5AD28D8A7F300C36836 /* Game.swift */,
+				9C4AD53028DB43F9003A7D4E /* ExploreModel.swift */,
 				9C8CC82A28D4E3490076736C /* ExplorerItem.swift */,
 				9C4AD52E28DB1563003A7D4E /* GameSection.swift */,
-				9C4AD53028DB43F9003A7D4E /* ExploreModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,7 +320,6 @@
 			files = (
 				9C3F515E28D4AF9D00CCEA93 /* APIService.swift in Sources */,
 				9C4AD53728DB867F003A7D4E /* StandardConfiguringCell.swift in Sources */,
-				9C3BB5AE28D8A7F300C36836 /* Game.swift in Sources */,
 				9CBCEB3628D36459001EE791 /* CompositionalLayout.swift in Sources */,
 				9C3F515028D3A22C00CCEA93 /* SectionHeaderView.swift in Sources */,
 				9C3F515828D4780D00CCEA93 /* BoardGamesResponse.swift in Sources */,
@@ -497,8 +493,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,8 +520,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

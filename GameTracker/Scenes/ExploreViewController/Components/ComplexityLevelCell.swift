@@ -12,14 +12,6 @@ import Kingfisher
 
 class ComplexityLevelCell: UICollectionViewCell, StandardConfiguringCell {
 
-    enum ComplexityLevel: String, CaseIterable {
-        case veryEasy = "very easy"
-        case easy = "easy"
-        case moderate = "moderate"
-        case difficult = "difficult"
-        case veryDifficult = "very difficult"
-    }
-
     static let reuseIdentifier: String = "ComplexityLevel"
     private var downloadTask: DownloadTask?
 
@@ -67,11 +59,13 @@ extension ComplexityLevelCell {
         ])
     }
 
-    func configure() {
-        let complexityLevels = ComplexityLevel.allCases
-
-        for level in complexityLevels {
-            label.text = level.rawValue
-        }
+    func configure(with item: String) {
+        label.text = item
     }
+
+
+//    func configure(index: Int) {
+//        let complexityLevels = ComplexityLevel.allCases
+//        label.text = complexityLevels[index].rawValue
+//    }
 }

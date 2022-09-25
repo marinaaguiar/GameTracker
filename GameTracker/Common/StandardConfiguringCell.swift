@@ -9,5 +9,6 @@ import Foundation
 
 protocol StandardConfiguringCell {
     static var reuseIdentifier: String { get }
-    func configure()
+    func configure(with item: String)
+//    func configure(index: Int)
 }
