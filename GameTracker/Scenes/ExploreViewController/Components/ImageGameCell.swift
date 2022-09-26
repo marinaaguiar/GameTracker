@@ -7,7 +7,9 @@
 import UIKit
 import Kingfisher
 
-class ImageGameCell: UICollectionViewCell, SelfConfiguringCell {
+final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
+    typealias CellModel = GameResponse
+
     static let reuseIdentifier: String = "ImageGameCell"
     private var downloadTask: DownloadTask?
 
@@ -39,7 +41,7 @@ class ImageGameCell: UICollectionViewCell, SelfConfiguringCell {
 
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
-        imageView.contentMode = .redraw
+        imageView.contentMode = .scaleAspectFill
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5

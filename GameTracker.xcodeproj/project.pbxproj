@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9C3BB5B028D8B3EF00C36836 /* PopularGamesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3BB5AF28D8B3EF00C36836 /* PopularGamesCell.swift */; };
 		9C3F515028D3A22C00CCEA93 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F514F28D3A22C00CCEA93 /* SectionHeaderView.swift */; };
 		9C3F515828D4780D00CCEA93 /* BoardGamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F515728D4780D00CCEA93 /* BoardGamesResponse.swift */; };
 		9C3F515A28D4819400CCEA93 /* VideosReponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3F515928D4819400CCEA93 /* VideosReponse.swift */; };
@@ -17,11 +16,10 @@
 		9C4AD52F28DB1563003A7D4E /* GameSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD52E28DB1563003A7D4E /* GameSection.swift */; };
 		9C4AD53128DB43F9003A7D4E /* ExploreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53028DB43F9003A7D4E /* ExploreModel.swift */; };
 		9C4AD53328DB7ABF003A7D4E /* UIColors+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53228DB7ABF003A7D4E /* UIColors+Extension.swift */; };
-		9C4AD53528DB817C003A7D4E /* ComplexityLevelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53428DB817C003A7D4E /* ComplexityLevelCell.swift */; };
+		9C4AD53528DB817C003A7D4E /* TypeFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53428DB817C003A7D4E /* TypeFilterCell.swift */; };
 		9C4AD53728DB867F003A7D4E /* StandardConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53628DB867F003A7D4E /* StandardConfiguringCell.swift */; };
 		9C4AD53928DC7381003A7D4E /* ImageGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53828DC7381003A7D4E /* ImageGameCell.swift */; };
-		9C8CC82228D4C1250076736C /* SelfConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CC82128D4C1250076736C /* SelfConfiguringCell.swift */; };
-		9C8CC82428D4C20E0076736C /* TrendingGamesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CC82328D4C20E0076736C /* TrendingGamesCell.swift */; };
+		9C4AD53C28E1F1D1003A7D4E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53B28E1F1D1003A7D4E /* DetailViewController.swift */; };
 		9C8CC82728D4C8640076736C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9C8CC82628D4C8640076736C /* Kingfisher */; };
 		9C8CC82B28D4E3490076736C /* ExplorerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C8CC82A28D4E3490076736C /* ExplorerItem.swift */; };
 		9CBCEB0F28D355C3001EE791 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB0E28D355C3001EE791 /* AppDelegate.swift */; };
@@ -37,7 +35,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9C3BB5AF28D8B3EF00C36836 /* PopularGamesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularGamesCell.swift; sourceTree = "<group>"; };
 		9C3F514F28D3A22C00CCEA93 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
 		9C3F515728D4780D00CCEA93 /* BoardGamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGamesResponse.swift; sourceTree = "<group>"; };
 		9C3F515928D4819400CCEA93 /* VideosReponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosReponse.swift; sourceTree = "<group>"; };
@@ -47,11 +44,10 @@
 		9C4AD52E28DB1563003A7D4E /* GameSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSection.swift; sourceTree = "<group>"; };
 		9C4AD53028DB43F9003A7D4E /* ExploreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreModel.swift; sourceTree = "<group>"; };
 		9C4AD53228DB7ABF003A7D4E /* UIColors+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColors+Extension.swift"; sourceTree = "<group>"; };
-		9C4AD53428DB817C003A7D4E /* ComplexityLevelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexityLevelCell.swift; sourceTree = "<group>"; };
+		9C4AD53428DB817C003A7D4E /* TypeFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeFilterCell.swift; sourceTree = "<group>"; };
 		9C4AD53628DB867F003A7D4E /* StandardConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardConfiguringCell.swift; sourceTree = "<group>"; };
 		9C4AD53828DC7381003A7D4E /* ImageGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGameCell.swift; sourceTree = "<group>"; };
-		9C8CC82128D4C1250076736C /* SelfConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfConfiguringCell.swift; sourceTree = "<group>"; };
-		9C8CC82328D4C20E0076736C /* TrendingGamesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingGamesCell.swift; sourceTree = "<group>"; };
+		9C4AD53B28E1F1D1003A7D4E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		9C8CC82A28D4E3490076736C /* ExplorerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerItem.swift; sourceTree = "<group>"; };
 		9CBCEB0B28D355C3001EE791 /* GameTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CBCEB0E28D355C3001EE791 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +93,14 @@
 				9C3F515B28D482B100CCEA93 /* ImagesResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		9C4AD53A28E1F1B7003A7D4E /* DetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9C4AD53B28E1F1D1003A7D4E /* DetailViewController.swift */,
+			);
+			path = DetailViewController;
 			sourceTree = "<group>";
 		};
 		9CBCEB0228D355C3001EE791 = {
@@ -157,9 +161,10 @@
 		9CBCEB2528D35683001EE791 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				9C3F515128D3AAA200CCEA93 /* Model */,
 				9CBCEB3028D3619A001EE791 /* View */,
+				9C3F515128D3AAA200CCEA93 /* Model */,
 				9CBCEB2628D3568B001EE791 /* ExploreViewController */,
+				9C4AD53A28E1F1B7003A7D4E /* DetailViewController */,
 				9CBCEB2A28D36070001EE791 /* CategoriesViewController */,
 				9CBCEB2B28D36078001EE791 /* WishlistViewController */,
 			);
@@ -223,7 +228,6 @@
 			children = (
 				9C4AD53228DB7ABF003A7D4E /* UIColors+Extension.swift */,
 				9CBCEB3528D36459001EE791 /* CompositionalLayout.swift */,
-				9C8CC82128D4C1250076736C /* SelfConfiguringCell.swift */,
 				9C4AD53628DB867F003A7D4E /* StandardConfiguringCell.swift */,
 			);
 			path = Common;
@@ -234,9 +238,7 @@
 			children = (
 				9C3F514F28D3A22C00CCEA93 /* SectionHeaderView.swift */,
 				9C4AD53828DC7381003A7D4E /* ImageGameCell.swift */,
-				9C8CC82328D4C20E0076736C /* TrendingGamesCell.swift */,
-				9C3BB5AF28D8B3EF00C36836 /* PopularGamesCell.swift */,
-				9C4AD53428DB817C003A7D4E /* ComplexityLevelCell.swift */,
+				9C4AD53428DB817C003A7D4E /* TypeFilterCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -324,20 +326,18 @@
 				9C3F515028D3A22C00CCEA93 /* SectionHeaderView.swift in Sources */,
 				9C3F515828D4780D00CCEA93 /* BoardGamesResponse.swift in Sources */,
 				9C4AD52F28DB1563003A7D4E /* GameSection.swift in Sources */,
+				9C4AD53C28E1F1D1003A7D4E /* DetailViewController.swift in Sources */,
 				9C4AD53128DB43F9003A7D4E /* ExploreModel.swift in Sources */,
 				9CBCEB0F28D355C3001EE791 /* AppDelegate.swift in Sources */,
 				9CBCEB1128D355C3001EE791 /* SceneDelegate.swift in Sources */,
 				9CBCEB3328D36345001EE791 /* APIConstant.swift in Sources */,
-				9C3BB5B028D8B3EF00C36836 /* PopularGamesCell.swift in Sources */,
-				9C8CC82228D4C1250076736C /* SelfConfiguringCell.swift in Sources */,
 				9C8CC82B28D4E3490076736C /* ExplorerItem.swift in Sources */,
 				9C3F515A28D4819400CCEA93 /* VideosReponse.swift in Sources */,
-				9C4AD53528DB817C003A7D4E /* ComplexityLevelCell.swift in Sources */,
+				9C4AD53528DB817C003A7D4E /* TypeFilterCell.swift in Sources */,
 				9CBCEB2F28D360B7001EE791 /* WishlistViewController.swift in Sources */,
 				9C3F516028D4B97D00CCEA93 /* NetworkingService.swift in Sources */,
 				9C3F515C28D482B100CCEA93 /* ImagesResponse.swift in Sources */,
 				9C4AD53928DC7381003A7D4E /* ImageGameCell.swift in Sources */,
-				9C8CC82428D4C20E0076736C /* TrendingGamesCell.swift in Sources */,
 				9C4AD53328DB7ABF003A7D4E /* UIColors+Extension.swift in Sources */,
 				9CBCEB2D28D360AD001EE791 /* CategoriesViewController.swift in Sources */,
 				9CBCEB2928D3571D001EE791 /* ExploreViewController.swift in Sources */,
@@ -494,6 +494,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -501,9 +502,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = marinaaguiar.GameTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -521,6 +525,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -528,9 +533,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = marinaaguiar.GameTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

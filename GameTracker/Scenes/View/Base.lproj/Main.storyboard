@@ -2,14 +2,15 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="50z-GT-P22">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Explore-->
+        <!--Explore View Controller-->
         <scene sceneID="itg-aU-lbs">
             <objects>
                 <viewController id="zTN-le-EzU" customClass="ExploreViewController" customModule="GameTracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,32 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="oUM-ME-pGp">
-                                <rect key="frame" x="12" y="47" width="366" height="56"/>
-                                <subviews>
-                                    <searchBar contentMode="redraw" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="L5K-Xv-Sya">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="56"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="zTN-le-EzU" id="Dgq-ZF-gNq"/>
-                                        </connections>
-                                    </searchBar>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMJ-ec-Jlc">
-                                        <rect key="frame" x="331" y="10.666666666666664" width="35" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="4g2-bq-L2W"/>
-                                            <constraint firstAttribute="width" constant="35" id="zOp-yY-Ncl"/>
-                                        </constraints>
-                                        <color key="tintColor" name="DarkGray"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
-                                            <imageReference key="image" image="slider.horizontal.3" catalog="system" symbolScale="medium"/>
-                                        </buttonConfiguration>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LzQ-aO-jRE">
-                                <rect key="frame" x="0.0" y="103" width="390" height="658"/>
+                                <rect key="frame" x="0.0" y="91" width="390" height="670"/>
                                 <color key="backgroundColor" name="BackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1U1-Fh-dC2">
                                     <size key="itemSize" width="128" height="128"/>
@@ -56,25 +33,20 @@
                         <viewLayoutGuide key="safeArea" id="zlZ-O4-zNI"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="oUM-ME-pGp" firstAttribute="leading" secondItem="zlZ-O4-zNI" secondAttribute="leading" constant="12" id="7R9-0G-whJ"/>
-                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="top" secondItem="oUM-ME-pGp" secondAttribute="bottom" id="CTL-dJ-Xd8"/>
                             <constraint firstItem="zlZ-O4-zNI" firstAttribute="bottom" secondItem="LzQ-aO-jRE" secondAttribute="bottom" id="DPH-DP-siG"/>
-                            <constraint firstItem="zlZ-O4-zNI" firstAttribute="trailing" secondItem="oUM-ME-pGp" secondAttribute="trailing" constant="12" id="SFN-wz-26U"/>
-                            <constraint firstItem="oUM-ME-pGp" firstAttribute="top" secondItem="zlZ-O4-zNI" secondAttribute="top" id="W5P-Q4-9R1"/>
+                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="top" secondItem="zlZ-O4-zNI" secondAttribute="top" id="U1G-t1-eDo"/>
                             <constraint firstItem="zlZ-O4-zNI" firstAttribute="trailing" secondItem="LzQ-aO-jRE" secondAttribute="trailing" id="bqZ-Qk-UPe"/>
                             <constraint firstItem="LzQ-aO-jRE" firstAttribute="leading" secondItem="zlZ-O4-zNI" secondAttribute="leading" id="gEc-m4-j6d"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Explore" image="magnifyingglass" catalog="system" id="220-1y-r8h">
-                        <color key="badgeColor" name="LightGray"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" style="browser" id="0mP-p8-DY6"/>
                     <connections>
                         <outlet property="collectionView" destination="LzQ-aO-jRE" id="xMu-XZ-K0t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCB-e8-IgH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1387.6923076923076" y="94.549763033175353"/>
+            <point key="canvasLocation" x="2326.1538461538462" y="809.71563981042652"/>
         </scene>
         <!--Categories-->
         <scene sceneID="me8-GF-DRA">
@@ -112,6 +84,22 @@
             </objects>
             <point key="canvasLocation" x="2796.9230769230767" y="94.549763033175353"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="LQT-4h-LdI">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="AZA-cC-cGN" customClass="DetailViewController" customModule="GameTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LFx-ac-aMp">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="snz-tZ-oG4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WFz-kz-GR0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HVH-q7-W7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4996.9230769230771" y="94.549763033175353"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ipo-r9-dHr">
             <objects>
@@ -124,7 +112,7 @@
                         <color key="tintColor" name="LightGray"/>
                     </tabBar>
                     <connections>
-                        <segue destination="zTN-le-EzU" kind="relationship" relationship="viewControllers" id="4iq-GA-KnI"/>
+                        <segue destination="4yb-Xt-RXy" kind="relationship" relationship="viewControllers" id="4iq-GA-KnI"/>
                         <segue destination="89H-g5-f7d" kind="relationship" relationship="viewControllers" id="yIU-t8-5wB"/>
                         <segue destination="icb-TU-AT1" kind="relationship" relationship="viewControllers" id="Ki6-nm-Z3S"/>
                     </connections>
@@ -133,17 +121,53 @@
             </objects>
             <point key="canvasLocation" x="458.46153846153845" y="94.549763033175353"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="zo8-xC-eP5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U2U-KK-VpS" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="wqc-GV-0ej"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Tb-6E-rna">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AZA-cC-cGN" kind="relationship" relationship="rootViewController" id="8dn-wV-I7U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BJ7-DB-maF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4067.6923076923076" y="94.549763033175353"/>
+        </scene>
+        <!--Explore-->
+        <scene sceneID="E5c-Ye-r1o">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4yb-Xt-RXy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Explore" image="magnifyingglass" catalog="system" id="220-1y-r8h">
+                        <color key="badgeColor" name="LightGray"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="95y-KN-I9h">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zTN-le-EzU" kind="relationship" relationship="rootViewController" id="GBB-wI-cOo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CFX-Pf-DeC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1396.9230769230769" y="809.71563981042652"/>
+        </scene>
     </scenes>
     <resources>
         <image name="CategoriesIcon" width="19" height="19"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="slider.horizontal.3" catalog="system" width="128" height="99"/>
         <namedColor name="BackgroundColor">
             <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="DarkGray">
-            <color red="0.4309999942779541" green="0.41999998688697815" blue="0.42800000309944153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Light+Gray">
             <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -151,5 +175,8 @@
         <namedColor name="LightGray">
             <color red="0.63099998235702515" green="0.63099998235702515" blue="0.63099998235702515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

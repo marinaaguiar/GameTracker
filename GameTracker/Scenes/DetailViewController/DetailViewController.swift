@@ -1,0 +1,42 @@
+//
+//  DetailViewController.swift
+//  GameTracker
+//
+//  Created by Marina Aguiar on 9/26/22.
+//
+
+import UIKit
+
+class DetailViewController: UIViewController {
+
+    @IBOutlet weak var backButton: UIBarButtonItem!
+
+    static let reuseIdentifier = "DetailViewController"
+
+    var gameTitle: String = ""
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationItem.titleView?.isHidden = false
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tabBarController?.tabBar.isHidden = true
+        navigationItem.title = gameTitle
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        navigationItem.titleView?.isHidden = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+    }
+
+    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+
+        self.dismiss(animated: true)
+    }
+}

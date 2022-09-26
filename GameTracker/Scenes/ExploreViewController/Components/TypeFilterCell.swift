@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class ComplexityLevelCell: UICollectionViewCell, StandardConfiguringCell {
+final class TypeFilterCell: UICollectionViewCell, StandardConfiguringCell {
+    typealias CellModel = String
 
-    static let reuseIdentifier: String = "ComplexityLevel"
+    static let reuseIdentifier: String = "TypeFilterCell"
     private var downloadTask: DownloadTask?
 
     let label = UILabel()
@@ -28,7 +29,7 @@ class ComplexityLevelCell: UICollectionViewCell, StandardConfiguringCell {
     }
 }
 
-extension ComplexityLevelCell {
+extension TypeFilterCell {
     func setup() {
         contentView.addSubview(contentContainer)
         contentContainer.backgroundColor = .white
@@ -62,10 +63,4 @@ extension ComplexityLevelCell {
     func configure(with item: String) {
         label.text = item
     }
-
-
-//    func configure(index: Int) {
-//        let complexityLevels = ComplexityLevel.allCases
-//        label.text = complexityLevels[index].rawValue
-//    }
 }
