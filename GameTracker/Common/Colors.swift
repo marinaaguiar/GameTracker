@@ -1,5 +1,5 @@
 //
-//  UIColors+Extension.swift
+//  Colors.swift
 //  GameTracker
 //
 //  Created by Marina Aguiar on 9/21/22.
@@ -7,8 +7,7 @@
 
 import UIKit
 
-struct Color {
-
+class DSColor {
     static let backgroundColor = UIColor(named: "BackgroundColor")
     static let darkGray = UIColor(named: "DarkGray")
     static let lightGray = UIColor(named: "Light+Gray")

@@ -113,7 +113,7 @@ class ExploreViewController: UIViewController {
         let leftNavBarButton = UIBarButtonItem(customView: searchBar)
 
         let rightNavBarButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(rightNavBarButtonPressed))
-        rightNavBarButton.tintColor = Color.darkGray
+        rightNavBarButton.tintColor = DSColor.darkGray
 
         navigationItem.rightBarButtonItems = [rightNavBarButton, leftNavBarButton]
 
@@ -190,13 +190,20 @@ class ExploreViewController: UIViewController {
 
        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-           let detailViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-           detailViewController.gameTitle = "Game"
-           self.navigationController?.pushViewController(detailViewController, animated: true)
+           guard let section = SectionType(rawValue: indexPath.section) else { return }
+
+           var detailViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+
+           if let games = games[section] {
+               detailViewController.gameDetail = GameDetail(gameResponse: games[indexPath.item])
+               self.navigationController?.pushViewController(detailViewController, animated: true)
+           } else {
+               presentErrorAlert("Error gameSelected is nil")
+           }
        }
    }
 
-    // MARK: - LAYOUT
+    // MARK: - Layout
 
 extension ExploreViewController {
 
@@ -206,17 +213,17 @@ extension ExploreViewController {
 
             switch section {
             case .trendingGames:
-                return self.createMediumSizeTableSection()
+                return SectionLayoutBuilder.createMediumSizeTableSection()
             case .popularGames:
-                return self.createBigSizeTableSection()
+                return SectionLayoutBuilder.bigSizeTableSection()
             case .complexityLevel:
-                return self.createSmallSizeTableSection()
+                return SectionLayoutBuilder.createSmallSizeTableSection()
             case .topRated:
-                return self.createMediumSizeTableSection()
+                return SectionLayoutBuilder.createMediumSizeTableSection()
             case .numberOfPlayers:
-                return self.createSmallSizeTableSection()
+                return SectionLayoutBuilder.createSmallSizeTableSection()
             case .none:
-                return self.createMediumSizeTableSection()
+                return SectionLayoutBuilder.createMediumSizeTableSection()
             }
         }
 
@@ -226,71 +233,71 @@ extension ExploreViewController {
         return layout
     }
 
-    func createBigSizeTableSection() -> NSCollectionLayoutSection {
-        let item = CompositionalLayout.createItem(
-            width: .fractionalWidth(1),
-            height: .fractionalHeight(1),
-            spacing: 5)
-        let horizontalGroup = CompositionalLayout.createGroup(
-            aligment: .horizontal,
-            width: .fractionalWidth(2.8/3),
-            height: .fractionalHeight(1/3),
-            item: item,
-            count: 1)
-        let section = NSCollectionLayoutSection(group: horizontalGroup)
-        section.orthogonalScrollingBehavior = .groupPaging
+//    func createBigSizeTableSection() -> NSCollectionLayoutSection {
+//        let item = CompositionalLayout.createItem(
+//            width: .fractionalWidth(1),
+//            height: .fractionalHeight(1),
+//            spacing: 5)
+//        let horizontalGroup = CompositionalLayout.createGroup(
+//            aligment: .horizontal,
+//            width: .fractionalWidth(2.8/3),
+//            height: .fractionalHeight(1/3),
+//            item: item,
+//            count: 1)
+//        let section = NSCollectionLayoutSection(group: horizontalGroup)
+//        section.orthogonalScrollingBehavior = .groupPaging
+//
+//        let sectionHeader = createSectionHeader()
+//        section.boundarySupplementaryItems = [sectionHeader]
+//
+//        return section
+//    }
+//
+//    func createMediumSizeTableSection() -> NSCollectionLayoutSection {
+//        let item = CompositionalLayout.createItem(
+//            width: .fractionalWidth(1),
+//            height: .fractionalHeight(1),
+//            spacing: 5)
+//        let horizontalGroup = CompositionalLayout.createGroup(
+//            aligment: .horizontal,
+//            width: .fractionalWidth(1/3),
+//            height: .fractionalWidth(1/3),
+//            item: item,
+//            count: 1)
+//        let section = NSCollectionLayoutSection(group: horizontalGroup)
+//        section.orthogonalScrollingBehavior = .continuous
+//
+//        let sectionHeader = createSectionHeader()
+//        section.boundarySupplementaryItems = [sectionHeader]
+//
+//        return section
+//    }
+//
+//    func createSmallSizeTableSection() -> NSCollectionLayoutSection {
+//        let item = CompositionalLayout.createItem(
+//            width: .fractionalWidth(1),
+//            height: .fractionalHeight(1),
+//            spacing: 10)
+//        let horizontalGroup = CompositionalLayout.createGroup(
+//            aligment: .horizontal,
+//            width: .absolute(180),
+//            height: .absolute(60),
+//            item: item,
+//            count: 1)
+//        let section = NSCollectionLayoutSection(group: horizontalGroup)
+//        section.orthogonalScrollingBehavior = .continuous
+//
+//        let sectionHeader = createSectionHeader()
+//        section.boundarySupplementaryItems = [sectionHeader]
+//
+//        return section
+//    }
 
-        let sectionHeader = createSectionHeader()
-        section.boundarySupplementaryItems = [sectionHeader]
-
-        return section
-    }
-
-    func createMediumSizeTableSection() -> NSCollectionLayoutSection {
-        let item = CompositionalLayout.createItem(
-            width: .fractionalWidth(1),
-            height: .fractionalHeight(1),
-            spacing: 5)
-        let horizontalGroup = CompositionalLayout.createGroup(
-            aligment: .horizontal,
-            width: .fractionalWidth(1/3),
-            height: .fractionalWidth(1/3),
-            item: item,
-            count: 1)
-        let section = NSCollectionLayoutSection(group: horizontalGroup)
-        section.orthogonalScrollingBehavior = .continuous
-
-        let sectionHeader = createSectionHeader()
-        section.boundarySupplementaryItems = [sectionHeader]
-
-        return section
-    }
-
-    func createSmallSizeTableSection() -> NSCollectionLayoutSection {
-        let item = CompositionalLayout.createItem(
-            width: .fractionalWidth(1),
-            height: .fractionalHeight(1),
-            spacing: 10)
-        let horizontalGroup = CompositionalLayout.createGroup(
-            aligment: .horizontal,
-            width: .absolute(180),
-            height: .absolute(60),
-            item: item,
-            count: 1)
-        let section = NSCollectionLayoutSection(group: horizontalGroup)
-        section.orthogonalScrollingBehavior = .continuous
-
-        let sectionHeader = createSectionHeader()
-        section.boundarySupplementaryItems = [sectionHeader]
-
-        return section
-    }
-
-    func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.93), heightDimension: .estimated(30))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        return sectionHeader
-    }
+//    func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+//        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.93), heightDimension: .estimated(30))
+//        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+//        return sectionHeader
+//    }
 }
 
 // MARK: - APIRequests
@@ -342,5 +349,17 @@ extension ExploreViewController {
                 print(error)
             }
         }
+    }
+}
+
+// MARK: - Alerts
+
+extension ExploreViewController {
+
+    func presentErrorAlert(_ error: String) {
+        let alert = UIAlertController(title: "Error", message: "\(error)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(okAction)
+        self.present(alert, animated: true)
     }
 }
