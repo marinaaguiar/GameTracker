@@ -17,18 +17,16 @@ class DetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        navigationItem.titleView?.isHidden = false
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.tabBar.isHidden = true
         navigationItem.title = gameTitle
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        navigationItem.titleView?.isHidden = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {

@@ -71,7 +71,7 @@ class ExploreViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavBar()
-        navigationItem.titleView?.isHidden = true
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     override func viewDidLoad() {
@@ -180,7 +180,6 @@ class ExploreViewController: UIViewController {
                 snapshot.appendItems(numberOfPlayers, toSection: section)
             }
         }
-
         dataSource?.apply(snapshot)
     }
 }
