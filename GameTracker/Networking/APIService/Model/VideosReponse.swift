@@ -1,10 +1,10 @@
 import Foundation
 
 struct VideosResponse: Codable {
-    let videos: [Videos]
+    let videos: [GameVideoResponse]
 }
 
-struct Videos: Codable {
+struct GameVideoResponse: Codable, Hashable {
     let id: String
     let url: String
     let title: String
@@ -12,7 +12,7 @@ struct Videos: Codable {
 }
 
 
-extension Videos {
+extension GameVideoResponse {
     enum CodingKeys: String, CodingKey {
         case imageUrl = "image_url"
         case id, url, title

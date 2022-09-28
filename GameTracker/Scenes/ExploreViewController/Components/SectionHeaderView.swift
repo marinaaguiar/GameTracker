@@ -25,7 +25,7 @@ extension SectionHeaderView {
         label.textColor = DSColor.darkGray
         label.font = UIFont.boldSystemFont(ofSize: 20)
 
-        let inset = CGFloat(5)
+        let inset = CGFloat(12)
 
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),

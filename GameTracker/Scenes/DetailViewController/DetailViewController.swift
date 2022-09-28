@@ -8,7 +8,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, GameDetail>
+    private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
 
     enum SectionType: Int, CaseIterable {
         case gameImages = 0
@@ -30,9 +30,33 @@ class DetailViewController: UIViewController {
         }
     }
 
+    enum ItemType: Hashable {
+        case gameImages(GameImageResponse)
+        case gameInfo(GameDetail)
+        case gameDescription(GameDetail)
+        case gameVideos(GameVideoResponse)
+
+        func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
+            switch self {
+            case let .gameImages(gameImageResponse):
+                return GameDetailImagesCell.dequeue(in: collectionView, indexPath: indexPath, model: gameImageResponse)
+            case let .gameInfo(gameDetail):
+                return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
+            case let .gameDescription(gameDetail):
+                return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
+            case let .gameVideos(gameVideos):
+                return  GameDetailVideosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameVideos)
+            }
+        }
+    }
+
     static let reuseIdentifier = "DetailViewController"
     private var dataSource: DataSource?
-    var collectionView: UICollectionView!
+    private let apiService = APIService()
+    private var collectionView: UICollectionView!
+    private var gameImages: [GameImageResponse] = []
+    private var gameVideos: [GameVideoResponse] = []
+
     var gameDetail: GameDetail!
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +69,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         setup()
         setupCollectionView()
+        fetchImages()
     }
 
     func setup() {
@@ -57,7 +82,6 @@ class DetailViewController: UIViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = DSColor.backgroundColor
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
-        collectionView.backgroundColor = .cyan
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
 
@@ -75,11 +99,22 @@ class DetailViewController: UIViewController {
         )
 
         collectionView.register(
-            DescriptionCell.self,
-            forCellWithReuseIdentifier: DescriptionCell.reuseIdentifier)
+            GameDetailImagesCell.self,
+            forCellWithReuseIdentifier: GameDetailImagesCell.reuseIdentifier
+        )
+
+        collectionView.register(
+            GameDetailDescriptionCell.self,
+            forCellWithReuseIdentifier: GameDetailDescriptionCell.reuseIdentifier
+        )
+
+        collectionView.register(
+            GameDetailVideosCell.self,
+            forCellWithReuseIdentifier: GameDetailVideosCell.reuseIdentifier
+        )
 
         createDataSource()
-        reloadData()
+//        reloadData()
     }
 
     func createLayout() -> UICollectionViewLayout {
@@ -88,7 +123,7 @@ class DetailViewController: UIViewController {
 
             switch section {
             case .gameImages:
-                return SectionLayoutBuilder.createSmallSizeTableSection()
+                return SectionLayoutBuilder.bigSizeTableSection()
             case .gameInfos:
                 return SectionLayoutBuilder.createSmallSizeTableSection()
             case .description:
@@ -113,15 +148,7 @@ extension DetailViewController {
 
     func createDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
-
-            let section = SectionType(rawValue: indexPath.section)
-
-            switch section {
-            case .description:
-                return DescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: self.gameDetail)
-            default:
-                return DescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: self.gameDetail)
-            }
+            return item.cell(in: collectionView, at: indexPath)
         }
 
         dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath -> UICollectionReusableView? in
@@ -144,13 +171,54 @@ extension DetailViewController {
     }
 
     func reloadData() {
-        var snapshot = NSDiffableDataSourceSnapshot<SectionType, GameDetail>()
+        var snapshot = NSDiffableDataSourceSnapshot<SectionType, ItemType>()
 
-        let sections: [SectionType] = SectionType.allCases
+        let sections: [SectionType] = [.gameImages, .description]
         snapshot.appendSections(sections)
 
-        snapshot.appendItems([gameDetail], toSection: .description)
+        for section in sections {
+            if section == .gameImages && !gameImages.isEmpty {
+                let gameImages = gameImages.map { gameImageResponse in
+                    ItemType.gameImages(gameImageResponse)
+                }
+                snapshot.appendItems(gameImages, toSection: section)
+            }
+
+            if section == .description || section == .gameInfos {
+                let gameDetail = gameDetail.map { gameDetailResponse in
+                    ItemType.gameDescription(gameDetailResponse)
+                }
+                snapshot.appendItems([gameDetail].compactMap { $0 }, toSection: section)
+            }
+
+            if section == .gameVideos {
+                let gameVideos = gameVideos.map { gameVideoResponse in
+                    ItemType.gameVideos(gameVideoResponse)
+                }
+                snapshot.appendItems(gameVideos, toSection: section)
+            }
+        }
 
         dataSource?.apply(snapshot)
+    }
+}
+
+// MARK: - APIRequests
+
+extension DetailViewController {
+
+    func fetchImages() {
+        apiService.loadGameImages(limitItems: 5, gameId: gameDetail.id) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.gameImages = data.images
+                    self.reloadData()
+                }
+                print("Load Game Images sucessfully")
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

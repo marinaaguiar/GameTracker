@@ -74,11 +74,11 @@ class SectionLayoutBuilder {
         let item = CompositionalLayout.createItem(
             width: .fractionalWidth(1),
             height: .fractionalHeight(1),
-            spacing: 5)
+            spacing: 0)
         let horizontalGroup = CompositionalLayout.createGroup(
             aligment: .vertical,
             width: .fractionalWidth(1),
-            height: .absolute(160),
+            height: .absolute(300),
             item: item,
             count: 1)
         let section = NSCollectionLayoutSection(group: horizontalGroup)
@@ -90,7 +90,7 @@ class SectionLayoutBuilder {
     }
 
     static func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.93), heightDimension: .estimated(30))
+        let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(30))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: sectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         return sectionHeader
     }

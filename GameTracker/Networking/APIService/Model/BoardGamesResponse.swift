@@ -5,7 +5,6 @@ struct BoardGamesAtlasResponse: Codable {
 }
 
 struct GameResponse: Codable, Hashable {
-
     let id: String
     let name: String
     let price: String
