@@ -28,18 +28,18 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
 
     private func configureStackView() {
         contentView.addSubview(stackView)
+        stackView.backgroundColor = .white
         stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .fillProportionally
+        stackView.alignment = .top
+        stackView.distribution = .fill
         stackView.spacing = 0
         stackView.isUserInteractionEnabled = true
-        stackView.backgroundColor = .yellow
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: (inset)),
-            stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: (-inset)),
+            stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: inset),
+            stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: -inset),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: (inset)),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: (inset)),
         ])
@@ -49,13 +49,13 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
 
     private func addLabelToStackView() {
         stackView.addArrangedSubview(label)
-        label.backgroundColor = DSColor.backgroundColor
+//        label.backgroundColor = DSColor.backgroundColor
         label.textColor = DSColor.darkGray
         label.clipsToBounds = true
-        label.contentMode = .scaleAspectFill
+        label.contentMode = .topLeft
         label.textAlignment = .justified
         label.numberOfLines = 0
-        seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        label.translatesAutoresizingMaskIntoConstraints = false
     }
 
     private func addButtonToStackView() {

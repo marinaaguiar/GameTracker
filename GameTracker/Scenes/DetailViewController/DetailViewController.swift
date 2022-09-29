@@ -131,13 +131,13 @@ class DetailViewController: UIViewController {
             case .gameImages:
                 return SectionLayoutBuilder.bigSizeTableSection()
             case .gameInfos:
-                return SectionLayoutBuilder.createSmallSizeTableSection()
+                return SectionLayoutBuilder.infoLayoutSection()
             case .description:
-                return SectionLayoutBuilder.createDescriptionLayoutSection()
+                return SectionLayoutBuilder.descriptionLayoutSection()
             case .gameVideos:
-                return SectionLayoutBuilder.createMediumSizeTableSection()
+                return SectionLayoutBuilder.mediumSizeTableSection()
             case .none:
-                return SectionLayoutBuilder.createMediumSizeTableSection()
+                return SectionLayoutBuilder.mediumSizeTableSection()
             }
         }
 

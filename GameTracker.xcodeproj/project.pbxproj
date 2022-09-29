@@ -245,8 +245,8 @@
 			isa = PBXGroup;
 			children = (
 				9C4AD53228DB7ABF003A7D4E /* Colors.swift */,
-				9C40A69728E337B800C92B6C /* SectionLayoutBuilder.swift */,
 				9CBCEB3528D36459001EE791 /* CompositionalLayout.swift */,
+				9C40A69728E337B800C92B6C /* SectionLayoutBuilder.swift */,
 				9C4AD53628DB867F003A7D4E /* StandardConfiguringCell.swift */,
 			);
 			path = Common;

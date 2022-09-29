@@ -213,17 +213,17 @@ extension ExploreViewController {
 
             switch section {
             case .trendingGames:
-                return SectionLayoutBuilder.createMediumSizeTableSection()
+                return SectionLayoutBuilder.mediumSizeTableSection()
             case .popularGames:
                 return SectionLayoutBuilder.bigSizeTableSection()
             case .complexityLevel:
-                return SectionLayoutBuilder.createSmallSizeTableSection()
+                return SectionLayoutBuilder.smallSizeTableSection()
             case .topRated:
-                return SectionLayoutBuilder.createMediumSizeTableSection()
+                return SectionLayoutBuilder.mediumSizeTableSection()
             case .numberOfPlayers:
-                return SectionLayoutBuilder.createSmallSizeTableSection()
+                return SectionLayoutBuilder.smallSizeTableSection()
             case .none:
-                return SectionLayoutBuilder.createMediumSizeTableSection()
+                return SectionLayoutBuilder.mediumSizeTableSection()
             }
         }
 
