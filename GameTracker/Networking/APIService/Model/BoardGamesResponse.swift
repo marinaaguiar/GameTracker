@@ -9,6 +9,7 @@ struct GameResponse: Codable, Hashable {
     let name: String
     let price: String
     let yearPublished: Int?
+    let players: String?
     let minPlayers: Int?
     let maxPlayers: Int?
     let playtime: String?
@@ -70,6 +71,6 @@ private extension GameResponse {
         case averageLearningComplexity = "average_learning_complexity"
 
 
-        case id, name, price, playtime, description, commentary, mechanics, categories, designers, rank
+        case id, name, price, playtime, description, commentary, mechanics, categories, designers, rank, players
     }
 }

@@ -72,6 +72,7 @@ class ExploreViewController: UIViewController {
         super.viewWillAppear(animated)
         setupNavBar()
         navigationItem.largeTitleDisplayMode = .never
+        tabBarController?.tabBar.isHidden = false
     }
 
     override func viewDidLoad() {
@@ -104,7 +105,6 @@ class ExploreViewController: UIViewController {
             TypeFilterCell.self,
             forCellWithReuseIdentifier: TypeFilterCell.reuseIdentifier
         )
-
         createDataSource()
     }
 

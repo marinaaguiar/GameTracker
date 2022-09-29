@@ -41,7 +41,7 @@ class DetailViewController: UIViewController {
             case let .gameImages(gameImageResponse):
                 return GameDetailImagesCell.dequeue(in: collectionView, indexPath: indexPath, model: gameImageResponse)
             case let .gameInfo(gameDetail):
-                return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
+                return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
             case let .gameDescription(gameDetail):
                 return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
             case let .gameVideos(gameVideos):
@@ -63,6 +63,7 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        tabBarController?.tabBar.isHidden = true
     }
 
     override func viewDidLoad() {
@@ -111,6 +112,11 @@ class DetailViewController: UIViewController {
         collectionView.register(
             GameDetailVideosCell.self,
             forCellWithReuseIdentifier: GameDetailVideosCell.reuseIdentifier
+        )
+
+        collectionView.register(
+            GameDetailInfosCell.self,
+            forCellWithReuseIdentifier: GameDetailInfosCell.reuseIdentifier
         )
 
         createDataSource()
@@ -173,7 +179,7 @@ extension DetailViewController {
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<SectionType, ItemType>()
 
-        let sections: [SectionType] = [.gameImages, .description]
+        let sections: [SectionType] = [.gameImages, .gameInfos, .description]
         snapshot.appendSections(sections)
 
         for section in sections {
@@ -184,7 +190,14 @@ extension DetailViewController {
                 snapshot.appendItems(gameImages, toSection: section)
             }
 
-            if section == .description || section == .gameInfos {
+            if section == .gameInfos {
+                let gameInfoDetail = gameDetail.map { gameDetailResponse in
+                    ItemType.gameInfo(gameDetailResponse)
+                }
+                snapshot.appendItems([gameInfoDetail].compactMap { $0 }, toSection: section)
+            }
+
+            if section == .description {
                 let gameDetail = gameDetail.map { gameDetailResponse in
                     ItemType.gameDescription(gameDetailResponse)
                 }

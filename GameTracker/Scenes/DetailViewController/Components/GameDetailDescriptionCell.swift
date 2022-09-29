@@ -31,18 +31,18 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
         stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
-        stackView.spacing = 5
-        stackView.isUserInteractionEnabled = true 
+        stackView.spacing = 0
+        stackView.isUserInteractionEnabled = true
+        stackView.backgroundColor = .yellow
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: (inset)),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: (-inset)),
+            stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: (inset)),
+            stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: (-inset)),
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: (inset)),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: (inset)),
         ])
-
         addLabelToStackView()
         addButtonToStackView()
     }
@@ -53,8 +53,8 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
         label.textColor = DSColor.darkGray
         label.clipsToBounds = true
         label.contentMode = .scaleAspectFill
+        label.textAlignment = .justified
         label.numberOfLines = 0
-
         seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
     }
 
@@ -83,8 +83,30 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
 
 
     func configure(with item: GameDetail) {
-        label.text = item.description
+        label.text = formattingString(item.description)
     }
+
+    func formattingString(_ text: String) -> String {
+        let htmlDescription  = text
+        let data = Data(htmlDescription.utf8)
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 16)
+        ]
+
+        if let attributedString = try?
+            NSAttributedString(
+                data: data,
+                options: [.documentType: NSAttributedString.DocumentType.html],
+                documentAttributes: nil
+            ) {
+            let formattedString = attributedString.string
+            return formattedString
+        }
+        return ""
+    }
+
+
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)

@@ -13,13 +13,15 @@ class GameDetail: Codable, Hashable {
     let price: String
     let description: String
     let yearPublished: Int
+    let players: String
 
-    init(id: String, name: String, price: String, description: String, year: Int) {
+    init(id: String, name: String, price: String, description: String, year: Int, players: String) {
         self.id = id
         self.name = name
         self.price = price
         self.description = description
         self.yearPublished = year
+        self.players = players
     }
 
     convenience init(gameResponse: GameResponse) {
@@ -28,7 +30,8 @@ class GameDetail: Codable, Hashable {
             name: gameResponse.name,
             price: gameResponse.price,
             description: gameResponse.description,
-            year: gameResponse.yearPublished!
+            year: gameResponse.yearPublished!,
+            players: gameResponse.players!
         )
     }
 

@@ -24,6 +24,8 @@
 		9C4AD53928DC7381003A7D4E /* ImageGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53828DC7381003A7D4E /* ImageGameCell.swift */; };
 		9C4AD53C28E1F1D1003A7D4E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53B28E1F1D1003A7D4E /* DetailViewController.swift */; };
 		9C8CC82728D4C8640076736C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9C8CC82628D4C8640076736C /* Kingfisher */; };
+		9CA2980628E4AFD800D74318 /* MarkdownKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9CA2980528E4AFD800D74318 /* MarkdownKit */; };
+		9CA2980828E4B8A900D74318 /* GameDetailInfosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA2980728E4B8A900D74318 /* GameDetailInfosCell.swift */; };
 		9CBCEB0F28D355C3001EE791 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB0E28D355C3001EE791 /* AppDelegate.swift */; };
 		9CBCEB1128D355C3001EE791 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CBCEB1028D355C3001EE791 /* SceneDelegate.swift */; };
 		9CBCEB1628D355C3001EE791 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CBCEB1428D355C3001EE791 /* Main.storyboard */; };
@@ -53,6 +55,7 @@
 		9C4AD53628DB867F003A7D4E /* StandardConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardConfiguringCell.swift; sourceTree = "<group>"; };
 		9C4AD53828DC7381003A7D4E /* ImageGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGameCell.swift; sourceTree = "<group>"; };
 		9C4AD53B28E1F1D1003A7D4E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		9CA2980728E4B8A900D74318 /* GameDetailInfosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailInfosCell.swift; sourceTree = "<group>"; };
 		9CBCEB0B28D355C3001EE791 /* GameTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CBCEB0E28D355C3001EE791 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CBCEB1028D355C3001EE791 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CA2980628E4AFD800D74318 /* MarkdownKit in Frameworks */,
 				9C8CC82728D4C8640076736C /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +106,7 @@
 			children = (
 				9C40A69A28E34D3300C92B6C /* GameDetailDescriptionCell.swift */,
 				9C40A69C28E45E2700C92B6C /* GameDetailImagesCell.swift */,
+				9CA2980728E4B8A900D74318 /* GameDetailInfosCell.swift */,
 				9C40A69E28E4936B00C92B6C /* GameDetailVideosCell.swift */,
 			);
 			path = Components;
@@ -275,6 +280,7 @@
 			name = GameTracker;
 			packageProductDependencies = (
 				9C8CC82628D4C8640076736C /* Kingfisher */,
+				9CA2980528E4AFD800D74318 /* MarkdownKit */,
 			);
 			productName = GameTracker;
 			productReference = 9CBCEB0B28D355C3001EE791 /* GameTracker.app */;
@@ -306,6 +312,7 @@
 			mainGroup = 9CBCEB0228D355C3001EE791;
 			packageReferences = (
 				9C8CC82528D4C8640076736C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				9CA2980428E4AFD700D74318 /* XCRemoteSwiftPackageReference "MarkdownKit" */,
 			);
 			productRefGroup = 9CBCEB0C28D355C3001EE791 /* Products */;
 			projectDirPath = "";
@@ -342,6 +349,7 @@
 				9C4AD53C28E1F1D1003A7D4E /* DetailViewController.swift in Sources */,
 				9CBCEB0F28D355C3001EE791 /* AppDelegate.swift in Sources */,
 				9C40A69F28E4936B00C92B6C /* GameDetailVideosCell.swift in Sources */,
+				9CA2980828E4B8A900D74318 /* GameDetailInfosCell.swift in Sources */,
 				9CBCEB1128D355C3001EE791 /* SceneDelegate.swift in Sources */,
 				9C40A69D28E45E2700C92B6C /* GameDetailImagesCell.swift in Sources */,
 				9C40A69B28E34D3300C92B6C /* GameDetailDescriptionCell.swift in Sources */,
@@ -592,6 +600,14 @@
 				kind = branch;
 			};
 		};
+		9CA2980428E4AFD700D74318 /* XCRemoteSwiftPackageReference "MarkdownKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bmoliveira/MarkdownKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -599,6 +615,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9C8CC82528D4C8640076736C /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		9CA2980528E4AFD800D74318 /* MarkdownKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9CA2980428E4AFD700D74318 /* XCRemoteSwiftPackageReference "MarkdownKit" */;
+			productName = MarkdownKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
