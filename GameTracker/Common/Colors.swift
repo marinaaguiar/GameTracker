@@ -13,4 +13,6 @@ class DSColor {
     static let lightGray = UIColor(named: "Light+Gray")
     static let lightMediumGray = UIColor(named: "LightMediumGray")
     static let pink = UIColor(named: "Pink")
+    static let black = UIColor(named: "Black")
+
 }

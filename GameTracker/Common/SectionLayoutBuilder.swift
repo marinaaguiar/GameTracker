@@ -115,6 +115,26 @@ class SectionLayoutBuilder {
         return section
     }
 
+    static func videosLayoutSection() -> NSCollectionLayoutSection {
+        let item = CompositionalLayout.createItem(
+            width: .fractionalWidth(1),
+            height: .fractionalHeight(1),
+            spacing: 5)
+        let horizontalGroup = CompositionalLayout.createGroup(
+            aligment: .horizontal,
+            width: .fractionalWidth(2/3),
+            height: .absolute(180),
+            item: item,
+            count: 1)
+        let section = NSCollectionLayoutSection(group: horizontalGroup)
+        section.orthogonalScrollingBehavior = .continuous
+
+        let sectionHeader = createSectionHeader()
+        section.boundarySupplementaryItems = [sectionHeader]
+
+        return section
+    }
+
     static func infoLayoutSection() -> NSCollectionLayoutSection {
         let item = CompositionalLayout.createItem(
             width: .fractionalWidth(1),

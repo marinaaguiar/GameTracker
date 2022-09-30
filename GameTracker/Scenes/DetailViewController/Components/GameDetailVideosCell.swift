@@ -14,8 +14,12 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
     static let reuseIdentifier: String = "GameDetailVideosCell"
     private var downloadTask: DownloadTask?
 
-    private let imageView = UIImageView()
-    private let contentContainer = UIView()
+    private let stackView = UIStackView()
+    private let playerImageView = UIImageView()
+    private let videoImageView = UIImageView()
+    private let titleLabel = UILabel()
+    private let containerViewA = UIView()
+    private let containerViewB = UIView()
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
 
     private var photoURL: URL? {
@@ -31,36 +35,81 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        if imageView.image == nil {
+        if videoImageView.image == nil {
             downloadTask?.cancel()
         }
     }
 
     private func setup() {
-        contentContainer.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(contentContainer)
+        addStackViewToContentView()
+    }
 
-        imageView.layer.cornerRadius = 8
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+    private func addStackViewToContentView() {
+        contentView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.backgroundColor = .cyan
+        stackView.spacing = 5
+        stackView.alignment = .leading
+        stackView.axis = .vertical
+        stackView.distribution = .fill
 
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 5
-        imageView.backgroundColor = .white
-        contentContainer.addSubview(imageView)
-        updateActivityIndicatorStatus(isLoading: false)
+        stackView.addArrangedSubview(containerViewA)
+        stackView.addArrangedSubview(containerViewB)
+        containerViewA.translatesAutoresizingMaskIntoConstraints = false
+        containerViewA.layer.cornerRadius = 5
+        containerViewA.clipsToBounds = true
+        containerViewB.translatesAutoresizingMaskIntoConstraints = false
 
+//        containerViewA.backgroundColor = .yellow
+//        containerViewB.backgroundColor = .red
+
+        containerViewA.addSubview(videoImageView)
+        videoImageView.translatesAutoresizingMaskIntoConstraints = false
+        videoImageView.clipsToBounds = true
+        videoImageView.contentMode = .scaleAspectFill
+
+        containerViewA.addSubview(playerImageView)
+        playerImageView.translatesAutoresizingMaskIntoConstraints = false
+        playerImageView.clipsToBounds = true
+        playerImageView.image = UIImage.init(systemName: "play.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        playerImageView.contentMode = .scaleAspectFit
+        playerImageView.alpha = 0.9
+        playerImageView.layer.masksToBounds = false
+
+        containerViewB.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.clipsToBounds = true
+        titleLabel.font = .boldSystemFont(ofSize: 18)
+        titleLabel.textColor = DSColor.black
+        titleLabel.numberOfLines = 2
+
+        let inset = CGFloat(12)
         NSLayoutConstraint.activate([
-          contentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-          contentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-          contentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
-          contentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-          imageView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor, constant: CGFloat(10)),
-          imageView.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
-          imageView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor),
-          imageView.topAnchor.constraint(equalTo: contentContainer.topAnchor)
-        ])
+            containerViewA.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+            containerViewA.heightAnchor.constraint(lessThanOrEqualToConstant: CGFloat(250)),
+
+            containerViewB.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+            containerViewB.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(25)),
+
+            videoImageView.trailingAnchor.constraint(equalTo: containerViewA.trailingAnchor),
+            videoImageView.leadingAnchor.constraint(equalTo: containerViewA.leadingAnchor),
+            videoImageView.topAnchor.constraint(equalTo: containerViewA.topAnchor),
+            videoImageView.bottomAnchor.constraint(equalTo: containerViewA.bottomAnchor),
+
+            playerImageView.centerXAnchor.constraint(equalTo: containerViewA.centerXAnchor),
+            playerImageView.centerYAnchor.constraint(equalTo: containerViewA.centerYAnchor),
+            playerImageView.widthAnchor.constraint(equalToConstant: CGFloat(50)),
+            playerImageView.heightAnchor.constraint(equalToConstant: CGFloat(50)),
+
+            titleLabel.topAnchor.constraint(equalTo: containerViewB.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: containerViewB.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: containerViewB.trailingAnchor)
+          ])
     }
 
     private func updateActivityIndicatorStatus(isLoading: Bool) {
@@ -83,13 +132,14 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
     }
 
     func configure(with item: GameVideoResponse) {
-//        guard let url = URL(string: "\(item.imageUrl)") else { return }
-//        photoURL = url
-//        updateActivityIndicatorStatus(isLoading: true)
-//
-//        imageView.kf.setImage(with: photoURL) { [self] result in
-//            updateActivityIndicatorStatus(isLoading: false)
-//        }
+        guard let url = URL(string: "\(item.imageUrl)") else { return }
+        photoURL = url
+        updateActivityIndicatorStatus(isLoading: true)
+
+        videoImageView.kf.setImage(with: photoURL) { [self] result in
+            updateActivityIndicatorStatus(isLoading: false)
+        }
+        titleLabel.text = item.title
     }
 
     required init?(coder: NSCoder) {

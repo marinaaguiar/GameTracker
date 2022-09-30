@@ -11,12 +11,6 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
     typealias CellModel = GameDetail
     static let reuseIdentifier: String = "GameDetailInfosCell"
 
-    enum GameInfos: Int, CaseIterable {
-        case numberOfPlayers(GameDetail) = 0
-        case gameDuration(GameDetail)
-        case minAge(GameDetail)
-    }
-
     private let bigStackView = UIStackView()
     private let rightStackView = UIStackView()
     private let leftStackView = UIStackView()

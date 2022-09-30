@@ -1,6 +1,6 @@
 import Foundation
 
-struct VideosResponse: Codable {
+struct GameVideosResponse: Codable {
     let videos: [GameVideoResponse]
 }
 

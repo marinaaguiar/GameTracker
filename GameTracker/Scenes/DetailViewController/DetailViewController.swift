@@ -30,9 +30,24 @@ class DetailViewController: UIViewController {
         }
     }
 
+    enum GameInfoType: Equatable, Hashable {
+        case numberOfPlayers(GameDetail)
+        case gameDuration(GameDetail)
+        case minAge(GameDetail)
+
+        static func allCases(with game: GameDetail) -> [GameInfoType] {
+            [
+                .numberOfPlayers(game),
+                .gameDuration(game),
+                .minAge(game)
+            ]
+        }
+    }
+
     enum ItemType: Hashable {
         case gameImages(GameImageResponse)
         case gameInfo(GameDetail)
+//        case gameInfo(GameInfoType)
         case gameDescription(GameDetail)
         case gameVideos(GameVideoResponse)
 
@@ -42,6 +57,8 @@ class DetailViewController: UIViewController {
                 return GameDetailImagesCell.dequeue(in: collectionView, indexPath: indexPath, model: gameImageResponse)
             case let .gameInfo(gameDetail):
                 return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
+
+//                return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameInfoType)
             case let .gameDescription(gameDetail):
                 return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
             case let .gameVideos(gameVideos):
@@ -56,6 +73,7 @@ class DetailViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var gameImages: [GameImageResponse] = []
     private var gameVideos: [GameVideoResponse] = []
+//    private var gamesInfo: [GameInfoType: [GameDetail]] = [:]
 
     var gameDetail: GameDetail!
 
@@ -135,7 +153,7 @@ class DetailViewController: UIViewController {
             case .description:
                 return SectionLayoutBuilder.descriptionLayoutSection()
             case .gameVideos:
-                return SectionLayoutBuilder.mediumSizeTableSection()
+                return SectionLayoutBuilder.videosLayoutSection()
             case .none:
                 return SectionLayoutBuilder.mediumSizeTableSection()
             }
@@ -179,32 +197,31 @@ extension DetailViewController {
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<SectionType, ItemType>()
 
-        let sections: [SectionType] = [.gameImages, .gameInfos, .description]
+        let sections: [SectionType] = [.gameImages, .gameInfos, .description, .gameVideos]
         snapshot.appendSections(sections)
 
         for section in sections {
-            if section == .gameImages && !gameImages.isEmpty {
+
+            switch section {
+            case .gameImages:
                 let gameImages = gameImages.map { gameImageResponse in
                     ItemType.gameImages(gameImageResponse)
                 }
                 snapshot.appendItems(gameImages, toSection: section)
-            }
-
-            if section == .gameInfos {
+            case .gameInfos:
+//                let gameInfoDetail = GameInfoType.allCases(with: gameDetail).map { gameInfos in
+//                    ItemType.gameInfo(gameInfos)
+//                }
                 let gameInfoDetail = gameDetail.map { gameDetailResponse in
                     ItemType.gameInfo(gameDetailResponse)
                 }
                 snapshot.appendItems([gameInfoDetail].compactMap { $0 }, toSection: section)
-            }
-
-            if section == .description {
+            case .description:
                 let gameDetail = gameDetail.map { gameDetailResponse in
                     ItemType.gameDescription(gameDetailResponse)
                 }
                 snapshot.appendItems([gameDetail].compactMap { $0 }, toSection: section)
-            }
-
-            if section == .gameVideos {
+            case .gameVideos:
                 let gameVideos = gameVideos.map { gameVideoResponse in
                     ItemType.gameVideos(gameVideoResponse)
                 }
@@ -226,6 +243,21 @@ extension DetailViewController {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.gameImages = data.images
+                    self.fetchVideos()
+                }
+                print("Load Game Images sucessfully")
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    func fetchVideos() {
+        apiService.loadGameVideos(limitItems: 5, gameId: gameDetail.id) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.gameVideos = data.videos
                     self.reloadData()
                 }
                 print("Load Game Images sucessfully")

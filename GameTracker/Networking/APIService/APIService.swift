@@ -21,7 +21,7 @@ private struct EndPoint {
         case ascending
     }
 
-    enum ImagesQueryItem: String {
+    enum MediaQueryItem: String {
         case clientId = "client_id"
         case limit
         case json = "pretty"
@@ -54,27 +54,31 @@ private struct EndPoint {
         return components.url
     }
 
-    static func images(limitItems: Int, gameId: String) -> URL? {
+    enum MediaTypePath: String {
+        case images = "/api/game/images"
+        case videos = "/api/game/videos"
+    }
+    static func media(path: MediaTypePath, limitItems: Int, gameId: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.boardgameatlas.com"
-        components.path = "/api/game/images"
+        components.path = path.rawValue
 
         components.queryItems = [
             URLQueryItem(
-                name: ImagesQueryItem.clientId.rawValue,
+                name: MediaQueryItem.clientId.rawValue,
                 value: APIDefinitions.APIKey),
             URLQueryItem(
-                name: ImagesQueryItem.limit.rawValue,
+                name: MediaQueryItem.limit.rawValue,
                 value: "\(limitItems)"),
             URLQueryItem(
-                name: ImagesQueryItem.gameId.rawValue,
+                name: MediaQueryItem.gameId.rawValue,
                 value: "\(gameId)"),
             URLQueryItem(
-                name: ImagesQueryItem.json.rawValue,
+                name: MediaQueryItem.json.rawValue,
                 value: "\(true)"),
             URLQueryItem(
-                name: SearchQueryItem.ascending.rawValue,
+                name: MediaQueryItem.ascending.rawValue,
                 value: "\(false)")
         ]
         return components.url
@@ -104,7 +108,16 @@ class APIService {
     }
 
     func loadGameImages(limitItems: Int, gameId: String, completion: @escaping ((Result<GameImagesResponse, Error>) -> Void)) {
-        guard let url = EndPoint.images(limitItems: limitItems, gameId: gameId) else {
+        guard let url = EndPoint.media(path: .images, limitItems: limitItems, gameId: gameId) else {
+            completion(.failure(APIError.failedToConstructURL))
+            return
+        }
+        print(url)
+        NetworkingService().fetchGenericData(url: url, completion: completion)
+    }
+
+    func loadGameVideos(limitItems: Int, gameId: String, completion: @escaping ((Result<GameVideosResponse, Error>) -> Void)) {
+        guard let url = EndPoint.media(path: .videos, limitItems: limitItems, gameId: gameId) else {
             completion(.failure(APIError.failedToConstructURL))
             return
         }
