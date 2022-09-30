@@ -39,7 +39,7 @@ extension TypeFilterCell {
 
         contentContainer.addSubview(label)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = DSColor.darkGray
+        label.textColor = .darkGray
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textAlignment = .center
         label.numberOfLines = 1

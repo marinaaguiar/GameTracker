@@ -28,7 +28,6 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
 
     private func configureStackView() {
         contentView.addSubview(stackView)
-        stackView.backgroundColor = .white
         stackView.axis = .vertical
         stackView.alignment = .top
         stackView.distribution = .fill
@@ -105,8 +104,6 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
         }
         return ""
     }
-
-
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)

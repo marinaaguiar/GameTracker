@@ -9,8 +9,13 @@ import UIKit
 
 final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
     typealias CellModel = GameDetail
-
     static let reuseIdentifier: String = "GameDetailInfosCell"
+
+    enum GameInfos: Int, CaseIterable {
+        case numberOfPlayers(GameDetail) = 0
+        case gameDuration(GameDetail)
+        case minAge(GameDetail)
+    }
 
     private let bigStackView = UIStackView()
     private let rightStackView = UIStackView()
@@ -102,7 +107,7 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
         } else {
             stackView.addArrangedSubview(timeLabel)
         }
-        label.textColor = DSColor.darkGray
+        label.textColor = .darkGray
         label.font = UIFont(name: "SFPro-Light", size: 10)
         label.clipsToBounds = true
         label.contentMode = .scaleAspectFill
@@ -145,6 +150,7 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
     }
 
     func configure(with item: GameDetail) {
+
         playersLabel.text = item.players
         timeLabel.text = "\(item.playtime) min   "
     }
