@@ -41,7 +41,7 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
 
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
@@ -55,7 +55,7 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
           contentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
           contentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-          imageView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor, constant: CGFloat(10)),
+          imageView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
           imageView.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
           imageView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor),
           imageView.topAnchor.constraint(equalTo: contentContainer.topAnchor)
@@ -82,7 +82,7 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
     }
 
     func configure(with item: GameResponse) {
-        guard let url = URL(string: "\(item.imageUrl)") else { return }
+        guard let url = URL(string: "\(item.images.medium)") else { return }
         photoURL = url
         updateActivityIndicatorStatus(isLoading: true)
 

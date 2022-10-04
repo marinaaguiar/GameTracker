@@ -17,12 +17,13 @@ class SectionLayoutBuilder {
             spacing: 5)
         let horizontalGroup = CompositionalLayout.createGroup(
             aligment: .horizontal,
-            width: .fractionalWidth(2.8/3),
+            width: .fractionalWidth(2.2/3),
             height: .fractionalHeight(1/3),
             item: item,
             count: 1)
         let section = NSCollectionLayoutSection(group: horizontalGroup)
         section.orthogonalScrollingBehavior = .groupPaging
+        section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
 
         let sectionHeader = createSectionHeader()
         section.boundarySupplementaryItems = [sectionHeader]
@@ -43,6 +44,7 @@ class SectionLayoutBuilder {
             count: 1)
         let section = NSCollectionLayoutSection(group: horizontalGroup)
         section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
 
         let sectionHeader = createSectionHeader()
         section.boundarySupplementaryItems = [sectionHeader]
@@ -74,26 +76,6 @@ class SectionLayoutBuilder {
 
         return section
     }
-
-//    static func smallSizeTableSection() -> NSCollectionLayoutSection {
-//        let item = CompositionalLayout.createItem(
-//            width: .fractionalWidth(1),
-//            height: .fractionalHeight(1),
-//            spacing: 10)
-//        let horizontalGroup = CompositionalLayout.createGroup(
-//            aligment: .horizontal,
-//            width: .absolute(120),
-//            height: .absolute(60),
-//            item: item,
-//            count: 1)
-//        let section = NSCollectionLayoutSection(group: horizontalGroup)
-//        section.orthogonalScrollingBehavior = .continuous
-//
-//        let sectionHeader = createSectionHeader()
-//        section.boundarySupplementaryItems = [sectionHeader]
-//
-//        return section
-//    }
 
     static func descriptionLayoutSection() -> NSCollectionLayoutSection {
         let item = CompositionalLayout.createItem(

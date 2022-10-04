@@ -48,7 +48,7 @@ class DetailViewController: UIViewController {
         case gameImages(GameImageResponse)
         case gameInfo(GameDetail)
 //        case gameInfo(GameInfoType)
-        case gameDescription(GameDetail)
+        case gameDescription(GameDetailDescriptionModel)
         case gameVideos(GameVideoResponse)
 
         func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,8 +57,6 @@ class DetailViewController: UIViewController {
                 return GameDetailImagesCell.dequeue(in: collectionView, indexPath: indexPath, model: gameImageResponse)
             case let .gameInfo(gameDetail):
                 return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
-
-//                return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameInfoType)
             case let .gameDescription(gameDetail):
                 return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
             case let .gameVideos(gameVideos):
@@ -73,9 +71,13 @@ class DetailViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var gameImages: [GameImageResponse] = []
     private var gameVideos: [GameVideoResponse] = []
-//    private var gamesInfo: [GameInfoType: [GameDetail]] = [:]
 
-    var gameDetail: GameDetail!
+    var gameDetail: GameDetail! {
+        didSet {
+            gameDetailDescriptionModel = .init(gameDetail: gameDetail)
+        }
+    }
+    var gameDetailDescriptionModel: GameDetailDescriptionModel!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -96,12 +98,14 @@ class DetailViewController: UIViewController {
     }
 
     func setupCollectionView() {
-//        collectionView.delegate = self
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = DSColor.backgroundColor
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.isUserInteractionEnabled = true
+        collectionView.delegate = self
+        registerCells()
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
@@ -111,6 +115,11 @@ class DetailViewController: UIViewController {
         collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
+        createDataSource()
+//        reloadData()
+    }
+
+    func registerCells() {
         collectionView.register(
             SectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -136,9 +145,6 @@ class DetailViewController: UIViewController {
             GameDetailInfosCell.self,
             forCellWithReuseIdentifier: GameDetailInfosCell.reuseIdentifier
         )
-
-        createDataSource()
-//        reloadData()
     }
 
     func createLayout() -> UICollectionViewLayout {
@@ -217,7 +223,7 @@ extension DetailViewController {
                 }
                 snapshot.appendItems([gameInfoDetail].compactMap { $0 }, toSection: section)
             case .description:
-                let gameDetail = gameDetail.map { gameDetailResponse in
+                let gameDetail = gameDetailDescriptionModel.map { gameDetailResponse in
                     ItemType.gameDescription(gameDetailResponse)
                 }
                 snapshot.appendItems([gameDetail].compactMap { $0 }, toSection: section)
@@ -233,6 +239,26 @@ extension DetailViewController {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+
+extension DetailViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let section = SectionType(rawValue: indexPath.section) else { return }
+
+        if section == .description {
+            print("selected description")
+            if gameDetailDescriptionModel.isDescriptionExpanded == false {
+                gameDetailDescriptionModel.isDescriptionExpanded = true
+            } else {
+                gameDetailDescriptionModel.isDescriptionExpanded = false
+            }
+            reloadData()
+        }
+    }
+}
+
 // MARK: - APIRequests
 
 extension DetailViewController {
@@ -245,7 +271,7 @@ extension DetailViewController {
                     self.gameImages = data.images
                     self.fetchVideos()
                 }
-                print("Load Game Images sucessfully")
+                print("Load Game Images Sucessfully")
             case .failure(let error):
                 print(error)
             }
@@ -260,7 +286,7 @@ extension DetailViewController {
                     self.gameVideos = data.videos
                     self.reloadData()
                 }
-                print("Load Game Images sucessfully")
+                print("Load Game Videos Sucessfully")
             case .failure(let error):
                 print(error)
             }

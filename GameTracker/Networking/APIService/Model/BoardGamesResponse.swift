@@ -15,14 +15,15 @@ struct GameResponse: Codable, Hashable {
     let playtime: String?
     let minAge: Int?
     let description: String
+    let descriptionPreview: String
     let commentary: String
     let thumbUrl: String
     let imageUrl: String
+    let images: Images
     let mechanics: [Mechanics]
     let categories: [Categories]
     let designers: [Designers]
     let officialUrl: String?
-    let descriptionPreview: String
     let rulesUrl: String?
     let numUserRatings: Int
     let averageUserRating: Double
@@ -39,6 +40,14 @@ struct GameResponse: Codable, Hashable {
 
   private let identifier = UUID()
 
+}
+
+struct Images: Codable {
+    let thumb: String
+    let small: String
+    let medium: String
+    let large: String
+    let original: String
 }
 
 struct Mechanics: Codable {
@@ -71,6 +80,6 @@ private extension GameResponse {
         case averageLearningComplexity = "average_learning_complexity"
 
 
-        case id, name, price, playtime, description, commentary, mechanics, categories, designers, rank, players
+        case id, name, price, playtime, description, commentary, images, mechanics, categories, designers, rank, players
     }
 }

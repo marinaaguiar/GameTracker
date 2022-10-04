@@ -3,27 +3,10 @@ import UIKit
 class ExploreViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
 
-    enum ComplexityLevel: String, CaseIterable {
-        case veryEasy = "very easy"
-        case easy = "easy"
-        case moderate = "moderate"
-        case difficult = "difficult"
-        case veryDifficult = "very difficult"
-
-    }
-
-    enum NumberOfPlayers: String, CaseIterable {
-        case onePlayer = "1 player"
-        case twoPlayers = "2 players"
-        case threePlayers = "3 players"
-        case fourPlayers = "4 players"
-        case fivePlusPlayers = "5+ players"
-    }
-
     enum SectionType: Int {
         case trendingGames = 0
         case popularGames
-        case complexityLevel
+        case playingTime
         case topRated
         case numberOfPlayers
 
@@ -33,8 +16,8 @@ class ExploreViewController: UIViewController {
                 return "Trending Games"
             case .popularGames:
                 return "Popular Games"
-            case .complexityLevel:
-                return "Complexity Level"
+            case .playingTime:
+                return "Max Playtime"
             case .topRated:
                 return "Top Rated"
             case .numberOfPlayers:
@@ -45,15 +28,15 @@ class ExploreViewController: UIViewController {
 
     enum ItemType: Hashable {
         case game(GameResponse)
-        case complexity(String)
+        case playingTime(String)
         case numberOfPlayers(String)
 
         func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
             switch self {
             case let .game(gameResponse):
                 return ImageGameCell.dequeue(in: collectionView, indexPath: indexPath, model: gameResponse)
-            case let .complexity(complexity):
-                return TypeFilterCell.dequeue(in: collectionView, indexPath: indexPath, model: complexity)
+            case let .playingTime(playingTime):
+                return TypeFilterCell.dequeue(in: collectionView, indexPath: indexPath, model: playingTime)
             case let .numberOfPlayers(numberOfPlayers):
                 return  TypeFilterCell.dequeue(in: collectionView, indexPath: indexPath, model: numberOfPlayers)
             }
@@ -90,22 +73,23 @@ class ExploreViewController: UIViewController {
         collectionView.collectionViewLayout = createLayout()
         collectionView.allowsMultipleSelection = true
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        registerCells()
+        createDataSource()
+    }
 
+    func registerCells() {
         collectionView.register(
             SectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
-
         collectionView.register(
             ImageGameCell.self,
             forCellWithReuseIdentifier: ImageGameCell.reuseIdentifier)
-
         collectionView.register(
             TypeFilterCell.self,
             forCellWithReuseIdentifier: TypeFilterCell.reuseIdentifier
         )
-        createDataSource()
     }
 
     func setupNavBar() {
@@ -145,7 +129,7 @@ class ExploreViewController: UIViewController {
 
             if let section = self?.dataSource?.snapshot()
                 .sectionIdentifiers[indexPath.section] {
-                view.label.text = section.title
+                    view.label.text = section.title
             }
             return view
         }
@@ -154,7 +138,7 @@ class ExploreViewController: UIViewController {
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<SectionType, ItemType>()
 
-        let sections: [SectionType] = [.trendingGames, .popularGames, .complexityLevel, .topRated, .numberOfPlayers]
+        let sections: [SectionType] = [.trendingGames, .popularGames, .playingTime, .topRated, .numberOfPlayers]
         snapshot.appendSections(sections)
 
         for section in sections {
@@ -166,16 +150,16 @@ class ExploreViewController: UIViewController {
                 snapshot.appendItems(games, toSection: section)
             }
 
-            if section == .complexityLevel {
-                let complexityLevels = ComplexityLevel.allCases.map { complexity in
-                    ItemType.complexity(complexity.rawValue)
+            if section == .playingTime {
+                let playingTime = Playtime.allCases.map { playTime in
+                    ItemType.playingTime(playTime.string)
                 }
-                snapshot.appendItems(complexityLevels, toSection: section)
+                snapshot.appendItems(playingTime, toSection: section)
             }
 
             if section == .numberOfPlayers {
-                let numberOfPlayers = NumberOfPlayers.allCases.map { numberOfPlayer in
-                    ItemType.numberOfPlayers(numberOfPlayer.rawValue)
+                let numberOfPlayers = NumberOfPlayers.allCases.map { numberOfPlayers in
+                    ItemType.numberOfPlayers(numberOfPlayers.string)
                 }
                 snapshot.appendItems(numberOfPlayers, toSection: section)
             }
@@ -192,13 +176,25 @@ class ExploreViewController: UIViewController {
 
            guard let section = SectionType(rawValue: indexPath.section) else { return }
 
-           var detailViewController = storyboard?.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+           let detailViewController = storyboard?.instantiateViewController(withIdentifier: DetailViewController.reuseIdentifier) as! DetailViewController
 
-           if let games = games[section] {
-               detailViewController.gameDetail = GameDetail(gameResponse: games[indexPath.item])
-               self.navigationController?.pushViewController(detailViewController, animated: true)
-           } else {
-               presentErrorAlert("Error gameSelected is nil")
+           let filteredViewController = storyboard?.instantiateViewController(withIdentifier: FilteredListViewController.reuseIdentifier) as! FilteredListViewController
+
+           switch section {
+           case .playingTime:
+               if let maxPlayTime = Playtime(rawValue: indexPath.item) {
+                   filteredViewController.maxPlaytime = maxPlayTime.number
+                   self.navigationController?.pushViewController(filteredViewController, animated: true)
+               }
+           case .numberOfPlayers:
+               print("selected numberOfPlayers")
+           case .topRated, .popularGames, .trendingGames:
+               if let games = games[section] {
+                   detailViewController.gameDetail = GameDetail(gameResponse: games[indexPath.item])
+                   self.navigationController?.pushViewController(detailViewController, animated: true)
+               } else {
+                   presentErrorAlert("Error. There is no game selected.")
+               }
            }
        }
    }
@@ -216,7 +212,7 @@ extension ExploreViewController {
                 return SectionLayoutBuilder.mediumSizeTableSection()
             case .popularGames:
                 return SectionLayoutBuilder.bigSizeTableSection()
-            case .complexityLevel:
+            case .playingTime:
                 return SectionLayoutBuilder.smallSizeTableSection()
             case .topRated:
                 return SectionLayoutBuilder.mediumSizeTableSection()

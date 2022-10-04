@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 private struct APIDefinitions {
 
@@ -29,6 +30,12 @@ private struct EndPoint {
         case ascending
     }
 
+    enum MediaTypePath: String {
+        case search = "/api/search"
+        case images = "/api/game/images"
+        case videos = "/api/game/videos"
+    }
+
     let queryItems: [URLQueryItem]
 
     static func list(limitItems: Int, orderedBy: String) -> URL? {
@@ -54,11 +61,7 @@ private struct EndPoint {
         return components.url
     }
 
-    enum MediaTypePath: String {
-        case images = "/api/game/images"
-        case videos = "/api/game/videos"
-    }
-    static func media(path: MediaTypePath, limitItems: Int, gameId: String) -> URL? {
+    static func mediaContent(path: MediaTypePath, limitItems: Int, gameId: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.boardgameatlas.com"
@@ -83,6 +86,32 @@ private struct EndPoint {
         ]
         return components.url
     }
+
+    static func filteredList(limitItems: Int, filterBy: String, maxNumber: Int, orderedBy: String) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.boardgameatlas.com"
+        components.path = "/api/search"
+
+        components.queryItems = [
+            URLQueryItem(
+                name: SearchQueryItem.clientId.rawValue,
+                value: APIDefinitions.APIKey),
+            URLQueryItem(
+                name: SearchQueryItem.limit.rawValue,
+                value: "\(limitItems)"),
+            URLQueryItem(
+                name: filterBy,
+                value: "\(maxNumber)"),
+            URLQueryItem(
+                name: SearchQueryItem.orderBy.rawValue,
+                value: "\(orderedBy)"),
+            URLQueryItem(
+                name: SearchQueryItem.json.rawValue,
+                value: "\(true)")
+        ]
+        return components.url
+    }
 }
 
 class APIService {
@@ -97,8 +126,13 @@ class APIService {
         case average_user_rating
     }
 
-    func loadGameList(limitItems: Int, orderedBy: OrderedBy,completion: @escaping ((Result<BoardGamesAtlasResponse, Error>) -> Void)) {
+    enum FilterParameter: String {
+        case maxPlaytime = "max_playtime"
+        case minAge = "min_age"
+        case minPlayers = "min_players"
+    }
 
+    func loadGameList(limitItems: Int, orderedBy: OrderedBy,completion: @escaping ((Result<BoardGamesAtlasResponse, Error>) -> Void)) {
         guard let url = EndPoint.list(limitItems: limitItems, orderedBy: orderedBy.rawValue) else {
             completion(.failure(APIError.failedToConstructURL))
             return
@@ -108,7 +142,7 @@ class APIService {
     }
 
     func loadGameImages(limitItems: Int, gameId: String, completion: @escaping ((Result<GameImagesResponse, Error>) -> Void)) {
-        guard let url = EndPoint.media(path: .images, limitItems: limitItems, gameId: gameId) else {
+        guard let url = EndPoint.mediaContent(path: .images, limitItems: limitItems, gameId: gameId) else {
             completion(.failure(APIError.failedToConstructURL))
             return
         }
@@ -117,7 +151,16 @@ class APIService {
     }
 
     func loadGameVideos(limitItems: Int, gameId: String, completion: @escaping ((Result<GameVideosResponse, Error>) -> Void)) {
-        guard let url = EndPoint.media(path: .videos, limitItems: limitItems, gameId: gameId) else {
+        guard let url = EndPoint.mediaContent(path: .videos, limitItems: limitItems, gameId: gameId) else {
+            completion(.failure(APIError.failedToConstructURL))
+            return
+        }
+        print(url)
+        NetworkingService().fetchGenericData(url: url, completion: completion)
+    }
+
+    func loadGameListFiltered(limitItems: Int, filterBy: FilterParameter, maxNumber: Int, orderedBy: OrderedBy, completion: @escaping ((Result<BoardGamesAtlasResponse, Error>) -> Void)) {
+        guard let url = EndPoint.filteredList(limitItems: limitItems, filterBy: filterBy.rawValue, maxNumber: maxNumber, orderedBy: orderedBy.rawValue) else {
             completion(.failure(APIError.failedToConstructURL))
             return
         }
@@ -125,3 +168,6 @@ class APIService {
         NetworkingService().fetchGenericData(url: url, completion: completion)
     }
 }
+
+
+// https://api.boardgameatlas.com/api/game/videos?pretty=true&limit=20&client_id=gHoBds7We9&max_playtime=15

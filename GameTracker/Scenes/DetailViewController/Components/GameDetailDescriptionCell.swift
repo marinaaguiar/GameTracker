@@ -8,13 +8,14 @@
 import UIKit
 
 final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguringCell {
-    typealias CellModel = GameDetail
+    typealias CellModel = GameDetailDescriptionModel
 
     static let reuseIdentifier: String = "DescriptionCell"
 
     private let stackView = UIStackView()
     private let label = UILabel()
     private let contentContainer = UIView()
+    private let arrowImage = UIImageView()
     @objc private let seeMoreButton = UIButton(type: .system)
 
     override init(frame: CGRect) {
@@ -28,27 +29,28 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
 
     private func configureStackView() {
         contentView.addSubview(stackView)
+        contentView.isUserInteractionEnabled = true
+
         stackView.axis = .vertical
         stackView.alignment = .top
         stackView.distribution = .fill
-        stackView.spacing = 0
+        stackView.spacing = 10
         stackView.isUserInteractionEnabled = true
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
-            stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: inset),
-            stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: -inset),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: (inset)),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: (inset)),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset)
         ])
         addLabelToStackView()
-        addButtonToStackView()
+        addArrowImageToStackView()
     }
 
     private func addLabelToStackView() {
         stackView.addArrangedSubview(label)
-//        label.backgroundColor = DSColor.backgroundColor
         label.textColor = DSColor.darkGray
         label.clipsToBounds = true
         label.contentMode = .topLeft
@@ -57,32 +59,36 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
         label.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    private func addButtonToStackView() {
-        stackView.addArrangedSubview(seeMoreButton)
-        seeMoreButton.setTitle("See more", for: .normal)
-        seeMoreButton.isUserInteractionEnabled = true
-        seeMoreButton.titleLabel?.font = UIFont(name: "SF", size: 11)
-        seeMoreButton.setTitleColor(.systemBlue, for: .normal)
-        seeMoreButton.setTitleColor(.lightGray, for: .selected)
-        seeMoreButton.clipsToBounds = true
-        seeMoreButton.addTarget(self, action: #selector(getter: seeMoreButton), for: .touchUpInside)
+    private func addArrowImageToStackView() {
+        stackView.addArrangedSubview(contentContainer)
+        contentContainer.addSubview(arrowImage)
+        contentContainer.backgroundColor = .white
+        contentContainer.layer.cornerRadius = 10
+        arrowImage.image = UIImage(named: "ArrowUp")
+        arrowImage.contentMode = .scaleAspectFit
 
-        seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        contentContainer.translatesAutoresizingMaskIntoConstraints = false
+        arrowImage.translatesAutoresizingMaskIntoConstraints = false
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
-            seeMoreButton.centerYAnchor.constraint(equalTo: seeMoreButton.centerYAnchor),
-            seeMoreButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: (inset)),
-            seeMoreButton.heightAnchor.constraint(equalToConstant: 30)
+            contentContainer.heightAnchor.constraint(equalToConstant: CGFloat(30)),
+            contentContainer.widthAnchor.constraint(equalTo: stackView.widthAnchor),
+
+            arrowImage.centerXAnchor.constraint(equalTo: contentContainer.centerXAnchor),
+            arrowImage.centerYAnchor.constraint(equalTo: contentContainer.centerYAnchor),
+            arrowImage.heightAnchor.constraint(equalToConstant: CGFloat(15))
         ])
     }
 
-    @objc func seeMoreButtonPressed(_ sender: UIButton) {
-        print("button pressed")
-    }
-
-
-    func configure(with item: GameDetail) {
-        label.text = formattingString(item.description)
+    func configure(with item: GameDetailDescriptionModel) {
+        if item.isDescriptionExpanded {
+            label.numberOfLines = 0
+            arrowImage.image = UIImage(named: "ArrowUp")
+        } else {
+            label.numberOfLines = 10
+            arrowImage.image = UIImage(named: "ArrowDown")
+        }
+        label.text = formattingString(item.gameDetail.description)
     }
 
     func formattingString(_ text: String) -> String {

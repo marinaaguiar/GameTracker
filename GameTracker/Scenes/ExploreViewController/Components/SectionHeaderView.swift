@@ -23,7 +23,7 @@ extension SectionHeaderView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         label.textColor = DSColor.darkGray
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 24)
 
         let inset = CGFloat(12)
 
