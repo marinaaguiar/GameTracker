@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCB-e8-IgH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2326.1538461538462" y="809.71563981042652"/>
+            <point key="canvasLocation" x="1305" y="856"/>
         </scene>
         <!--Categories-->
         <scene sceneID="me8-GF-DRA">
@@ -98,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HVH-q7-W7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3226" y="810"/>
+            <point key="canvasLocation" x="2203" y="856"/>
         </scene>
         <!--Filtered List View Controller-->
         <scene sceneID="q6N-CW-svg">
@@ -107,25 +107,13 @@
                     <view key="view" contentMode="scaleToFill" id="ayK-LP-GUb">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="U3W-c0-CbY">
-                                <rect key="frame" x="0.0" y="47" width="390" height="763"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Y7W-cs-gux"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="U3W-c0-CbY" firstAttribute="leading" secondItem="Y7W-cs-gux" secondAttribute="leading" id="2g4-u4-U1Q"/>
-                            <constraint firstItem="U3W-c0-CbY" firstAttribute="top" secondItem="Y7W-cs-gux" secondAttribute="top" id="801-D0-88V"/>
-                            <constraint firstItem="Y7W-cs-gux" firstAttribute="bottom" secondItem="U3W-c0-CbY" secondAttribute="bottom" id="Z9m-KZ-tGs"/>
-                            <constraint firstItem="Y7W-cs-gux" firstAttribute="trailing" secondItem="U3W-c0-CbY" secondAttribute="trailing" id="n05-bl-PyT"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AA3-aV-1rJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3225" y="1478"/>
+            <point key="canvasLocation" x="2203" y="1524"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ipo-r9-dHr">
@@ -173,7 +161,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CFX-Pf-DeC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1480" y="810"/>
+            <point key="canvasLocation" x="458" y="856"/>
         </scene>
     </scenes>
     <resources>

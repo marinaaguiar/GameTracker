@@ -9,6 +9,19 @@ import UIKit
 
 class DetailViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
+    static let reuseIdentifier = "DetailViewController"
+    private var dataSource: DataSource?
+    private let apiService = APIService()
+    private var collectionView: UICollectionView!
+    private var gameImages: [GameImageResponse] = []
+    private var gameVideos: [GameVideoResponse] = []
+
+    var gameDetail: GameDetail! {
+        didSet {
+            gameDetailDescriptionModel = .init(gameDetail: gameDetail)
+        }
+    }
+    var gameDetailDescriptionModel: GameDetailDescriptionModel!
 
     enum SectionType: Int, CaseIterable {
         case gameImages = 0
@@ -36,10 +49,9 @@ class DetailViewController: UIViewController {
         case minAge(GameDetail)
 
         static func allCases(with game: GameDetail) -> [GameInfoType] {
-            [
-                .numberOfPlayers(game),
-                .gameDuration(game),
-                .minAge(game)
+            [.numberOfPlayers(game),
+             .gameDuration(game),
+             .minAge(game)
             ]
         }
     }
@@ -65,20 +77,6 @@ class DetailViewController: UIViewController {
         }
     }
 
-    static let reuseIdentifier = "DetailViewController"
-    private var dataSource: DataSource?
-    private let apiService = APIService()
-    private var collectionView: UICollectionView!
-    private var gameImages: [GameImageResponse] = []
-    private var gameVideos: [GameVideoResponse] = []
-
-    var gameDetail: GameDetail! {
-        didSet {
-            gameDetailDescriptionModel = .init(gameDetail: gameDetail)
-        }
-    }
-    var gameDetailDescriptionModel: GameDetailDescriptionModel!
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -88,12 +86,12 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        setupTitle()
         setupCollectionView()
         fetchImages()
     }
 
-    func setup() {
+    func setupTitle() {
         title = "\(gameDetail.name) (\(gameDetail.yearPublished))"
     }
 
@@ -153,7 +151,7 @@ class DetailViewController: UIViewController {
 
             switch section {
             case .gameImages:
-                return SectionLayoutBuilder.bigSizeTableSection()
+                return SectionLayoutBuilder.imagesLayoutSection()
             case .gameInfos:
                 return SectionLayoutBuilder.infoLayoutSection()
             case .description:

@@ -26,6 +26,7 @@
 		9C4AF8F728EC3579008BA27F /* NumberOfPlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF8F628EC3579008BA27F /* NumberOfPlayers.swift */; };
 		9C4AF8F928EC384D008BA27F /* LevelOfComplexity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF8F828EC384D008BA27F /* LevelOfComplexity.swift */; };
 		9C4AF8FE28EC5F63008BA27F /* GameDetailDescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF8FD28EC5F63008BA27F /* GameDetailDescriptionModel.swift */; };
+		9C4AF90128EC990A008BA27F /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF90028EC990A008BA27F /* GameCell.swift */; };
 		9C8CC82728D4C8640076736C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9C8CC82628D4C8640076736C /* Kingfisher */; };
 		9C9ADCCE28EB2A65004471B8 /* FilteredListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9ADCCD28EB2A65004471B8 /* FilteredListViewController.swift */; };
 		9C9ADCD228EB445C004471B8 /* Playtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9ADCD128EB445C004471B8 /* Playtime.swift */; };
@@ -63,6 +64,7 @@
 		9C4AF8F628EC3579008BA27F /* NumberOfPlayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfPlayers.swift; sourceTree = "<group>"; };
 		9C4AF8F828EC384D008BA27F /* LevelOfComplexity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelOfComplexity.swift; sourceTree = "<group>"; };
 		9C4AF8FD28EC5F63008BA27F /* GameDetailDescriptionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailDescriptionModel.swift; sourceTree = "<group>"; };
+		9C4AF90028EC990A008BA27F /* GameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		9C9ADCCD28EB2A65004471B8 /* FilteredListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredListViewController.swift; sourceTree = "<group>"; };
 		9C9ADCD128EB445C004471B8 /* Playtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playtime.swift; sourceTree = "<group>"; };
 		9CA2980728E4B8A900D74318 /* GameDetailInfosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailInfosCell.swift; sourceTree = "<group>"; };
@@ -141,10 +143,19 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		9C4AF8FF28EC98ED008BA27F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9C4AF90028EC990A008BA27F /* GameCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		9C9ADCCC28EB2A28004471B8 /* FilteredList */ = {
 			isa = PBXGroup;
 			children = (
 				9C9ADCCD28EB2A65004471B8 /* FilteredListViewController.swift */,
+				9C4AF8FF28EC98ED008BA27F /* Components */,
 			);
 			path = FilteredList;
 			sourceTree = "<group>";
@@ -414,6 +425,7 @@
 				9C4AD53328DB7ABF003A7D4E /* Colors.swift in Sources */,
 				9CBCEB2D28D360AD001EE791 /* CategoriesViewController.swift in Sources */,
 				9C40A69828E337B800C92B6C /* SectionLayoutBuilder.swift in Sources */,
+				9C4AF90128EC990A008BA27F /* GameCell.swift in Sources */,
 				9C4AF8F728EC3579008BA27F /* NumberOfPlayers.swift in Sources */,
 				9CBCEB2928D3571D001EE791 /* ExploreViewController.swift in Sources */,
 				9C40A69628E309A800C92B6C /* GameDetail.swift in Sources */,

@@ -97,6 +97,49 @@ class SectionLayoutBuilder {
         return section
     }
 
+    static func gameCellLayoutSection() -> NSCollectionLayoutSection {
+        let item = CompositionalLayout.createItem(
+            width: .fractionalWidth(1),
+            height: .absolute(85),
+            spacing: 10)
+        let group = CompositionalLayout.createGroup(
+            aligment: .vertical,
+            width: item.layoutSize.widthDimension,
+            height: item.layoutSize.heightDimension,
+            items: [.init(layoutSize: item.layoutSize)]
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 0, leading: 12, bottom: 12, trailing: 12)
+        section.interGroupSpacing = 6
+
+        let sectionHeader = createSectionHeader()
+        section.boundarySupplementaryItems = [sectionHeader]
+
+        return section
+    }
+
+    static func imagesLayoutSection() -> NSCollectionLayoutSection {
+        let item = CompositionalLayout.createItem(
+            width: .fractionalWidth(1),
+            height: .fractionalHeight(1),
+            spacing: 5)
+        let horizontalGroup = CompositionalLayout.createGroup(
+            aligment: .horizontal,
+            width: .fractionalWidth(2.8/3),
+            height: .fractionalHeight(1/3),
+            item: item,
+            count: 1)
+        let section = NSCollectionLayoutSection(group: horizontalGroup)
+        section.orthogonalScrollingBehavior = .groupPaging
+        section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
+
+        let sectionHeader = createSectionHeader()
+        section.boundarySupplementaryItems = [sectionHeader]
+
+        return section
+    }
+
     static func videosLayoutSection() -> NSCollectionLayoutSection {
         let item = CompositionalLayout.createItem(
             width: .fractionalWidth(1),
