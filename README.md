@@ -1,6 +1,6 @@
 # GameTracker
 
-The Game Tracker app allows users to search for board games, through different categories. Also it shows a detail view for each game that the user selects featuring informations as mininum and maximum number of players, playtime, a description, some images and videos about the game.
+The Game Tracker app allows users to search for board games, through different categories. Also, it shows a detail view for each game that the user selects featuring information as a minimum and maximum number of players, the playtime, a description, game images uploaded by other players, and videos about the game.
 
 ### Features
 
