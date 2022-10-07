@@ -146,7 +146,7 @@ extension FilteredListViewController {
 extension FilteredListViewController {
 
     func fetchFilteredList() {
-        apiService.loadGameListFiltered(limitItems: 5, filterBy: .maxPlaytime, maxNumber: maxPlaytime, orderedBy: .average_user_rating) { result in
+        apiService.loadGameListFiltered(limitItems: 15, filterBy: .maxPlaytime, maxNumber: maxPlaytime, orderedBy: .average_user_rating) { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {

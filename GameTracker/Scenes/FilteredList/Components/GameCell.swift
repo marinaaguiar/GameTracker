@@ -15,21 +15,18 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
     private var downloadTask: DownloadTask?
 
     private let mainStackView = UIStackView()
-    private let horizontalStackView = UIStackView()
-    private let innerVerticalStackView = UIStackView()
-    private let innerHorizontalStackView = UIStackView()
+    private let infoHorizontalStackView = UIStackView()
+    private let infoVerticalStackView = UIStackView()
+    private let chipsView = UIView()
+    private let chipsHorizontalStackView = UIStackView()
     private let gameImageView = UIImageView()
     private let titleLabel = UILabel()
     private let priceLabel = UILabel()
     private let containerViewA = UIView()
     private let containerViewB = UIView()
-    private let infoCellsView = UIView()
-    private let numberOfPlayersStackView = UIStackView()
-    private let numberOfPlayersLabel = UILabel()
-    private let numberOfPlayersImage = UIImageView()
-    private let playtimeStackView = UIStackView()
-    private let playtimeLabel = UILabel()
-    private let playtimeImage = UIImageView()
+    private let priceView = UIView()
+    private let numberOfPlayersView = ChipView()
+    private let playtimeView = ChipView()
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
 
     private var photoURL: URL? {
@@ -85,12 +82,10 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         containerViewA.layer.cornerRadius = 5
         containerViewA.clipsToBounds = true
         containerViewA.backgroundColor = .white
-        //        containerViewA.backgroundColor = .yellow
 
         gameImageView.translatesAutoresizingMaskIntoConstraints = false
         gameImageView.clipsToBounds = true
         gameImageView.contentMode = .scaleAspectFit
-//        gameImageView.layer.cornerRadius = 10
 
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
@@ -107,138 +102,99 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
 
     private func setupContentViewB() {
         containerViewB.translatesAutoresizingMaskIntoConstraints = false
-//        containerViewB.backgroundColor = .red
-        containerViewB.addSubview(horizontalStackView)
+        containerViewB.addSubview(infoHorizontalStackView)
 
-        horizontalStackView.axis = .horizontal
-        horizontalStackView.spacing = 5
-        horizontalStackView.alignment = .lastBaseline
-        horizontalStackView.distribution = .fill
-        horizontalStackView.backgroundColor = .systemPink
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        infoHorizontalStackView.axis = .horizontal
+        infoHorizontalStackView.spacing = 5
+        infoHorizontalStackView.distribution = .fill
+        infoHorizontalStackView.backgroundColor = .white
+        infoHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        horizontalStackView.addArrangedSubview(innerVerticalStackView)
-        innerVerticalStackView.axis = .vertical
-        innerVerticalStackView.distribution = .fillEqually
-        innerVerticalStackView.backgroundColor = .yellow
-        innerVerticalStackView.alignment = .fill
-        innerVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
+        infoHorizontalStackView.addArrangedSubview(infoVerticalStackView)
+        infoVerticalStackView.axis = .vertical
+        infoVerticalStackView.distribution = .fill
+        infoVerticalStackView.backgroundColor = .white
+        infoVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        innerVerticalStackView.addArrangedSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.clipsToBounds = true
-        titleLabel.font = .systemFont(ofSize: 13)
-        titleLabel.textColor = DSColor.black
-        titleLabel.numberOfLines = 2
-
-        innerVerticalStackView.addArrangedSubview(infoCellsView)
-        infoCellsView.translatesAutoresizingMaskIntoConstraints = false
-        infoCellsView.backgroundColor = .blue
-        setupInfoCellsView()
-
-        horizontalStackView.addArrangedSubview(priceLabel)
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoHorizontalStackView.addArrangedSubview(priceView)
         priceLabel.clipsToBounds = true
         priceLabel.font = .boldSystemFont(ofSize: 16)
         priceLabel.textColor = DSColor.black
         priceLabel.numberOfLines = 1
         priceLabel.textAlignment = .right
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        priceView.addSubview(priceLabel)
+        priceView.translatesAutoresizingMaskIntoConstraints = false
+
+        infoVerticalStackView.addArrangedSubview(titleLabel)
+        titleLabel.clipsToBounds = true
+        titleLabel.font = .systemFont(ofSize: 13)
+        titleLabel.textColor = DSColor.black
+        titleLabel.numberOfLines = 2
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        infoVerticalStackView.addArrangedSubview(chipsView)
+        chipsView.translatesAutoresizingMaskIntoConstraints = false
+
+        chipsView.addSubview(chipsHorizontalStackView)
+//        chipsView.backgroundColor = .yellow
+        chipsHorizontalStackView.axis = .horizontal
+        chipsHorizontalStackView.distribution = .fill
+        chipsHorizontalStackView.spacing = 5
+        chipsHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+
+        chipsHorizontalStackView.addArrangedSubview(numberOfPlayersView)
+        numberOfPlayersView.translatesAutoresizingMaskIntoConstraints = false
+
+        chipsHorizontalStackView.addArrangedSubview(playtimeView)
+        playtimeView.translatesAutoresizingMaskIntoConstraints = false
 
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
-            containerViewB.leadingAnchor.constraint(equalTo: containerViewA.trailingAnchor),
-            containerViewB.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
             containerViewB.heightAnchor.constraint(equalTo: mainStackView.heightAnchor),
 
-            horizontalStackView.leadingAnchor.constraint(equalTo: containerViewB.leadingAnchor, constant: inset),
-            horizontalStackView.trailingAnchor.constraint(equalTo: containerViewB.trailingAnchor, constant: -inset),
-            horizontalStackView.topAnchor.constraint(equalTo: containerViewB.topAnchor, constant: inset),
-            horizontalStackView.bottomAnchor.constraint(equalTo: containerViewB.bottomAnchor, constant: -inset),
+            infoHorizontalStackView.leadingAnchor.constraint(equalTo: containerViewB.leadingAnchor, constant: inset),
+            infoHorizontalStackView.trailingAnchor.constraint(equalTo: containerViewB.trailingAnchor, constant: -inset),
+            infoHorizontalStackView.topAnchor.constraint(equalTo: containerViewB.topAnchor, constant: inset),
+            infoHorizontalStackView.bottomAnchor.constraint(equalTo: containerViewB.bottomAnchor, constant: -inset),
 
-            innerVerticalStackView.leadingAnchor.constraint(equalTo: horizontalStackView.leadingAnchor),
-            innerVerticalStackView.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor),
-            innerVerticalStackView.topAnchor.constraint(equalTo: horizontalStackView.topAnchor),
-            innerVerticalStackView.bottomAnchor.constraint(equalTo: horizontalStackView.bottomAnchor),
+            infoVerticalStackView.leadingAnchor.constraint(equalTo: infoHorizontalStackView.leadingAnchor),
+            infoVerticalStackView.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor),
+            infoVerticalStackView.topAnchor.constraint(equalTo: infoHorizontalStackView.topAnchor),
+            infoVerticalStackView.bottomAnchor.constraint(equalTo: infoHorizontalStackView.bottomAnchor),
 
-            infoCellsView.leadingAnchor.constraint(equalTo: innerVerticalStackView.leadingAnchor),
-            infoCellsView.trailingAnchor.constraint(equalTo: innerVerticalStackView.trailingAnchor),
-            infoCellsView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            infoCellsView.bottomAnchor.constraint(equalTo: innerVerticalStackView.bottomAnchor),
+            chipsView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(45)),
+            chipsView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(25)),
+
+            chipsHorizontalStackView.bottomAnchor.constraint(equalTo: chipsView.bottomAnchor),
+            chipsHorizontalStackView.leadingAnchor.constraint(equalTo: chipsView.leadingAnchor),
+            chipsHorizontalStackView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
+            chipsHorizontalStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(45)),
 
             priceLabel.widthAnchor.constraint(equalToConstant: CGFloat(90)),
             priceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(18)),
-            priceLabel.bottomAnchor.constraint(equalTo: horizontalStackView.bottomAnchor),
+            priceLabel.trailingAnchor.constraint(equalTo: priceView.trailingAnchor),
+            priceLabel.bottomAnchor.constraint(equalTo: priceView.bottomAnchor)
           ])
-
-    }
-
-    private func setupInfoCellsView() {
-        infoCellsView.addSubview(innerHorizontalStackView)
-        infoCellsView.translatesAutoresizingMaskIntoConstraints = false
-
-        innerHorizontalStackView.axis = .horizontal
-        innerHorizontalStackView.alignment = .fill
-        innerHorizontalStackView.distribution = .equalCentering
-        innerHorizontalStackView.spacing = 5
-        innerHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        innerHorizontalStackView.addArrangedSubview(numberOfPlayersStackView)
-        numberOfPlayersStackView.backgroundColor = .green
-        numberOfPlayersStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupInfoStackView(stackView: numberOfPlayersStackView, label: numberOfPlayersLabel, imageView: numberOfPlayersImage)
-
-        innerHorizontalStackView.addArrangedSubview(playtimeStackView)
-        playtimeStackView.backgroundColor = .cyan
-        playtimeStackView.translatesAutoresizingMaskIntoConstraints = false
-        setupInfoStackView(stackView: playtimeStackView, label: playtimeLabel, imageView: playtimeImage)
-
-        let inset = CGFloat(12)
-        NSLayoutConstraint.activate([
-
-            innerHorizontalStackView.leadingAnchor.constraint(equalTo: infoCellsView.leadingAnchor),
-            innerHorizontalStackView.trailingAnchor.constraint(equalTo: infoCellsView.trailingAnchor),
-            innerHorizontalStackView.heightAnchor.constraint(equalToConstant: CGFloat(20)),
-
-            numberOfPlayersStackView.leadingAnchor.constraint(equalTo: innerHorizontalStackView.leadingAnchor),
-            numberOfPlayersStackView.bottomAnchor.constraint(equalTo: innerHorizontalStackView.bottomAnchor),
-
-            playtimeStackView.trailingAnchor.constraint(equalTo: innerHorizontalStackView.trailingAnchor),
-            playtimeStackView.bottomAnchor.constraint(equalTo: innerHorizontalStackView.bottomAnchor)
-        ])
-    }
-
-    private func setupInfoStackView(stackView: UIStackView, label: UILabel, imageView: UIImageView) {
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.layer.cornerRadius = 10
-        stackView.alignment = .center
-
-        stackView.addArrangedSubview(imageView)
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        stackView.addArrangedSubview(label)
-        label.clipsToBounds = true
-        label.font = .systemFont(ofSize: 11)
-        label.textColor = DSColor.darkGray
-        label.numberOfLines = 1
-        label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        let inset = CGFloat(3)
-        NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: CGFloat(35)),
-            label.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(40))
-        ])
     }
 
     private func updateActivityIndicatorStatus(isLoading: Bool) {
         setupActivityIndicator()
         if isLoading {
+            titleLabel.isHidden = true
+            priceLabel.isHidden = true
+            playtimeView.isHidden = true
+            numberOfPlayersView.isHidden = true
+
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
         } else {
+            titleLabel.isHidden = false
+            priceLabel.isHidden = false
+            playtimeView.isHidden = false
+            numberOfPlayersView.isHidden = false
+
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
         }
@@ -261,10 +217,10 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
             updateActivityIndicatorStatus(isLoading: false)
         }
         titleLabel.text = item.name
-        numberOfPlayersLabel.text = item.players
-        numberOfPlayersImage.image = UIImage(named: "PlayersIcon")
-        playtimeLabel.text = "\(item.playtime ?? "") min"
-        playtimeImage.image = UIImage(named: "TimerIcon")
+        numberOfPlayersView.updateText(item.players)
+        numberOfPlayersView.updateImage(UIImage(named: "PlayersIcon"))
+        playtimeView.updateText("\(item.playtime ?? "") min")
+        playtimeView.updateImage(UIImage(named: "TimerIcon"))
 
         if item.price == "0.00" {
             priceLabel.text = "(not available)"

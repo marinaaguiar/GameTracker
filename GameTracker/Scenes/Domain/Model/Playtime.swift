@@ -14,7 +14,7 @@ enum Playtime: Int, CaseIterable {
     case sixtyMin
     case ninetyMin
     case oneHundredTwentyMin
-    case oneHundredTwentyPlusMin
+    case oneHundredEightyMin
 
     /// This number is used when calling the API
     /// as a reference for the given desired playtime
@@ -37,8 +37,8 @@ enum Playtime: Int, CaseIterable {
             return 90
         case .oneHundredTwentyMin:
             return 120
-        case .oneHundredTwentyPlusMin:
-            return 121
+        case .oneHundredEightyMin:
+            return 180
         }
     }
 
@@ -56,8 +56,8 @@ enum Playtime: Int, CaseIterable {
             return "90 min"
         case .oneHundredTwentyMin:
             return "120 min"
-        case .oneHundredTwentyPlusMin:
-            return "120 min+"
+        case .oneHundredEightyMin:
+            return "180 min"
         }
     }
 }
