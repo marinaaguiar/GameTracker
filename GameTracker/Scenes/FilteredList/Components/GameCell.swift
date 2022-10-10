@@ -218,9 +218,9 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         }
         titleLabel.text = item.name
         numberOfPlayersView.updateText(item.players)
-        numberOfPlayersView.updateImage(UIImage(named: "PlayersIcon"))
+        numberOfPlayersView.updateImage(DSImages.playersIcon)
         playtimeView.updateText("\(item.playtime ?? "") min")
-        playtimeView.updateImage(UIImage(named: "TimerIcon"))
+        playtimeView.updateImage(DSImages.playtimeIcon)
 
         if item.price == "0.00" {
             priceLabel.text = "(not available)"

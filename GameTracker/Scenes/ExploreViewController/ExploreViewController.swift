@@ -17,7 +17,7 @@ class ExploreViewController: UIViewController {
             case .popularGames:
                 return "Popular Games"
             case .playingTime:
-                return "Max Playtime"
+                return "Playtime"
             case .topRated:
                 return "Top Rated"
             case .numberOfPlayers:

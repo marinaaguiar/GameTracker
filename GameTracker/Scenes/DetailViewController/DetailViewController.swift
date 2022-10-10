@@ -43,23 +43,9 @@ class DetailViewController: UIViewController {
         }
     }
 
-    enum GameInfoType: Equatable, Hashable {
-        case numberOfPlayers(GameDetail)
-        case gameDuration(GameDetail)
-        case minAge(GameDetail)
-
-        static func allCases(with game: GameDetail) -> [GameInfoType] {
-            [.numberOfPlayers(game),
-             .gameDuration(game),
-             .minAge(game)
-            ]
-        }
-    }
-
     enum ItemType: Hashable {
         case gameImages(GameImageResponse)
-        case gameInfo(GameDetail)
-//        case gameInfo(GameInfoType)
+        case gameInfo(GameInfoType)
         case gameDescription(GameDetailDescriptionModel)
         case gameVideos(GameVideoResponse)
 
@@ -67,8 +53,8 @@ class DetailViewController: UIViewController {
             switch self {
             case let .gameImages(gameImageResponse):
                 return GameDetailImagesCell.dequeue(in: collectionView, indexPath: indexPath, model: gameImageResponse)
-            case let .gameInfo(gameDetail):
-                return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
+            case let .gameInfo(gameInfoDetail):
+                return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameInfoDetail)
             case let .gameDescription(gameDetail):
                 return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
             case let .gameVideos(gameVideos):
@@ -213,13 +199,18 @@ extension DetailViewController {
                 }
                 snapshot.appendItems(gameImages, toSection: section)
             case .gameInfos:
-//                let gameInfoDetail = GameInfoType.allCases(with: gameDetail).map { gameInfos in
-//                    ItemType.gameInfo(gameInfos)
+
+
+                let gameInfoDetail = GameInfoType.allCases(with: gameDetail).map({ gameInfoDetail in
+                    ItemType.gameInfo(gameInfoDetail)
+                })
+
+//                let gameInfoDetail = gameDetail.map { gameDetailResponse in
+//                    ItemType.gameInfo(gameDetailResponse)
 //                }
-                let gameInfoDetail = gameDetail.map { gameDetailResponse in
-                    ItemType.gameInfo(gameDetailResponse)
-                }
-                snapshot.appendItems([gameInfoDetail].compactMap { $0 }, toSection: section)
+                snapshot.appendItems(gameInfoDetail.compactMap { $0 }, toSection: section)
+
+
             case .description:
                 let gameDetail = gameDetailDescriptionModel.map { gameDetailResponse in
                     ItemType.gameDescription(gameDetailResponse)
