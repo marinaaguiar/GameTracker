@@ -69,6 +69,7 @@ class ExploreViewController: UIViewController {
     }
 
     func setupCollectionView() {
+//        collectionView.backgroundColor = DSColor.backgroundColor
         collectionView.delegate = self
         collectionView.collectionViewLayout = createLayout()
         collectionView.allowsMultipleSelection = true

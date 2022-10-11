@@ -20,7 +20,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LzQ-aO-jRE">
                                 <rect key="frame" x="0.0" y="143" width="390" height="618"/>
-                                <color key="backgroundColor" name="BackgroundColor"/>
+                                <color key="backgroundColor" name="PrimaryBGColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1U1-Fh-dC2">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -31,7 +31,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zlZ-O4-zNI"/>
-                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <color key="backgroundColor" name="PrimaryBGColor"/>
                         <constraints>
                             <constraint firstItem="zlZ-O4-zNI" firstAttribute="bottom" secondItem="LzQ-aO-jRE" secondAttribute="bottom" id="DPH-DP-siG"/>
                             <constraint firstItem="LzQ-aO-jRE" firstAttribute="top" secondItem="zlZ-O4-zNI" secondAttribute="top" id="U1G-t1-eDo"/>
@@ -124,7 +124,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" name="Light+Gray"/>
-                        <color key="tintColor" name="LightGray"/>
+                        <color key="tintColor" name="LightMediumGray"/>
                     </tabBar>
                     <connections>
                         <segue destination="4yb-Xt-RXy" kind="relationship" relationship="viewControllers" id="4iq-GA-KnI"/>
@@ -141,7 +141,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4yb-Xt-RXy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Explore" image="magnifyingglass" catalog="system" id="220-1y-r8h">
-                        <color key="badgeColor" name="LightGray"/>
+                        <color key="badgeColor" name="LightMediumGray"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" contentMode="scaleToFill" largeTitles="YES" id="95y-KN-I9h">
@@ -179,6 +179,12 @@
         </namedColor>
         <namedColor name="LightGray">
             <color red="0.63099998235702515" green="0.63099998235702515" blue="0.63099998235702515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightMediumGray">
+            <color red="0.63099998235702515" green="0.63099998235702515" blue="0.63099998235702515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="PrimaryBGColor">
+            <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

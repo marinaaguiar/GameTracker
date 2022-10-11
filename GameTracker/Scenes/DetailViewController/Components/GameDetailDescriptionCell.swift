@@ -62,7 +62,7 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
     private func addArrowImageToStackView() {
         stackView.addArrangedSubview(contentContainer)
         contentContainer.addSubview(arrowImage)
-        contentContainer.backgroundColor = .white
+        contentContainer.backgroundColor = DSColor.secondaryBGColor
         contentContainer.layer.cornerRadius = 10
         arrowImage.image = UIImage(named: "ArrowUp")
         arrowImage.contentMode = .scaleAspectFit

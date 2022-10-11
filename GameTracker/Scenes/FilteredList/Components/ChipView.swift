@@ -14,21 +14,56 @@ class ChipView: UIView {
     let label = UILabel()
     let imageView = UIImageView()
 
-    override init(frame: CGRect){
-        super.init(frame: frame)
-        setupLayout()
+    var size: Size
+
+    enum Size {
+        case small, medium
     }
 
-    private func setupLayout() {
+    init(frame: CGRect, size: Size) {
+        self.size = size
+        super.init(frame: frame)
+        setupLayout(size: size)
+    }
+
+    private func setupLayout(size: Size) {
         self.addSubview(view)
-        view.backgroundColor = DSColor.lightGray
-        view.layer.cornerRadius = 12
+
+        let imageHeight: CGFloat
+        let fontSize: CGFloat
+        let imageMinWidth: CGFloat
+        let imageMaxWidth: CGFloat
+        let cornerRadius: CGFloat
+        let backgroundColor: UIColor
+        let spacing: CGFloat
+
+        switch size {
+        case .small:
+            imageHeight = 14
+            imageMinWidth = 8
+            imageMaxWidth = 16
+            fontSize = 11
+            cornerRadius = 12
+            backgroundColor = DSColor.light!
+            spacing = 5
+        case .medium:
+            imageHeight = 16
+            imageMinWidth = 14
+            imageMaxWidth = 18
+            fontSize = 15
+            cornerRadius = 16
+            backgroundColor = .white
+            spacing = 8
+        }
+
+        view.backgroundColor = backgroundColor
+        view.layer.cornerRadius = cornerRadius
         view.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(stackView)
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.spacing = 5
+        stackView.spacing = spacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.addArrangedSubview(imageView)
@@ -39,8 +74,8 @@ class ChipView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         label.clipsToBounds = true
-        label.font = .systemFont(ofSize: 11)
-        label.textColor = DSColor.darkGray
+        label.font = .systemFont(ofSize: fontSize)
+        label.textColor = .darkGray
         label.numberOfLines = 1
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,14 +88,12 @@ class ChipView: UIView {
 
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CGFloat(10)),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: CGFloat(-10)),
-            stackView.topAnchor.constraint(equalTo: view.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
-            imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(8)),
-            imageView.widthAnchor.constraint(lessThanOrEqualToConstant: CGFloat(16)),
-            imageView.heightAnchor.constraint(equalToConstant: CGFloat(10)),
+            imageView.heightAnchor.constraint(equalToConstant: imageHeight),
+            imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: imageMinWidth),
+            imageView.widthAnchor.constraint(lessThanOrEqualToConstant: imageMaxWidth),
 
-            label.heightAnchor.constraint(equalToConstant: CGFloat(15)),
             label.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(20))
         ])
     }

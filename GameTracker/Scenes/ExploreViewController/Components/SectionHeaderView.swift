@@ -17,8 +17,6 @@ class SectionHeaderView: UICollectionReusableView {
 
 extension SectionHeaderView {
     func configure() {
-        backgroundColor = DSColor.backgroundColor
-
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true

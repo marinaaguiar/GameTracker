@@ -25,8 +25,8 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
     private let containerViewA = UIView()
     private let containerViewB = UIView()
     private let priceView = UIView()
-    private let numberOfPlayersView = ChipView()
-    private let playtimeView = ChipView()
+    private let numberOfPlayersView = ChipView(frame: .zero, size: .small)
+    private let playtimeView = ChipView(frame: .zero, size: .small)
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
 
     private var photoURL: URL? {
@@ -55,7 +55,7 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
     private func setupMainStackView() {
         contentView.addSubview(mainStackView)
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
-        mainStackView.backgroundColor = .white
+        mainStackView.backgroundColor = DSColor.secondaryBGColor
         mainStackView.layer.cornerRadius = 10
         mainStackView.spacing = 5
         mainStackView.alignment = .leading
@@ -79,9 +79,9 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
     private func setupContentViewA() {
         containerViewA.addSubview(gameImageView)
         containerViewA.translatesAutoresizingMaskIntoConstraints = false
-        containerViewA.layer.cornerRadius = 5
-        containerViewA.clipsToBounds = true
+        containerViewA.layer.cornerRadius = 10
         containerViewA.backgroundColor = .white
+        containerViewA.clipsToBounds = true
 
         gameImageView.translatesAutoresizingMaskIntoConstraints = false
         gameImageView.clipsToBounds = true
@@ -107,18 +107,16 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         infoHorizontalStackView.axis = .horizontal
         infoHorizontalStackView.spacing = 5
         infoHorizontalStackView.distribution = .fill
-        infoHorizontalStackView.backgroundColor = .white
         infoHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
 
         infoHorizontalStackView.addArrangedSubview(infoVerticalStackView)
         infoVerticalStackView.axis = .vertical
         infoVerticalStackView.distribution = .fill
-        infoVerticalStackView.backgroundColor = .white
         infoVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
 
         infoHorizontalStackView.addArrangedSubview(priceView)
         priceLabel.clipsToBounds = true
-        priceLabel.font = .boldSystemFont(ofSize: 16)
+        priceLabel.font = .systemFont(ofSize: 16)
         priceLabel.textColor = DSColor.black
         priceLabel.numberOfLines = 1
         priceLabel.textAlignment = .right
@@ -129,16 +127,15 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
 
         infoVerticalStackView.addArrangedSubview(titleLabel)
         titleLabel.clipsToBounds = true
-        titleLabel.font = .systemFont(ofSize: 13)
+        titleLabel.font = .boldSystemFont(ofSize: 13)
         titleLabel.textColor = DSColor.black
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         infoVerticalStackView.addArrangedSubview(chipsView)
         chipsView.translatesAutoresizingMaskIntoConstraints = false
 
         chipsView.addSubview(chipsHorizontalStackView)
-//        chipsView.backgroundColor = .yellow
         chipsHorizontalStackView.axis = .horizontal
         chipsHorizontalStackView.distribution = .fill
         chipsHorizontalStackView.spacing = 5

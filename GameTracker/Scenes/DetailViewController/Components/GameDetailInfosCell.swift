@@ -11,18 +11,7 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
     typealias CellModel = GameInfoType
     static let reuseIdentifier: String = "GameDetailInfosCell"
 
-    private let chipView = ChipView()
-
-
-//    private let bigStackView = UIStackView()
-//    private let rightStackView = UIStackView()
-//    private let leftStackView = UIStackView()
-//    private let playersLabel = UILabel()
-//    private let timeLabel = UILabel()
-//    private let playersImageView = UIImageView()
-//    private let timeImageView = UIImageView()
-//    private let contentRightContainer = UIView()
-//    private let contentLeftContainer = UIView()
+    private let chipView = ChipView(frame: .zero, size: .medium)
 
     @objc private let seeMoreButton = UIButton(type: .system)
 
@@ -37,7 +26,6 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
 
     private func configureBigStackView() {
         contentView.addSubview(chipView)
-        contentView.backgroundColor = .white
         chipView.translatesAutoresizingMaskIntoConstraints = false
 
         let inset = CGFloat(12)

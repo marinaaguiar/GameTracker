@@ -32,14 +32,14 @@ final class TypeFilterCell: UICollectionViewCell, StandardConfiguringCell {
 extension TypeFilterCell {
     func setup() {
         contentView.addSubview(contentContainer)
-        contentContainer.backgroundColor = .white
+        contentContainer.backgroundColor = DSColor.secondaryBGColor
         contentContainer.clipsToBounds = true
         contentContainer.translatesAutoresizingMaskIntoConstraints = false
         contentContainer.layer.cornerRadius = 20
 
         contentContainer.addSubview(label)
         label.adjustsFontForContentSizeCategory = true
-        label.textColor = .darkGray
+        label.textColor = DSColor.darkGray
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textAlignment = .center
         label.numberOfLines = 1
