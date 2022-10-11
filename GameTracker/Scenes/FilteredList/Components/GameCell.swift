@@ -112,6 +112,7 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         infoHorizontalStackView.addArrangedSubview(infoVerticalStackView)
         infoVerticalStackView.axis = .vertical
         infoVerticalStackView.distribution = .fill
+        infoVerticalStackView.spacing = 10
         infoVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
 
         infoHorizontalStackView.addArrangedSubview(priceView)
@@ -127,9 +128,9 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
 
         infoVerticalStackView.addArrangedSubview(titleLabel)
         titleLabel.clipsToBounds = true
-        titleLabel.font = .boldSystemFont(ofSize: 13)
+        titleLabel.font = .boldSystemFont(ofSize: 15)
         titleLabel.textColor = DSColor.black
-        titleLabel.numberOfLines = 1
+        titleLabel.numberOfLines = 2
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         infoVerticalStackView.addArrangedSubview(chipsView)
