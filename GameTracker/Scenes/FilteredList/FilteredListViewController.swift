@@ -14,7 +14,6 @@ class FilteredListViewController: UIViewController {
     private let apiService = APIService()
     private var collectionView: UICollectionView!
     private var games: [SectionType: [GameResponse]] = [:]
-    var maxPlaytime: Int!
 
     enum SectionType: Int, CaseIterable {
         case gameInfo
@@ -41,7 +40,6 @@ class FilteredListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        fetchFilteredList()
     }
 
     func setupCollectionView() {
@@ -145,8 +143,8 @@ extension FilteredListViewController {
 
 extension FilteredListViewController {
 
-    func fetchFilteredList() {
-        apiService.loadGameListFiltered(limitItems: 15, filterBy: .maxPlaytime, maxNumber: maxPlaytime, orderedBy: .average_user_rating) { result in
+    func fetchFilteredList(by filterParameter: FilterParameter, with value: Int) {
+        apiService.loadGameListFiltered(limitItems: 15, filterBy: filterParameter, maxNumber: value, orderedBy: .average_user_rating) { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {

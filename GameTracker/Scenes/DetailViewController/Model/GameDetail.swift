@@ -38,7 +38,7 @@ class GameDetail: Codable, Hashable {
             minAge: gameResponse.minAge!,
             description: gameResponse.description,
             descriptionPreview: gameResponse.descriptionPreview,
-            year: gameResponse.yearPublished!,
+            year: gameResponse.yearPublished ?? 0,
             players: gameResponse.players!,
             playtime: gameResponse.playtime!
         )

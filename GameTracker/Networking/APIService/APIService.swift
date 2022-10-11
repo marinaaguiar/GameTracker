@@ -126,12 +126,6 @@ class APIService {
         case average_user_rating
     }
 
-    enum FilterParameter: String {
-        case maxPlaytime = "max_playtime"
-        case minAge = "min_age"
-        case minPlayers = "min_players"
-    }
-
     func loadGameList(limitItems: Int, orderedBy: OrderedBy,completion: @escaping ((Result<BoardGamesAtlasResponse, Error>) -> Void)) {
         guard let url = EndPoint.list(limitItems: limitItems, orderedBy: orderedBy.rawValue) else {
             completion(.failure(APIError.failedToConstructURL))

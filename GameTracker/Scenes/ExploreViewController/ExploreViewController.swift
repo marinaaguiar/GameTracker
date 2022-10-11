@@ -183,10 +183,15 @@ class ExploreViewController: UIViewController {
            switch section {
            case .playingTime:
                if let maxPlayTime = Playtime(rawValue: indexPath.item) {
-                   filteredViewController.maxPlaytime = maxPlayTime.number
+                   filteredViewController.fetchFilteredList(by: .maxPlaytime, with: maxPlayTime.number)
                    self.navigationController?.pushViewController(filteredViewController, animated: true)
                }
            case .numberOfPlayers:
+               if let numberOfPlayers = NumberOfPlayers(rawValue: indexPath.item) {
+                   filteredViewController.fetchFilteredList(by: .minPlayers, with: numberOfPlayers.number)
+                   self.navigationController?.pushViewController(filteredViewController, animated: true)
+               }
+
                print("selected numberOfPlayers")
            case .topRated, .popularGames, .trendingGames:
                if let games = games[section] {

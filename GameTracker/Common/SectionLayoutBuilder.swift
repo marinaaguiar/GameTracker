@@ -17,7 +17,7 @@ class SectionLayoutBuilder {
             spacing: 5)
         let horizontalGroup = CompositionalLayout.createGroup(
             aligment: .horizontal,
-            width: .fractionalWidth(2.1/3),
+            width: .absolute(CGFloat(250)),
             height: .fractionalHeight(1/3),
             item: item,
             count: 1)
