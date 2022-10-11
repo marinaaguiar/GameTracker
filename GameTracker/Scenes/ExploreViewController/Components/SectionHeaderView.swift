@@ -18,10 +18,10 @@ class SectionHeaderView: UICollectionReusableView {
 extension SectionHeaderView {
     func configure() {
         addSubview(label)
+
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.adjustsFontForContentSizeCategory = true
         label.textColor = DSColor.darkGray
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.boldSystemFont(ofSize: 22)
 
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([

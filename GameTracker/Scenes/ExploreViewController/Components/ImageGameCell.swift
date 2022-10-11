@@ -14,6 +14,8 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
     private var downloadTask: DownloadTask?
 
     private let imageView = UIImageView()
+    private let titleLabel = UILabel()
+    private let priceLabel = UILabel()
     private let contentContainer = UIView()
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
 
@@ -39,6 +41,7 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
         contentContainer.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(contentContainer)
 
+        contentContainer.addSubview(imageView)
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
@@ -46,19 +49,37 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 5
         imageView.backgroundColor = .white
-        contentContainer.addSubview(imageView)
         updateActivityIndicatorStatus(isLoading: false)
+
+        contentContainer.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textColor = DSColor.darkGray
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        titleLabel.numberOfLines = 1
+
+        contentContainer.addSubview(priceLabel)
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        priceLabel.textColor = DSColor.lightMediumGray
+        priceLabel.font = UIFont.systemFont(ofSize: 13)
 
         NSLayoutConstraint.activate([
           contentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
           contentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
           contentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
-          contentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+          contentContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: CGFloat(-20)),
 
           imageView.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
           imageView.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
           imageView.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor),
-          imageView.topAnchor.constraint(equalTo: contentContainer.topAnchor)
+          imageView.topAnchor.constraint(equalTo: contentContainer.topAnchor),
+
+          titleLabel.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
+          titleLabel.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
+          titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CGFloat(6)),
+
+          priceLabel.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
+          priceLabel.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
+          priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
         ])
     }
 
@@ -88,6 +109,10 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
 
         imageView.kf.setImage(with: photoURL) { [self] result in
             updateActivityIndicatorStatus(isLoading: false)
+        }
+        titleLabel.text = item.name
+        if item.price != "0.00" {
+            priceLabel.text = "$\(item.price)"
         }
     }
 

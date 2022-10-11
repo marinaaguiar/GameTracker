@@ -17,13 +17,13 @@ class SectionLayoutBuilder {
             spacing: 5)
         let horizontalGroup = CompositionalLayout.createGroup(
             aligment: .horizontal,
-            width: .fractionalWidth(2.2/3),
+            width: .fractionalWidth(2.1/3),
             height: .fractionalHeight(1/3),
             item: item,
             count: 1)
         let section = NSCollectionLayoutSection(group: horizontalGroup)
         section.orthogonalScrollingBehavior = .groupPaging
-        section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
+        section.contentInsets = .init(top: 6, leading: 12, bottom: 12, trailing: 12)
 
         let sectionHeader = createSectionHeader()
         section.boundarySupplementaryItems = [sectionHeader]
@@ -44,7 +44,7 @@ class SectionLayoutBuilder {
             count: 1)
         let section = NSCollectionLayoutSection(group: horizontalGroup)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
+        section.contentInsets = .init(top: 6, leading: 12, bottom: 12, trailing: 12)
 
         let sectionHeader = createSectionHeader()
         section.boundarySupplementaryItems = [sectionHeader]
