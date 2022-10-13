@@ -42,7 +42,7 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
         contentView.addSubview(contentContainer)
 
         contentContainer.addSubview(imageView)
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = 15
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFit
 

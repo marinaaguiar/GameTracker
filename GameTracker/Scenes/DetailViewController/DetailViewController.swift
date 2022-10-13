@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class DetailViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
@@ -236,7 +237,8 @@ extension DetailViewController: UICollectionViewDelegate {
         
         guard let section = SectionType(rawValue: indexPath.section) else { return }
 
-        if section == .description {
+        switch section {
+        case .description:
             print("selected description")
             if gameDetailDescriptionModel.isDescriptionExpanded == false {
                 gameDetailDescriptionModel.isDescriptionExpanded = true
@@ -244,6 +246,21 @@ extension DetailViewController: UICollectionViewDelegate {
                 gameDetailDescriptionModel.isDescriptionExpanded = false
             }
             reloadData()
+        case .gameVideos:
+            if let url = URL(string: gameVideos[indexPath.item].url) {
+                if UIApplication.shared.canOpenURL(url) {
+                    let safariVC = SFSafariViewController(url: url)
+                    present(safariVC, animated: true, completion: nil)
+                } else {
+                    Alert.showBasics(title: "Invalid url", message: "", vc: self)
+                }
+            } else {
+                Alert.showBasics(title: "Failed to show video", message: "", vc: self)
+            }
+        case .gameImages:
+            break
+        case .gameInfos:
+            break
         }
     }
 }

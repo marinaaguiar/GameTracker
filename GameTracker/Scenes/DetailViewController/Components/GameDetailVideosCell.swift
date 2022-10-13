@@ -71,9 +71,9 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
         containerViewA.addSubview(playerImageView)
         playerImageView.translatesAutoresizingMaskIntoConstraints = false
         playerImageView.clipsToBounds = true
-        playerImageView.image = UIImage.init(systemName: "play.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        playerImageView.image = DSImages.playerIcon
         playerImageView.contentMode = .scaleAspectFit
-        playerImageView.alpha = 0.9
+        playerImageView.alpha = 0.6
         playerImageView.layer.masksToBounds = false
 
         containerViewB.addSubview(titleLabel)

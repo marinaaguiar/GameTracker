@@ -25,6 +25,7 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
     private let containerViewA = UIView()
     private let containerViewB = UIView()
     private let priceView = UIView()
+    private let titleView = UIView()
     private let numberOfPlayersView = ChipView(frame: .zero, size: .small)
     private let playtimeView = ChipView(frame: .zero, size: .small)
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -117,8 +118,8 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
 
         infoHorizontalStackView.addArrangedSubview(priceView)
         priceLabel.clipsToBounds = true
-        priceLabel.font = .systemFont(ofSize: 16)
-        priceLabel.textColor = DSColor.black
+        priceLabel.font = .boldSystemFont(ofSize: 13)
+        priceLabel.textColor = DSColor.darkGray
         priceLabel.numberOfLines = 1
         priceLabel.textAlignment = .right
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -126,11 +127,15 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         priceView.addSubview(priceLabel)
         priceView.translatesAutoresizingMaskIntoConstraints = false
 
-        infoVerticalStackView.addArrangedSubview(titleLabel)
+        infoVerticalStackView.addArrangedSubview(titleView)
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.clipsToBounds = true
+
+        titleView.addSubview(titleLabel)
         titleLabel.clipsToBounds = true
-        titleLabel.font = .boldSystemFont(ofSize: 15)
-        titleLabel.textColor = DSColor.black
-        titleLabel.numberOfLines = 2
+        titleLabel.font = .boldSystemFont(ofSize: 18)
+        titleLabel.textColor = DSColor.darkGray
+        titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         infoVerticalStackView.addArrangedSubview(chipsView)
@@ -162,10 +167,20 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
             infoVerticalStackView.topAnchor.constraint(equalTo: infoHorizontalStackView.topAnchor),
             infoVerticalStackView.bottomAnchor.constraint(equalTo: infoHorizontalStackView.bottomAnchor),
 
+            titleView.topAnchor.constraint(equalTo: infoVerticalStackView.topAnchor),
+            titleView.leadingAnchor.constraint(equalTo: infoVerticalStackView.leadingAnchor),
+            titleView.trailingAnchor.constraint(equalTo: infoVerticalStackView.trailingAnchor),
+            titleView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
+//            titleView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(20)),
+
+            titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
+
             chipsView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(45)),
             chipsView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(25)),
 
-            chipsHorizontalStackView.bottomAnchor.constraint(equalTo: chipsView.bottomAnchor),
+            chipsHorizontalStackView.topAnchor.constraint(equalTo: chipsView.topAnchor),
             chipsHorizontalStackView.leadingAnchor.constraint(equalTo: chipsView.leadingAnchor),
             chipsHorizontalStackView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
             chipsHorizontalStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(45)),
@@ -214,16 +229,18 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         gameImageView.kf.setImage(with: photoURL) { [self] result in
             updateActivityIndicatorStatus(isLoading: false)
         }
-        titleLabel.text = item.name
+
+        let title = (item.name).components(separatedBy: ":").first
+        titleLabel.text = title
         numberOfPlayersView.updateText(item.players)
         numberOfPlayersView.updateImage(DSImages.playersIcon)
         playtimeView.updateText("\(item.playtime ?? "") min")
         playtimeView.updateImage(DSImages.playtimeIcon)
 
         if item.price == "0.00" {
-            priceLabel.text = "(not available)"
+            priceLabel.text = "not available"
             priceLabel.font = .systemFont(ofSize: 12)
-            priceLabel.textColor = DSColor.darkGray
+            priceLabel.textColor = DSColor.lightMediumGray
 
         } else {
             priceLabel.text = "$\(item.price)"

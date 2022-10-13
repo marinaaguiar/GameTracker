@@ -35,7 +35,7 @@ class GameDetail: Codable, Hashable {
             id: gameResponse.id,
             name: gameResponse.name,
             price: gameResponse.price,
-            minAge: gameResponse.minAge!,
+             minAge: gameResponse.minAge!,
             description: gameResponse.description,
             descriptionPreview: gameResponse.descriptionPreview,
             year: gameResponse.yearPublished ?? 0,

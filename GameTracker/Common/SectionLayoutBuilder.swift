@@ -100,7 +100,7 @@ class SectionLayoutBuilder {
     static func gameCellLayoutSection() -> NSCollectionLayoutSection {
         let item = CompositionalLayout.createItem(
             width: .fractionalWidth(1),
-            height: .absolute(85),
+            height: .absolute(100),
             spacing: 10)
         let group = CompositionalLayout.createGroup(
             aligment: .vertical,

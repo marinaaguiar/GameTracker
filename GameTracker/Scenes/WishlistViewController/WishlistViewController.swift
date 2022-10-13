@@ -8,22 +8,29 @@
 import UIKit
 
 class WishlistViewController: UIViewController {
+//    private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
+//    static let reuseIdentifier = "WishlistViewController"
+//
+//    private var dataSource: DataSource?
+//    private let apiService = APIService()
+//    private var collectionView: UICollectionView!
+//
+//    enum SectionType: Int, CaseIterable {
+//        case gameInfo
+//
+//        var title: String {
+//            switch self {
+//            case .gameInfo:
+//                return "Wishlist"
+//            }
+//        }
+//    }
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

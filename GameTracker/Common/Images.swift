@@ -11,6 +11,7 @@ class DSImages {
     static let playersIcon = UIImage(named: "PlayersIcon")
     static let playtimeIcon = UIImage(named: "PlaytimeIcon")
     static let minAgeIcon = UIImage(named: "AgeIcon")
+    static let playerIcon = UIImage(named: "PlayerIcon")
 }
 
 
