@@ -20,6 +20,7 @@ private struct EndPoint {
         case categoriesId = "categories"
         case orderBy = "order_by"
         case ascending
+        case exact
     }
 
     enum MediaQueryItem: String {
@@ -30,7 +31,7 @@ private struct EndPoint {
         case ascending
     }
 
-    enum MediaTypePath: String {
+    enum TypePath: String {
         case search = "/api/search"
         case images = "/api/game/images"
         case videos = "/api/game/videos"
@@ -42,7 +43,7 @@ private struct EndPoint {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.boardgameatlas.com"
-        components.path = "/api/search"
+        components.path = TypePath.search.rawValue
 
         components.queryItems = [
             URLQueryItem(
@@ -61,7 +62,7 @@ private struct EndPoint {
         return components.url
     }
 
-    static func mediaContent(path: MediaTypePath, limitItems: Int, gameId: String) -> URL? {
+    static func mediaContent(path: TypePath, limitItems: Int, gameId: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.boardgameatlas.com"
@@ -91,7 +92,7 @@ private struct EndPoint {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "api.boardgameatlas.com"
-        components.path = "/api/search"
+        components.path = TypePath.search.rawValue
 
         components.queryItems = [
             URLQueryItem(
@@ -108,6 +109,32 @@ private struct EndPoint {
                 value: "\(orderedBy)"),
             URLQueryItem(
                 name: SearchQueryItem.json.rawValue,
+                value: "\(true)")
+        ]
+        return components.url
+    }
+
+    static func filteredList(limitItems: Int, filterBy name: String) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.boardgameatlas.com"
+        components.path = TypePath.search.rawValue
+
+        components.queryItems = [
+            URLQueryItem(
+                name: SearchQueryItem.clientId.rawValue,
+                value: APIDefinitions.APIKey),
+            URLQueryItem(
+                name: SearchQueryItem.limit.rawValue,
+                value: "\(limitItems)"),
+            URLQueryItem(
+                name: SearchQueryItem.name.rawValue,
+                value: "\(name)"),
+            URLQueryItem(
+                name: SearchQueryItem.json.rawValue,
+                value: "\(true)"),
+            URLQueryItem(
+                name: SearchQueryItem.exact.rawValue,
                 value: "\(true)")
         ]
         return components.url
@@ -161,7 +188,18 @@ class APIService {
         print(url)
         NetworkingService().fetchGenericData(url: url, completion: completion)
     }
+
+    func loadGameListFiltered(limitItems: Int, by name: String, completion: @escaping((Result<BoardGamesAtlasResponse, Error>) -> Void)) {
+
+        guard let url = EndPoint.filteredList(limitItems: limitItems, filterBy: name) else {
+            completion(.failure(APIError.failedToConstructURL))
+            return
+        }
+        print(url)
+        NetworkingService().fetchGenericData(url: url, completion: completion)
+    }
 }
 
+//https://api.boardgameatlas.com/api/search?pretty=true&client_id=gHoBds7We9&name=cata&exact=true
 
 // https://api.boardgameatlas.com/api/game/videos?pretty=true&limit=20&client_id=gHoBds7We9&max_playtime=15

@@ -12,8 +12,9 @@ class FilteredListViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
     private var dataSource: DataSource?
     private let apiService = APIService()
-    private var collectionView: UICollectionView!
     private var games: [SectionType: [GameResponse]] = [:]
+
+    private var collectionView: UICollectionView!
 
     enum SectionType: Int, CaseIterable {
         case gameInfo
