@@ -75,7 +75,7 @@ class SearchViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isUserInteractionEnabled = true
-//        collectionView.delegate = self
+        collectionView.delegate = self
         registerCells()
         view.addSubview(collectionView)
 
@@ -182,6 +182,27 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
 }
+
+//MARK: - UICollectionViewDelegate
+
+extension SearchViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let section = SectionType(rawValue: indexPath.section) else { return }
+
+        switch section {
+        case .gameInfo:
+            let detailViewController = storyboard?.instantiateViewController(withIdentifier: DetailViewController.reuseIdentifier) as! DetailViewController
+            if let games = games[section] {
+                detailViewController.gameDetail = GameDetail(gameResponse: games[indexPath.item])
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            } else {
+                print("Error. There is no game selected.")
+            }
+        }
+    }
+}
+
 
 // MARK: - APIRequests
 

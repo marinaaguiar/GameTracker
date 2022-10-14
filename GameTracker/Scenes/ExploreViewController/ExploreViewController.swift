@@ -103,7 +103,6 @@ class ExploreViewController: UIViewController {
         rightNavBarButton.tintColor = DSColor.darkGray
 
         navigationItem.rightBarButtonItems = [rightNavBarButton, leftNavBarButton]
-
     }
 
     @objc func rightNavBarButtonPressed() {

@@ -59,7 +59,7 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
 
         contentContainer.addSubview(priceLabel)
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.textColor = DSColor.lightMediumGray
+        priceLabel.textColor = DSColor.red
         priceLabel.font = UIFont.systemFont(ofSize: 13)
 
         NSLayoutConstraint.activate([
