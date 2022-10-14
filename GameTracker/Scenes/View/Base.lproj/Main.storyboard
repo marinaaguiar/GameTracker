@@ -84,6 +84,21 @@
             </objects>
             <point key="canvasLocation" x="2796.9230769230767" y="94.549763033175353"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="QiH-e3-WWr">
+            <objects>
+                <viewController id="iw7-ue-x3z" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vYI-or-6nh">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="o2U-ga-KFv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hLH-nY-u7K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3600" y="95"/>
+        </scene>
         <!--Detail View Controller-->
         <scene sceneID="LQT-4h-LdI">
             <objects>
@@ -99,6 +114,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HVH-q7-W7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2203" y="856"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="Alo-HO-Kcs">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" id="XqP-on-naf" customClass="SearchViewController" customModule="GameTracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="d4d-Hh-snA">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="1Qa-dc-g47"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nVd-2e-2MO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3362" y="856"/>
         </scene>
         <!--Filtered List View Controller-->
         <scene sceneID="q6N-CW-svg">

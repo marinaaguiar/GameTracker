@@ -119,7 +119,7 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         infoHorizontalStackView.addArrangedSubview(priceView)
         priceLabel.clipsToBounds = true
         priceLabel.font = .boldSystemFont(ofSize: 13)
-        priceLabel.textColor = DSColor.darkGray
+        priceLabel.textColor = DSColor.red
         priceLabel.numberOfLines = 1
         priceLabel.textAlignment = .right
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -171,7 +171,6 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
             titleView.leadingAnchor.constraint(equalTo: infoVerticalStackView.leadingAnchor),
             titleView.trailingAnchor.constraint(equalTo: infoVerticalStackView.trailingAnchor),
             titleView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
-//            titleView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(20)),
 
             titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),

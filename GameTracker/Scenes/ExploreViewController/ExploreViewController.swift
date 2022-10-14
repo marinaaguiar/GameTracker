@@ -56,12 +56,15 @@ class ExploreViewController: UIViewController {
         setupNavBar()
         navigationItem.largeTitleDisplayMode = .never
         tabBarController?.tabBar.isHidden = false
+        searchBar.resignFirstResponder()
+
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         fetchTrendingGames()
+        searchBar.delegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -203,6 +206,21 @@ class ExploreViewController: UIViewController {
            }
        }
    }
+
+    // MARK: - SearchBar
+
+extension ExploreViewController: UISearchBarDelegate {
+
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+
+        let searchViewController = storyboard?.instantiateViewController(withIdentifier: SearchViewController.reuseIdentifier) as! SearchViewController
+
+        self.navigationController?.pushViewController(searchViewController, animated: true)
+
+        print("should begin editing")
+        return true
+    }
+}
 
     // MARK: - Layout
 

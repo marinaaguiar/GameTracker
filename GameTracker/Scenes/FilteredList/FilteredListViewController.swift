@@ -8,8 +8,8 @@
 import UIKit
 
 class FilteredListViewController: UIViewController {
-    private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
     static let reuseIdentifier = "FilteredListViewController"
+    private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
     private var dataSource: DataSource?
     private let apiService = APIService()
     private var collectionView: UICollectionView!
