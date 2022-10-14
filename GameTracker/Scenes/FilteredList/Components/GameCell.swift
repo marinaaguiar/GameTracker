@@ -113,19 +113,8 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         infoHorizontalStackView.addArrangedSubview(infoVerticalStackView)
         infoVerticalStackView.axis = .vertical
         infoVerticalStackView.distribution = .fill
-        infoVerticalStackView.spacing = 10
+        infoVerticalStackView.spacing = 5
         infoVerticalStackView.translatesAutoresizingMaskIntoConstraints = false
-
-        infoHorizontalStackView.addArrangedSubview(priceView)
-        priceLabel.clipsToBounds = true
-        priceLabel.font = .boldSystemFont(ofSize: 13)
-        priceLabel.textColor = DSColor.red
-        priceLabel.numberOfLines = 1
-        priceLabel.textAlignment = .right
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        priceView.addSubview(priceLabel)
-        priceView.translatesAutoresizingMaskIntoConstraints = false
 
         infoVerticalStackView.addArrangedSubview(titleView)
         titleView.translatesAutoresizingMaskIntoConstraints = false
@@ -153,6 +142,25 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         chipsHorizontalStackView.addArrangedSubview(playtimeView)
         playtimeView.translatesAutoresizingMaskIntoConstraints = false
 
+        infoVerticalStackView.addArrangedSubview(priceView)
+        priceView.translatesAutoresizingMaskIntoConstraints = false
+        priceView.clipsToBounds = true
+
+        priceView.addSubview(priceLabel)
+        priceLabel.clipsToBounds = true
+        priceLabel.font = .systemFont(ofSize: 12)
+        priceLabel.textColor = DSColor.red
+        priceLabel.numberOfLines = 1
+        priceLabel.textAlignment = .left
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+
+//        infoHorizontalStackView.backgroundColor = .gray
+//        infoVerticalStackView.backgroundColor = .cyan
+//        priceView.backgroundColor = .yellow
+//        chipsView.backgroundColor = .red
+//        titleView.backgroundColor = .green
+//        priceLabel.backgroundColor = .systemPink
+
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
             containerViewB.heightAnchor.constraint(equalTo: mainStackView.heightAnchor),
@@ -163,13 +171,10 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
             infoHorizontalStackView.bottomAnchor.constraint(equalTo: containerViewB.bottomAnchor, constant: -inset),
 
             infoVerticalStackView.leadingAnchor.constraint(equalTo: infoHorizontalStackView.leadingAnchor),
-            infoVerticalStackView.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor),
+            infoVerticalStackView.trailingAnchor.constraint(equalTo: infoHorizontalStackView.trailingAnchor),
             infoVerticalStackView.topAnchor.constraint(equalTo: infoHorizontalStackView.topAnchor),
             infoVerticalStackView.bottomAnchor.constraint(equalTo: infoHorizontalStackView.bottomAnchor),
 
-            titleView.topAnchor.constraint(equalTo: infoVerticalStackView.topAnchor),
-            titleView.leadingAnchor.constraint(equalTo: infoVerticalStackView.leadingAnchor),
-            titleView.trailingAnchor.constraint(equalTo: infoVerticalStackView.trailingAnchor),
             titleView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
 
             titleLabel.topAnchor.constraint(equalTo: titleView.topAnchor),
@@ -177,17 +182,17 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
             titleLabel.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
 
             chipsView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(45)),
-            chipsView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(25)),
 
             chipsHorizontalStackView.topAnchor.constraint(equalTo: chipsView.topAnchor),
             chipsHorizontalStackView.leadingAnchor.constraint(equalTo: chipsView.leadingAnchor),
             chipsHorizontalStackView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
             chipsHorizontalStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(45)),
 
-            priceLabel.widthAnchor.constraint(equalToConstant: CGFloat(90)),
-            priceLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(18)),
+            priceView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
+
+            priceLabel.bottomAnchor.constraint(equalTo: priceView.bottomAnchor),
+            priceLabel.leadingAnchor.constraint(equalTo: priceView.leadingAnchor, constant: CGFloat(5)),
             priceLabel.trailingAnchor.constraint(equalTo: priceView.trailingAnchor),
-            priceLabel.bottomAnchor.constraint(equalTo: priceView.bottomAnchor)
           ])
     }
 
