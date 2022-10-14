@@ -171,6 +171,7 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         if searchText == "" {
+            self.games[.gameInfo] = []
             reloadData()
         } else {
             fetchFilteredList(by: searchText)
