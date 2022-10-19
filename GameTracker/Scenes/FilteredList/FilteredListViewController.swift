@@ -44,6 +44,11 @@ class FilteredListViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        title = sectionTitle
+    }
     
     func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
@@ -67,9 +72,9 @@ class FilteredListViewController: UIViewController {
 
     func registerCells() {
         collectionView.register(
-            SectionHeaderFilteredList.self,
+            SectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: SectionHeaderFilteredList.reuseIdentifier
+            withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
 
         collectionView.register(
@@ -132,13 +137,13 @@ extension FilteredListViewController {
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             guard let view = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: SectionHeaderFilteredList.reuseIdentifier,
-                for: indexPath) as? SectionHeaderFilteredList else {
+                withReuseIdentifier: SectionHeaderView.reuseIdentifier,
+                for: indexPath) as? SectionHeaderView else {
                 return nil
             }
 
             if let section = self?.dataSource?.snapshot().sectionIdentifiers[indexPath.section] {
-                view.label.text = self?.sectionTitle
+                view.label.text = section.title
             }
             return view
         }
