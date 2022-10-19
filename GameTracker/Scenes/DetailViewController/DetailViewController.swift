@@ -7,16 +7,19 @@
 
 import UIKit
 import SafariServices
+import RealmSwift
 
 class DetailViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
     static let reuseIdentifier = "DetailViewController"
     private var dataSource: DataSource?
     private let apiService = APIService()
+    let realm = try! Realm()
     private var collectionView: UICollectionView!
     private var gameImages: [GameImageResponse] = []
     private var gameVideos: [GameVideoResponse] = []
 
+    var wishlistGames: [String] = []
     var gameDetail: GameDetail! {
         didSet {
             gameDetailDescriptionModel = .init(gameDetail: gameDetail)
@@ -74,12 +77,69 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTitle()
+        setupNavBar()
         setupCollectionView()
         fetchImages()
+
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+
     }
 
     func setupTitle() {
         title = "\(gameDetail.name) (\(gameDetail.yearPublished))"
+    }
+
+    func setupNavBar() {
+        // check if this game contains in the realm database already
+        // if wishlist contain this game:
+        let allGamesOnWishlist = realm.objects(Game.self)
+
+        if allGamesOnWishlist.contains(where: {
+            $0.gameID == gameDetail.id
+        }) == true {
+            let rightNavBarButton = UIBarButtonItem(image: UIImage(systemName: "heart.fill"), style: .plain, target: self, action: #selector(rightNavBarButtonPressed))
+            rightNavBarButton.tintColor = .systemBlue
+            navigationItem.rightBarButtonItems = [rightNavBarButton]
+        }
+else {
+            let rightNavBarButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(rightNavBarButtonPressed))
+            rightNavBarButton.tintColor = .systemBlue
+            navigationItem.rightBarButtonItems = [rightNavBarButton]
+        }
+    }
+
+    @objc func rightNavBarButtonPressed() {
+        let allGamesOnWishlist = realm.objects(Game.self)
+
+        if allGamesOnWishlist.contains(where: {
+            $0.gameID == gameDetail.id
+        }) == true {
+            print("remove game of wishlist")
+            removeGameOfWishlist()
+        } else {
+            print("add game to wishlist")
+            saveGameOnWishlist()
+        }
+        setupNavBar()
+    }
+
+    func saveGameOnWishlist() {
+        let game = Game(gameID: gameDetail.id)
+        realm.beginWrite()
+        realm.add(game)
+        try! realm.commitWrite()
+    }
+
+    func removeGameOfWishlist() {
+        let allGamesOnWishlist = realm.objects(Game.self)
+
+        let gameToBeDeleted = allGamesOnWishlist.where {
+            $0.gameID == gameDetail.id
+        }
+
+        realm.beginWrite()
+        realm.delete(gameToBeDeleted)
+        try! realm.commitWrite()
     }
 
     func setupCollectionView() {
@@ -101,33 +161,27 @@ class DetailViewController: UIViewController {
         ])
 
         createDataSource()
-//        reloadData()
     }
 
     func registerCells() {
-        collectionView.register(
-            SectionHeaderView.self,
+        collectionView.register(SectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
 
-        collectionView.register(
-            GameDetailImagesCell.self,
+        collectionView.register(GameDetailImagesCell.self,
             forCellWithReuseIdentifier: GameDetailImagesCell.reuseIdentifier
         )
 
-        collectionView.register(
-            GameDetailDescriptionCell.self,
+        collectionView.register(GameDetailDescriptionCell.self,
             forCellWithReuseIdentifier: GameDetailDescriptionCell.reuseIdentifier
         )
 
-        collectionView.register(
-            GameDetailVideosCell.self,
+        collectionView.register(GameDetailVideosCell.self,
             forCellWithReuseIdentifier: GameDetailVideosCell.reuseIdentifier
         )
 
-        collectionView.register(
-            GameDetailInfosCell.self,
+        collectionView.register(GameDetailInfosCell.self,
             forCellWithReuseIdentifier: GameDetailInfosCell.reuseIdentifier
         )
     }
