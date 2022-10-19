@@ -14,6 +14,8 @@ class FilteredListViewController: UIViewController {
     private let apiService = APIService()
     private var games: [SectionType: [GameResponse]] = [:]
 
+    var sectionTitle: String!
+
     private var collectionView: UICollectionView!
 
     enum SectionType: Int, CaseIterable {
@@ -42,7 +44,7 @@ class FilteredListViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
     }
-
+    
     func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -65,9 +67,9 @@ class FilteredListViewController: UIViewController {
 
     func registerCells() {
         collectionView.register(
-            SectionHeaderView.self,
+            SectionHeaderFilteredList.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: SectionHeaderView.reuseIdentifier
+            withReuseIdentifier: SectionHeaderFilteredList.reuseIdentifier
         )
 
         collectionView.register(
@@ -130,13 +132,13 @@ extension FilteredListViewController {
             guard kind == UICollectionView.elementKindSectionHeader else { return nil }
             guard let view = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: SectionHeaderView.reuseIdentifier,
-                for: indexPath) as? SectionHeaderView else {
+                withReuseIdentifier: SectionHeaderFilteredList.reuseIdentifier,
+                for: indexPath) as? SectionHeaderFilteredList else {
                 return nil
             }
 
             if let section = self?.dataSource?.snapshot().sectionIdentifiers[indexPath.section] {
-                view.label.text = section.title
+                view.label.text = self?.sectionTitle
             }
             return view
         }

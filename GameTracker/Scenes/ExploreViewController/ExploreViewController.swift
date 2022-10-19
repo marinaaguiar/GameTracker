@@ -110,7 +110,7 @@ class ExploreViewController: UIViewController {
         //
     }
 
-    // MARK: - DataSource
+// MARK: - DataSource
 
     func createDataSource() {
         dataSource = DataSource(collectionView: collectionView) { collectionView, indexPath, item in
@@ -187,11 +187,13 @@ class ExploreViewController: UIViewController {
            case .playingTime:
                if let maxPlayTime = Playtime(rawValue: indexPath.item) {
                    filteredViewController.fetchFilteredList(by: .maxPlaytime, with: maxPlayTime.number)
+                   filteredViewController.sectionTitle = "Max Playtime: \(maxPlayTime.number)min"
                    self.navigationController?.pushViewController(filteredViewController, animated: true)
                }
            case .numberOfPlayers:
                if let numberOfPlayers = NumberOfPlayers(rawValue: indexPath.item) {
                    filteredViewController.fetchFilteredList(by: .minPlayers, with: numberOfPlayers.number)
+                   filteredViewController.sectionTitle = "Min Players: \(numberOfPlayers.number)"
                    self.navigationController?.pushViewController(filteredViewController, animated: true)
                }
 
