@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCB-e8-IgH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1305" y="856"/>
+            <point key="canvasLocation" x="-1423" y="1629"/>
         </scene>
         <!--Categories-->
         <scene sceneID="me8-GF-DRA">
@@ -64,40 +64,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c4C-Nt-aa8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2093.8461538461538" y="94.549763033175353"/>
+            <point key="canvasLocation" x="242" y="856"/>
         </scene>
-        <!--Wishlist-->
+        <!--Wishlist View Controller-->
         <scene sceneID="WVM-19-Vl2">
             <objects>
-                <viewController id="icb-TU-AT1" sceneMemberID="viewController">
+                <viewController id="icb-TU-AT1" customClass="WishlistViewController" customModule="GameTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cT7-dk-tpm">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="YE9-5M-LL6"/>
                         <color key="backgroundColor" name="BackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Wishlist" image="heart" catalog="system" id="3gW-5N-7pN">
-                        <color key="badgeColor" name="LightGray"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="Xl8-vF-uPq"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSM-oc-BP0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2796.9230769230767" y="94.549763033175353"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="QiH-e3-WWr">
-            <objects>
-                <viewController id="iw7-ue-x3z" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vYI-or-6nh">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="o2U-ga-KFv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hLH-nY-u7K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3600" y="95"/>
+            <point key="canvasLocation" x="-603" y="1659"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="LQT-4h-LdI">
@@ -113,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HVH-q7-W7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2203" y="856"/>
+            <point key="canvasLocation" x="-603" y="3702"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="Alo-HO-Kcs">
@@ -128,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVd-2e-2MO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3362" y="856"/>
+            <point key="canvasLocation" x="-1423" y="2297"/>
         </scene>
         <!--Filtered List View Controller-->
         <scene sceneID="q6N-CW-svg">
@@ -143,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AA3-aV-1rJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2203" y="1524"/>
+            <point key="canvasLocation" x="-1423" y="2972"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ipo-r9-dHr">
@@ -159,12 +142,12 @@
                     <connections>
                         <segue destination="4yb-Xt-RXy" kind="relationship" relationship="viewControllers" id="4iq-GA-KnI"/>
                         <segue destination="89H-g5-f7d" kind="relationship" relationship="viewControllers" id="yIU-t8-5wB"/>
-                        <segue destination="icb-TU-AT1" kind="relationship" relationship="viewControllers" id="Ki6-nm-Z3S"/>
+                        <segue destination="DlR-hb-697" kind="relationship" relationship="viewControllers" id="Ki6-nm-Z3S"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rYy-DT-DwL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="458.46153846153845" y="94.549763033175353"/>
+            <point key="canvasLocation" x="-602" y="95"/>
         </scene>
         <!--Explore-->
         <scene sceneID="E5c-Ye-r1o">
@@ -191,7 +174,28 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CFX-Pf-DeC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="458" y="856"/>
+            <point key="canvasLocation" x="-1423" y="856"/>
+        </scene>
+        <!--Wishlist-->
+        <scene sceneID="4iQ-eB-wuH">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DlR-hb-697" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Wishlist" image="heart" catalog="system" id="3gW-5N-7pN">
+                        <color key="badgeColor" name="LightGray"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uZg-nC-VYB">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="icb-TU-AT1" kind="relationship" relationship="rootViewController" id="3We-2d-VTt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TWL-gK-50v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-603" y="856"/>
         </scene>
     </scenes>
     <resources>
@@ -202,7 +206,7 @@
             <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="DarkGray">
-            <color red="0.36078431372549019" green="0.3529411764705882" blue="0.36078431372549019" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.36100000143051147" green="0.3529999852180481" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Light+Gray">
             <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

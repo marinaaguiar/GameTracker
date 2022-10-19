@@ -37,8 +37,6 @@ private struct EndPoint {
         case videos = "/api/game/videos"
     }
 
-    let queryItems: [URLQueryItem]
-
     static func list(limitItems: Int, orderedBy: String) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
@@ -55,6 +53,26 @@ private struct EndPoint {
             URLQueryItem(
                 name: SearchQueryItem.orderBy.rawValue,
                 value: "\(orderedBy)"),
+            URLQueryItem(
+                name: SearchQueryItem.json.rawValue,
+                value: "\(true)")
+        ]
+        return components.url
+    }
+
+    static func wishlist(ids: String) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.boardgameatlas.com"
+        components.path = TypePath.search.rawValue
+
+        components.queryItems = [
+            URLQueryItem(
+                name: SearchQueryItem.clientId.rawValue,
+                value: APIDefinitions.APIKey),
+            URLQueryItem(
+                name: SearchQueryItem.gameId.rawValue,
+                value: "\(ids)"),
             URLQueryItem(
                 name: SearchQueryItem.json.rawValue,
                 value: "\(true)")
@@ -162,6 +180,15 @@ class APIService {
         NetworkingService().fetchGenericData(url: url, completion: completion)
     }
 
+    func loadGameWishlist(ids: String,completion: @escaping ((Result<BoardGamesAtlasResponse, Error>) -> Void)) {
+        guard let url = EndPoint.wishlist(ids: ids) else {
+            completion(.failure(APIError.failedToConstructURL))
+            return
+        }
+        print(url)
+        NetworkingService().fetchGenericData(url: url, completion: completion)
+    }
+
     func loadGameImages(limitItems: Int, gameId: String, completion: @escaping ((Result<GameImagesResponse, Error>) -> Void)) {
         guard let url = EndPoint.mediaContent(path: .images, limitItems: limitItems, gameId: gameId) else {
             completion(.failure(APIError.failedToConstructURL))
@@ -199,7 +226,3 @@ class APIService {
         NetworkingService().fetchGenericData(url: url, completion: completion)
     }
 }
-
-//https://api.boardgameatlas.com/api/search?pretty=true&client_id=gHoBds7We9&name=cata&exact=true
-
-// https://api.boardgameatlas.com/api/game/videos?pretty=true&limit=20&client_id=gHoBds7We9&max_playtime=15

@@ -32,8 +32,11 @@
 		9C4AF90728F48D3A008BA27F /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF90628F48D3A008BA27F /* Images.swift */; };
 		9C4AF90928F5B38D008BA27F /* FilterParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF90828F5B38D008BA27F /* FilterParameter.swift */; };
 		9C4AF90D28F86E8B008BA27F /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF90C28F86E8B008BA27F /* Alert.swift */; };
-		9C4AF91028F95C9C008BA27F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF90F28F95C9C008BA27F /* LoginViewController.swift */; };
 		9C4AF91228F969CD008BA27F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF91128F969CD008BA27F /* SearchViewController.swift */; };
+		9C4AF91628FDD1E6008BA27F /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 9C4AF91528FDD1E6008BA27F /* Realm */; };
+		9C4AF91828FDD1E6008BA27F /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9C4AF91728FDD1E6008BA27F /* RealmSwift */; };
+		9C4AF91A28FDEB65008BA27F /* WishlistDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF91928FDEB65008BA27F /* WishlistDataModel.swift */; };
+		9C4AF91E29000724008BA27F /* WishlistGameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AF91D29000724008BA27F /* WishlistGameCell.swift */; };
 		9C8CC82728D4C8640076736C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9C8CC82628D4C8640076736C /* Kingfisher */; };
 		9C9ADCCE28EB2A65004471B8 /* FilteredListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9ADCCD28EB2A65004471B8 /* FilteredListViewController.swift */; };
 		9C9ADCD228EB445C004471B8 /* Playtime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9ADCD128EB445C004471B8 /* Playtime.swift */; };
@@ -77,8 +80,9 @@
 		9C4AF90628F48D3A008BA27F /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9C4AF90828F5B38D008BA27F /* FilterParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterParameter.swift; sourceTree = "<group>"; };
 		9C4AF90C28F86E8B008BA27F /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
-		9C4AF90F28F95C9C008BA27F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9C4AF91128F969CD008BA27F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		9C4AF91928FDEB65008BA27F /* WishlistDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistDataModel.swift; sourceTree = "<group>"; };
+		9C4AF91D29000724008BA27F /* WishlistGameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistGameCell.swift; sourceTree = "<group>"; };
 		9C9ADCCD28EB2A65004471B8 /* FilteredListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredListViewController.swift; sourceTree = "<group>"; };
 		9C9ADCD128EB445C004471B8 /* Playtime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playtime.swift; sourceTree = "<group>"; };
 		9CA2980728E4B8A900D74318 /* GameDetailInfosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailInfosCell.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C4AF91828FDD1E6008BA27F /* RealmSwift in Frameworks */,
+				9C4AF91628FDD1E6008BA27F /* Realm in Frameworks */,
 				9CA2980628E4AFD800D74318 /* MarkdownKit in Frameworks */,
 				9C8CC82728D4C8640076736C /* Kingfisher in Frameworks */,
 			);
@@ -166,20 +172,28 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		9C4AF90E28F95C73008BA27F /* LoginViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9C4AF90F28F95C9C008BA27F /* LoginViewController.swift */,
-			);
-			path = LoginViewController;
-			sourceTree = "<group>";
-		};
 		9C4AF91328F969D2008BA27F /* SearchViewController */ = {
 			isa = PBXGroup;
 			children = (
 				9C4AF91128F969CD008BA27F /* SearchViewController.swift */,
 			);
 			path = SearchViewController;
+			sourceTree = "<group>";
+		};
+		9C4AF91B28FDEBE0008BA27F /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				9C4AF91928FDEB65008BA27F /* WishlistDataModel.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		9C4AF91C29000715008BA27F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				9C4AF91D29000724008BA27F /* WishlistGameCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		9C9ADCCC28EB2A28004471B8 /* FilteredList */ = {
@@ -230,6 +244,7 @@
 		9CBCEB0D28D355C3001EE791 /* GameTracker */ = {
 			isa = PBXGroup;
 			children = (
+				9C4AF91B28FDEBE0008BA27F /* DataModel */,
 				9CBCEB3428D3644A001EE791 /* Common */,
 				9CBCEB2728D356CD001EE791 /* Networking */,
 				9CBCEB2528D35683001EE791 /* Scenes */,
@@ -276,7 +291,6 @@
 				9C9ADCCC28EB2A28004471B8 /* FilteredList */,
 				9C4AD53A28E1F1B7003A7D4E /* DetailViewController */,
 				9CBCEB2A28D36070001EE791 /* CategoriesViewController */,
-				9C4AF90E28F95C73008BA27F /* LoginViewController */,
 				9CBCEB2B28D36078001EE791 /* WishlistViewController */,
 			);
 			path = Scenes;
@@ -312,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				9CBCEB2E28D360B7001EE791 /* WishlistViewController.swift */,
+				9C4AF91C29000715008BA27F /* Components */,
 			);
 			path = WishlistViewController;
 			sourceTree = "<group>";
@@ -376,6 +391,8 @@
 			packageProductDependencies = (
 				9C8CC82628D4C8640076736C /* Kingfisher */,
 				9CA2980528E4AFD800D74318 /* MarkdownKit */,
+				9C4AF91528FDD1E6008BA27F /* Realm */,
+				9C4AF91728FDD1E6008BA27F /* RealmSwift */,
 			);
 			productName = GameTracker;
 			productReference = 9CBCEB0B28D355C3001EE791 /* GameTracker.app */;
@@ -408,6 +425,7 @@
 			packageReferences = (
 				9C8CC82528D4C8640076736C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				9CA2980428E4AFD700D74318 /* XCRemoteSwiftPackageReference "MarkdownKit" */,
+				9C4AF91428FDD1E6008BA27F /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 9CBCEB0C28D355C3001EE791 /* Products */;
 			projectDirPath = "";
@@ -436,7 +454,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C4AF91028F95C9C008BA27F /* LoginViewController.swift in Sources */,
 				9C4AF8FE28EC5F63008BA27F /* GameDetailDescriptionModel.swift in Sources */,
 				9C3F515E28D4AF9D00CCEA93 /* APIService.swift in Sources */,
 				9C4AD53728DB867F003A7D4E /* StandardConfiguringCell.swift in Sources */,
@@ -469,9 +486,11 @@
 				9C4AD53328DB7ABF003A7D4E /* Colors.swift in Sources */,
 				9CBCEB2D28D360AD001EE791 /* CategoriesViewController.swift in Sources */,
 				9C40A69828E337B800C92B6C /* SectionLayoutBuilder.swift in Sources */,
+				9C4AF91E29000724008BA27F /* WishlistGameCell.swift in Sources */,
 				9C4AF90128EC990A008BA27F /* GameCell.swift in Sources */,
 				9C4AF8F728EC3579008BA27F /* NumberOfPlayers.swift in Sources */,
 				9CBCEB2928D3571D001EE791 /* ExploreViewController.swift in Sources */,
+				9C4AF91A28FDEB65008BA27F /* WishlistDataModel.swift in Sources */,
 				9C40A69628E309A800C92B6C /* GameDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,6 +719,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9C4AF91428FDD1E6008BA27F /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		9C8CC82528D4C8640076736C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -719,6 +746,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9C4AF91528FDD1E6008BA27F /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C4AF91428FDD1E6008BA27F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		9C4AF91728FDD1E6008BA27F /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C4AF91428FDD1E6008BA27F /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		9C8CC82628D4C8640076736C /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9C8CC82528D4C8640076736C /* XCRemoteSwiftPackageReference "Kingfisher" */;

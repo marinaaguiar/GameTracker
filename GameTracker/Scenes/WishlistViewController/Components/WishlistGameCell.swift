@@ -1,16 +1,17 @@
 //
-//  ImageGameCell.swift
+//  WishlistGameCell.swift
 //  GameTracker
 //
-//  Created by Marina Aguiar on 9/22/22.
+//  Created by Marina Aguiar on 10/19/22.
 //
+
 import UIKit
 import Kingfisher
 
-final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
+final class WishlistGameCell: UICollectionViewCell, StandardConfiguringCell {
     typealias CellModel = GameResponse
 
-    static let reuseIdentifier: String = "ImageGameCell"
+    static let reuseIdentifier: String = "WishlistGameCell"
     private var downloadTask: DownloadTask?
 
     private let imageView = UIImageView()

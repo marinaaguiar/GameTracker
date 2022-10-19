@@ -148,7 +148,7 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
 
         priceView.addSubview(priceLabel)
         priceLabel.clipsToBounds = true
-        priceLabel.font = .systemFont(ofSize: 12)
+        priceLabel.font = .italicSystemFont(ofSize: 12)
         priceLabel.textColor = DSColor.red
         priceLabel.numberOfLines = 1
         priceLabel.textAlignment = .left
@@ -243,7 +243,7 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
 
         if item.price == "0.00" {
             priceLabel.text = "not available"
-            priceLabel.font = .systemFont(ofSize: 12)
+            priceLabel.font = .italicSystemFont(ofSize: 12)
             priceLabel.textColor = DSColor.lightMediumGray
 
         } else {

@@ -183,6 +183,29 @@ class SectionLayoutBuilder {
         return section
     }
 
+    static func wishlistGameSection() -> NSCollectionLayoutSection {
+        let item = CompositionalLayout.createItem(
+            width: .fractionalWidth(1),
+            height: .fractionalHeight(1),
+            spacing: 12
+        )
+        let group = CompositionalLayout.createGroup(
+            aligment: .horizontal,
+            width: .fractionalWidth(1),
+            height: .absolute(170),
+            item: item,
+            count: 2
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+
+        let sectionHeader = createSectionHeader()
+        section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 0)
+        section.interGroupSpacing = 8
+        section.boundarySupplementaryItems = [sectionHeader]
+
+        return section
+    }
 
     static func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
         let sectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(30))
