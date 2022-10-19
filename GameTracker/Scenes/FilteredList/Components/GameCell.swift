@@ -21,13 +21,15 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
     private let chipsHorizontalStackView = UIStackView()
     private let gameImageView = UIImageView()
     private let titleLabel = UILabel()
-    private let priceLabel = UILabel()
+    private let starImage = UIImageView()
+    private let ratingLabel = UILabel()
     private let containerViewA = UIView()
     private let containerViewB = UIView()
-    private let priceView = UIView()
+    private let ratingView = UIView()
     private let titleView = UIView()
     private let numberOfPlayersView = ChipView(frame: .zero, size: .small)
     private let playtimeView = ChipView(frame: .zero, size: .small)
+    private let minAgeView = ChipView(frame: .zero, size: .small)
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
 
     private var photoURL: URL? {
@@ -142,24 +144,25 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         chipsHorizontalStackView.addArrangedSubview(playtimeView)
         playtimeView.translatesAutoresizingMaskIntoConstraints = false
 
-        infoVerticalStackView.addArrangedSubview(priceView)
-        priceView.translatesAutoresizingMaskIntoConstraints = false
-        priceView.clipsToBounds = true
+        chipsHorizontalStackView.addArrangedSubview(minAgeView)
+        minAgeView.translatesAutoresizingMaskIntoConstraints = false
 
-        priceView.addSubview(priceLabel)
-        priceLabel.clipsToBounds = true
-        priceLabel.font = .italicSystemFont(ofSize: 12)
-        priceLabel.textColor = DSColor.red
-        priceLabel.numberOfLines = 1
-        priceLabel.textAlignment = .left
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        infoVerticalStackView.addArrangedSubview(ratingView)
+        ratingView.translatesAutoresizingMaskIntoConstraints = false
+        ratingView.clipsToBounds = true
 
-//        infoHorizontalStackView.backgroundColor = .gray
-//        infoVerticalStackView.backgroundColor = .cyan
-//        priceView.backgroundColor = .yellow
-//        chipsView.backgroundColor = .red
-//        titleView.backgroundColor = .green
-//        priceLabel.backgroundColor = .systemPink
+        ratingView.addSubview(starImage)
+        starImage.translatesAutoresizingMaskIntoConstraints = false
+        starImage.image = UIImage(systemName: "star.fill")
+        starImage.tintColor = DSColor.yellow
+
+        ratingView.addSubview(ratingLabel)
+        ratingLabel.clipsToBounds = true
+        ratingLabel.font = .systemFont(ofSize: 12)
+        ratingLabel.textColor = DSColor.lightMediumGray
+        ratingLabel.numberOfLines = 1
+        ratingLabel.textAlignment = .left
+        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
@@ -188,11 +191,16 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
             chipsHorizontalStackView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
             chipsHorizontalStackView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(45)),
 
-            priceView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
+            ratingView.heightAnchor.constraint(equalToConstant: CGFloat(25)),
 
-            priceLabel.bottomAnchor.constraint(equalTo: priceView.bottomAnchor),
-            priceLabel.leadingAnchor.constraint(equalTo: priceView.leadingAnchor, constant: CGFloat(5)),
-            priceLabel.trailingAnchor.constraint(equalTo: priceView.trailingAnchor),
+            starImage.leadingAnchor.constraint(equalTo: ratingView.leadingAnchor),
+            starImage.centerYAnchor.constraint(equalTo: ratingLabel.centerYAnchor),
+            starImage.widthAnchor.constraint(equalToConstant: CGFloat(13)),
+            starImage.heightAnchor.constraint(equalToConstant: CGFloat(13)),
+
+            ratingLabel.bottomAnchor.constraint(equalTo: ratingView.bottomAnchor),
+            ratingLabel.leadingAnchor.constraint(equalTo: starImage.trailingAnchor, constant: CGFloat(5)),
+            ratingLabel.trailingAnchor.constraint(equalTo: ratingView.trailingAnchor),
           ])
     }
 
@@ -200,17 +208,19 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         setupActivityIndicator()
         if isLoading {
             titleLabel.isHidden = true
-            priceLabel.isHidden = true
+            ratingView.isHidden = true
             playtimeView.isHidden = true
             numberOfPlayersView.isHidden = true
+            minAgeView.isHidden = true
 
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
         } else {
             titleLabel.isHidden = false
-            priceLabel.isHidden = false
+            ratingView.isHidden = false
             playtimeView.isHidden = false
             numberOfPlayersView.isHidden = false
+            minAgeView.isHidden = false
 
             activityIndicator.stopAnimating()
             activityIndicator.isHidden = true
@@ -235,20 +245,16 @@ final class GameCell: UICollectionViewCell, StandardConfiguringCell {
         }
 
         let title = (item.name).components(separatedBy: ":").first
+        let minAge = item.minAge ?? 10
         titleLabel.text = title
         numberOfPlayersView.updateText(item.players)
         numberOfPlayersView.updateImage(DSImages.playersIcon)
         playtimeView.updateText("\(item.playtime ?? "") min")
         playtimeView.updateImage(DSImages.playtimeIcon)
+        minAgeView.updateText("+\(minAge)")
+        minAgeView.updateImage(DSImages.minAgeIcon)
+        ratingLabel.text = String(format:"%.2f", item.averageUserRating)
 
-        if item.price == "0.00" {
-            priceLabel.text = "not available"
-            priceLabel.font = .italicSystemFont(ofSize: 12)
-            priceLabel.textColor = DSColor.lightMediumGray
-
-        } else {
-            priceLabel.text = "$\(item.price)"
-        }
     }
 
     required init?(coder: NSCoder) {

@@ -15,7 +15,8 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
 
     private let imageView = UIImageView()
     private let titleLabel = UILabel()
-    private let priceLabel = UILabel()
+    private let starImage = UIImageView()
+    private let secondaryLabel = UILabel()
     private let contentContainer = UIView()
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
 
@@ -57,10 +58,15 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
         titleLabel.font = .boldSystemFont(ofSize: 14)
         titleLabel.numberOfLines = 1
 
-        contentContainer.addSubview(priceLabel)
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceLabel.textColor = DSColor.red
-        priceLabel.font = .italicSystemFont(ofSize: 11)
+        contentContainer.addSubview(starImage)
+        starImage.translatesAutoresizingMaskIntoConstraints = false
+        starImage.image = UIImage(systemName: "star.fill")
+        starImage.tintColor = DSColor.yellow
+
+        contentContainer.addSubview(secondaryLabel)
+        secondaryLabel.translatesAutoresizingMaskIntoConstraints = false
+        secondaryLabel.textColor = DSColor.lightMediumGray
+        secondaryLabel.font = .systemFont(ofSize: 12)
 
         NSLayoutConstraint.activate([
           contentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -77,9 +83,14 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
           titleLabel.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
           titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: CGFloat(6)),
 
-          priceLabel.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
-          priceLabel.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
-          priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor)
+          starImage.leadingAnchor.constraint(equalTo: contentContainer.leadingAnchor),
+          starImage.centerYAnchor.constraint(equalTo: secondaryLabel.centerYAnchor),
+          starImage.widthAnchor.constraint(equalToConstant: CGFloat(13)),
+          starImage.heightAnchor.constraint(equalToConstant: CGFloat(13)),
+
+          secondaryLabel.leadingAnchor.constraint(equalTo: starImage.trailingAnchor, constant: CGFloat(5)),
+          secondaryLabel.trailingAnchor.constraint(equalTo: contentContainer.trailingAnchor),
+          secondaryLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: CGFloat(3))
         ])
     }
 
@@ -110,14 +121,9 @@ final class ImageGameCell: UICollectionViewCell, StandardConfiguringCell {
         imageView.kf.setImage(with: photoURL) { [self] result in
             updateActivityIndicatorStatus(isLoading: false)
         }
+
         titleLabel.text = item.name
-        if item.price != "0.00" {
-            priceLabel.text = "$\(item.price)"
-        } else {
-            priceLabel.text = "not available"
-            priceLabel.font = .italicSystemFont(ofSize: 12)
-            priceLabel.textColor = DSColor.lightMediumGray
-        }
+        secondaryLabel.text = String(format:"%.2f", item.averageUserRating)
     }
 
     required init?(coder: NSCoder) {

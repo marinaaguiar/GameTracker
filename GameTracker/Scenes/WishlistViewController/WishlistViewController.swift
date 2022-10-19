@@ -24,7 +24,7 @@ class WishlistViewController: UIViewController {
         var title: String {
             switch self {
             case .wishlist:
-                return "Wishlist"
+                return ""
             }
         }
     }
@@ -42,11 +42,14 @@ class WishlistViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Wishlist"
         setupCollectionView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        navigationItem.largeTitleDisplayMode = .always
+        tabBarController?.tabBar.isHidden = false
 
         let allGamesOnWishlist = realm.objects(Game.self)
         var gameIDs: [String] = []
@@ -56,9 +59,14 @@ class WishlistViewController: UIViewController {
         }
 
         let gameIDsString = gameIDs.joined(separator: ",")
-        print(gameIDs)
 
-        fetchWishlistGames(ids: gameIDsString)
+        if !gameIDsString.isEmpty {
+            fetchWishlistGames(ids: gameIDsString)
+        } else {
+            // show an message to user that the
+            // wishlist is empty
+            // and ask them to add a new game on the wishlist
+        }
     }
 
     func setupCollectionView() {
@@ -68,7 +76,7 @@ class WishlistViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isUserInteractionEnabled = true
-//        collectionView.delegate = self
+        collectionView.delegate = self
         registerCells()
         view.addSubview(collectionView)
 
@@ -115,23 +123,23 @@ class WishlistViewController: UIViewController {
 
 //MARK: - UICollectionViewDelegate
 
-//extension WishlistViewController: UICollectionViewDelegate {
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let section = SectionType(rawValue: indexPath.section) else { return }
-//
-//        switch section {
-//        case .wishlist:
-//            let detailViewController = storyboard?.instantiateViewController(withIdentifier: DetailViewController.reuseIdentifier) as! DetailViewController
-//            if let games = games[section] {
-//                detailViewController.gameDetail = GameDetail(gameResponse: games[indexPath.item])
-//                self.navigationController?.pushViewController(detailViewController, animated: true)
-//            } else {
-//                print("Error. There is no game selected.")
-//            }
-//        }
-//    }
-//}
+extension WishlistViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let section = SectionType(rawValue: indexPath.section) else { return }
+
+        switch section {
+        case .wishlist:
+            let detailViewController = storyboard?.instantiateViewController(withIdentifier: DetailViewController.reuseIdentifier) as! DetailViewController
+            if let games = games[section] {
+                detailViewController.gameDetail = GameDetail(gameResponse: games[indexPath.item])
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            } else {
+                print("Error. There is no game selected.")
+            }
+        }
+    }
+}
 
 // MARK: - DataSource
 

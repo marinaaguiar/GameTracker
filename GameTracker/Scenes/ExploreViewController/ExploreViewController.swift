@@ -88,7 +88,8 @@ class ExploreViewController: UIViewController {
         )
         collectionView.register(
             ImageGameCell.self,
-            forCellWithReuseIdentifier: ImageGameCell.reuseIdentifier)
+            forCellWithReuseIdentifier: ImageGameCell.reuseIdentifier
+        )
         collectionView.register(
             TypeFilterCell.self,
             forCellWithReuseIdentifier: TypeFilterCell.reuseIdentifier
