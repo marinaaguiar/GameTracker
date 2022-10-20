@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Lottie
 
 class FilteredListViewController: UIViewController {
     static let reuseIdentifier = "FilteredListViewController"
@@ -14,7 +13,7 @@ class FilteredListViewController: UIViewController {
     private var dataSource: DataSource?
     private let apiService = APIService()
     private var games: [SectionType: [GameResponse]] = [:]
-    private var animationView: AnimationView?
+    private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
 
     var sectionTitle: String!
 
@@ -51,7 +50,7 @@ class FilteredListViewController: UIViewController {
         super.viewWillAppear(true)
         title = sectionTitle
         collectionView.isHidden = true
-        setupLottieAnimation()
+        setupActivityIndicator()
     }
     
     func setupCollectionView() {
@@ -75,28 +74,17 @@ class FilteredListViewController: UIViewController {
         createDataSource()
     }
 
-    func setupLottieAnimation() {
-        animationView = .init(name: "DiceLoader")
-
-        guard let animationView = animationView else { return }
-
-        animationView.frame = view.bounds
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = .loop
-        animationView.animationSpeed = 1.0
-        animationView.isUserInteractionEnabled = false
-        view.addSubview(animationView)
-        animationView.translatesAutoresizingMaskIntoConstraints = false
+    func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            animationView.topAnchor.constraint(equalTo: view.topAnchor),
-            animationView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        animationView.play()
     }
-
 
     func registerCells() {
         collectionView.register(
@@ -204,11 +192,10 @@ extension FilteredListViewController {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.games[.gameInfo] = data.games
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.animationView?.stop()
-                        self.collectionView.isHidden = false
-                        self.reloadData()
-                    }
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    self.collectionView.isHidden = false
+                    self.reloadData()
                 }
                 print("Load filtered list sucessfully")
             case .failure(let error):

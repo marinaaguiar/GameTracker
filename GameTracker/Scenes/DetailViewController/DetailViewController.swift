@@ -16,6 +16,7 @@ class DetailViewController: UIViewController {
     private let apiService = APIService()
     let realm = try! Realm()
     private var collectionView: UICollectionView!
+    private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
     private var gameImages: [GameImageResponse] = []
     private var gameVideos: [GameVideoResponse] = []
 
@@ -79,10 +80,10 @@ class DetailViewController: UIViewController {
         setupTitle()
         setupNavBar()
         setupCollectionView()
+        collectionView.isHidden = true
+        setupActivityIndicator()
         fetchImages()
-
         print(Realm.Configuration.defaultConfiguration.fileURL)
-
     }
 
     func setupTitle() {
@@ -162,6 +163,19 @@ else {
 
         createDataSource()
     }
+
+    func setupActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+    }
+
 
     func registerCells() {
         collectionView.register(SectionHeaderView.self,
@@ -345,6 +359,9 @@ extension DetailViewController {
                 DispatchQueue.main.async {
                     self.gameVideos = data.videos
                     self.reloadData()
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                    self.collectionView.isHidden = false
                 }
                 print("Load Game Videos Sucessfully")
             case .failure(let error):

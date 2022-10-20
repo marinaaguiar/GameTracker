@@ -43,15 +43,13 @@ class ExploreViewController: UIViewController {
             }
         }
     }
-    private var animationView: AnimationView?
-    private var games: [SectionType: [GameResponse]] = [:]
     private let apiService = APIService()
+    private var games: [SectionType: [GameResponse]] = [:]
     private var dataSource: DataSource?
 
     private var collectionView: UICollectionView!
+    private var animationView: AnimationView?
     private lazy var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 300, 20))
-
-//    @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -59,7 +57,6 @@ class ExploreViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         tabBarController?.tabBar.isHidden = false
         searchBar.resignFirstResponder()
-
     }
 
     override func viewDidLoad() {
