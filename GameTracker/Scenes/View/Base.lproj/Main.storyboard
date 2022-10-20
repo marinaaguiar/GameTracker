@@ -17,32 +17,10 @@
                     <view key="view" contentMode="scaleToFill" id="xVF-gR-fH4">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LzQ-aO-jRE">
-                                <rect key="frame" x="0.0" y="143" width="390" height="618"/>
-                                <color key="backgroundColor" name="PrimaryBGColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1U1-Fh-dC2">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="zlZ-O4-zNI"/>
                         <color key="backgroundColor" name="PrimaryBGColor"/>
-                        <constraints>
-                            <constraint firstItem="zlZ-O4-zNI" firstAttribute="bottom" secondItem="LzQ-aO-jRE" secondAttribute="bottom" id="DPH-DP-siG"/>
-                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="top" secondItem="zlZ-O4-zNI" secondAttribute="top" id="U1G-t1-eDo"/>
-                            <constraint firstItem="zlZ-O4-zNI" firstAttribute="trailing" secondItem="LzQ-aO-jRE" secondAttribute="trailing" id="bqZ-Qk-UPe"/>
-                            <constraint firstItem="LzQ-aO-jRE" firstAttribute="leading" secondItem="zlZ-O4-zNI" secondAttribute="leading" id="gEc-m4-j6d"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" style="browser" id="0mP-p8-DY6"/>
-                    <connections>
-                        <outlet property="collectionView" destination="LzQ-aO-jRE" id="xMu-XZ-K0t"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCB-e8-IgH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -80,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSM-oc-BP0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-603" y="1659"/>
+            <point key="canvasLocation" x="-603" y="1629"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="LQT-4h-LdI">
@@ -206,7 +184,7 @@
             <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="DarkGray">
-            <color red="0.36100000143051147" green="0.3529999852180481" blue="0.36100000143051147" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.36078431372549019" green="0.3529411764705882" blue="0.36078431372549019" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Light+Gray">
             <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -215,7 +193,7 @@
             <color red="0.63099998235702515" green="0.63099998235702515" blue="0.63099998235702515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="LightMediumGray">
-            <color red="0.63099998235702515" green="0.63099998235702515" blue="0.63099998235702515" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63137254901960782" green="0.63137254901960782" blue="0.63137254901960782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PrimaryBGColor">
             <color red="0.9570000171661377" green="0.9570000171661377" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

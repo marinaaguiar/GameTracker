@@ -1,4 +1,5 @@
 import UIKit
+import Lottie
 
 class ExploreViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
@@ -42,14 +43,15 @@ class ExploreViewController: UIViewController {
             }
         }
     }
-
+    private var animationView: AnimationView?
     private var games: [SectionType: [GameResponse]] = [:]
     private let apiService = APIService()
     private var dataSource: DataSource?
 
+    private var collectionView: UICollectionView!
     private lazy var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 300, 20))
 
-    @IBOutlet weak var collectionView: UICollectionView!
+//    @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -63,6 +65,8 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
+        collectionView.isHidden = true
+        setupLottieAnimation()
         fetchTrendingGames()
         searchBar.delegate = self
     }
@@ -72,10 +76,22 @@ class ExploreViewController: UIViewController {
     }
 
     func setupCollectionView() {
-        collectionView.delegate = self
-        collectionView.collectionViewLayout = createLayout()
-        collectionView.allowsMultipleSelection = true
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        collectionView.backgroundColor = DSColor.backgroundColor
+        collectionView.allowsMultipleSelection = true
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+
         registerCells()
         createDataSource()
     }
@@ -94,6 +110,28 @@ class ExploreViewController: UIViewController {
             TypeFilterCell.self,
             forCellWithReuseIdentifier: TypeFilterCell.reuseIdentifier
         )
+    }
+
+    func setupLottieAnimation() {
+        animationView = .init(name: "DiceRollingLottie")
+
+        guard let animationView = animationView else { return }
+
+        animationView.frame = view.bounds
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 1.0
+        animationView.isUserInteractionEnabled = false
+        view.addSubview(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            animationView.topAnchor.constraint(equalTo: view.topAnchor),
+            animationView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        animationView.play()
     }
 
     func setupNavBar() {
@@ -296,9 +334,11 @@ extension ExploreViewController {
             case .success(let data):
                 DispatchQueue.main.async {
                     self.games[.topRated] = data.games
+                    self.animationView?.stop()
+                    self.collectionView.isHidden = false
+                    self.collectionView.allowsSelection = true
                     self.reloadData()
                 }
-                print(data)
                 print("Load PopularGames sucessfully")
             case .failure(let error):
                 print(error)

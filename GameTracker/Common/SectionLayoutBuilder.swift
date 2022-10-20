@@ -18,7 +18,7 @@ class SectionLayoutBuilder {
         let horizontalGroup = CompositionalLayout.createGroup(
             aligment: .horizontal,
             width: .absolute(CGFloat(250)),
-            height: .fractionalHeight(1/3),
+            height: .absolute(CGFloat(220)),
             item: item,
             count: 1)
         let section = NSCollectionLayoutSection(group: horizontalGroup)

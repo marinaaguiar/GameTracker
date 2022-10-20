@@ -19,6 +19,9 @@
 		9C40A69D28E45E2700C92B6C /* GameDetailImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40A69C28E45E2700C92B6C /* GameDetailImagesCell.swift */; };
 		9C40A69F28E4936B00C92B6C /* GameDetailVideosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C40A69E28E4936B00C92B6C /* GameDetailVideosCell.swift */; };
 		9C450E8F29008F700009B0B9 /* SectionHeaderFilteredList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C450E8E29008F700009B0B9 /* SectionHeaderFilteredList.swift */; };
+		9C450E92290155230009B0B9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9C450E91290155230009B0B9 /* Lottie */; };
+		9C450E96290160CD0009B0B9 /* DiceRollingLottie.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C450E95290160CD0009B0B9 /* DiceRollingLottie.json */; };
+		9C450E982901622D0009B0B9 /* DiceLoader.json in Resources */ = {isa = PBXBuildFile; fileRef = 9C450E972901622D0009B0B9 /* DiceLoader.json */; };
 		9C4AD53328DB7ABF003A7D4E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53228DB7ABF003A7D4E /* Colors.swift */; };
 		9C4AD53528DB817C003A7D4E /* TypeFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53428DB817C003A7D4E /* TypeFilterCell.swift */; };
 		9C4AD53728DB867F003A7D4E /* StandardConfiguringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4AD53628DB867F003A7D4E /* StandardConfiguringCell.swift */; };
@@ -68,6 +71,8 @@
 		9C40A69C28E45E2700C92B6C /* GameDetailImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailImagesCell.swift; sourceTree = "<group>"; };
 		9C40A69E28E4936B00C92B6C /* GameDetailVideosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailVideosCell.swift; sourceTree = "<group>"; };
 		9C450E8E29008F700009B0B9 /* SectionHeaderFilteredList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderFilteredList.swift; sourceTree = "<group>"; };
+		9C450E95290160CD0009B0B9 /* DiceRollingLottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiceRollingLottie.json; sourceTree = "<group>"; };
+		9C450E972901622D0009B0B9 /* DiceLoader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DiceLoader.json; sourceTree = "<group>"; };
 		9C4AD53228DB7ABF003A7D4E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		9C4AD53428DB817C003A7D4E /* TypeFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeFilterCell.swift; sourceTree = "<group>"; };
 		9C4AD53628DB867F003A7D4E /* StandardConfiguringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardConfiguringCell.swift; sourceTree = "<group>"; };
@@ -107,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C450E92290155230009B0B9 /* Lottie in Frameworks */,
 				9C4AF91828FDD1E6008BA27F /* RealmSwift in Frameworks */,
 				9C4AF91628FDD1E6008BA27F /* Realm in Frameworks */,
 				9CA2980628E4AFD800D74318 /* MarkdownKit in Frameworks */,
@@ -355,6 +361,8 @@
 		9CBCEB3428D3644A001EE791 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9C450E95290160CD0009B0B9 /* DiceRollingLottie.json */,
+				9C450E972901622D0009B0B9 /* DiceLoader.json */,
 				9C4AF90628F48D3A008BA27F /* Images.swift */,
 				9C4AD53228DB7ABF003A7D4E /* Colors.swift */,
 				9CBCEB3528D36459001EE791 /* CompositionalLayout.swift */,
@@ -396,6 +404,7 @@
 				9CA2980528E4AFD800D74318 /* MarkdownKit */,
 				9C4AF91528FDD1E6008BA27F /* Realm */,
 				9C4AF91728FDD1E6008BA27F /* RealmSwift */,
+				9C450E91290155230009B0B9 /* Lottie */,
 			);
 			productName = GameTracker;
 			productReference = 9CBCEB0B28D355C3001EE791 /* GameTracker.app */;
@@ -429,6 +438,7 @@
 				9C8CC82528D4C8640076736C /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				9CA2980428E4AFD700D74318 /* XCRemoteSwiftPackageReference "MarkdownKit" */,
 				9C4AF91428FDD1E6008BA27F /* XCRemoteSwiftPackageReference "realm-swift" */,
+				9C450E90290155230009B0B9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 9CBCEB0C28D355C3001EE791 /* Products */;
 			projectDirPath = "";
@@ -445,8 +455,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CBCEB1B28D355C3001EE791 /* LaunchScreen.storyboard in Resources */,
+				9C450E982901622D0009B0B9 /* DiceLoader.json in Resources */,
 				9CBCEB1828D355C3001EE791 /* Assets.xcassets in Resources */,
 				9CBCEB1628D355C3001EE791 /* Main.storyboard in Resources */,
+				9C450E96290160CD0009B0B9 /* DiceRollingLottie.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,6 +735,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9C450E90290155230009B0B9 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		9C4AF91428FDD1E6008BA27F /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -750,6 +770,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9C450E91290155230009B0B9 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9C450E90290155230009B0B9 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		9C4AF91528FDD1E6008BA27F /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9C4AF91428FDD1E6008BA27F /* XCRemoteSwiftPackageReference "realm-swift" */;
