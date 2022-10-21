@@ -15,4 +15,5 @@ class Alert {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         vc.present(alert, animated: true)
     }
+
 }

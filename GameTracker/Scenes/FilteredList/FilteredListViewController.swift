@@ -49,6 +49,7 @@ class FilteredListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         title = sectionTitle
+        navigationController?.isNavigationBarHidden = false 
         collectionView.isHidden = true
         setupActivityIndicator()
     }

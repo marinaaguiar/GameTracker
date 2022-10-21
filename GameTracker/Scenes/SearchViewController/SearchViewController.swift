@@ -14,6 +14,7 @@ class SearchViewController: UIViewController {
     private let apiService = APIService()
     private var games: [SectionType: [GameResponse]] = [:]
 
+    private var imageView = UIImageView()
     private lazy var searchBar: UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 300, 20))
     private var collectionView: UICollectionView!
 
@@ -44,6 +45,7 @@ class SearchViewController: UIViewController {
         setupNavBar()
         setupSearchBar()
         setupCollectionView()
+        setupBackgroundImage()
     }
 
     func setupSearchBar() {
@@ -66,6 +68,22 @@ class SearchViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
         print("backSelected")
+    }
+
+    func setupBackgroundImage() {
+        view.addSubview(imageView)
+        imageView.isHidden = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        imageView.image = DSImages.searchImageBackground
+
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(280)),
+            imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(290))
+        ])
     }
 
     func setupCollectionView() {
@@ -171,10 +189,14 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         if searchText == "" {
-            self.games[.gameInfo] = []
+            games[.gameInfo] = []
             reloadData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.imageView.isHidden = false
+            }
         } else {
             fetchFilteredList(by: searchText)
+            imageView.isHidden = true
         }
     }
 
@@ -182,6 +204,22 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
 }
+
+// MARK: - UITextFieldDelegate
+
+extension SearchViewController {
+
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                         action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+}
+
 
 //MARK: - UICollectionViewDelegate
 

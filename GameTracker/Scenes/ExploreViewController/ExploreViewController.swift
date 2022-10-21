@@ -48,22 +48,27 @@ class ExploreViewController: UIViewController {
     private var dataSource: DataSource?
 
     private var collectionView: UICollectionView!
-    private var animationView: AnimationView?
-    private lazy var searchBar:UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 300, 20))
+    private var animationView: LottieAnimationView?
+    private lazy var searchBar: UISearchBar = UISearchBar()
+
+    private var errorView = UIView()
+    private var errorLabel = UILabel()
+    private var reloadButton = UIButton()
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavBar()
         navigationItem.largeTitleDisplayMode = .never
-        tabBarController?.tabBar.isHidden = false
         searchBar.resignFirstResponder()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
         setupCollectionView()
         collectionView.isHidden = true
-        setupLottieAnimation()
+        presentAnimation(.entryLoader)
         fetchTrendingGames()
         searchBar.delegate = self
     }
@@ -109,8 +114,13 @@ class ExploreViewController: UIViewController {
         )
     }
 
-    func setupLottieAnimation() {
-        animationView = .init(name: "DiceRollingLottie")
+    enum LoaderAnimation: String {
+        case entryLoader = "DiceRollingLottie"
+        case reloadLoader = "DiceLoader"
+    }
+
+    func presentAnimation(_ loaderAnimation: LoaderAnimation) {
+        animationView = .init(name: loaderAnimation.rawValue)
 
         guard let animationView = animationView else { return }
 
@@ -133,12 +143,62 @@ class ExploreViewController: UIViewController {
 
     func setupNavBar() {
         searchBar.placeholder = "Search game"
-        let leftNavBarButton = UIBarButtonItem(customView: searchBar)
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
+    }
 
-        let rightNavBarButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(rightNavBarButtonPressed))
-        rightNavBarButton.tintColor = DSColor.darkGray
+    func presentErrorView() {
+        collectionView.isHidden = true
+        errorLabel.isHidden = false
+        reloadButton.isHidden = false
+        reloadButton.isEnabled = true
 
-        navigationItem.rightBarButtonItems = [rightNavBarButton, leftNavBarButton]
+        view.addSubview(errorView)
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        errorView.backgroundColor = DSColor.backgroundColor
+
+        errorView.addSubview(errorLabel)
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.text = "Sorry! \n Failed to reach server. \n Please, try again later."
+        errorLabel.numberOfLines = 0
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = DSColor.darkGray
+
+        errorView.addSubview(reloadButton)
+        reloadButton.translatesAutoresizingMaskIntoConstraints = false
+        reloadButton.setTitle("Try Again", for: .normal)
+        reloadButton.setTitleColor(.systemBlue, for: .normal)
+        reloadButton.backgroundColor = .white
+        reloadButton.layer.cornerRadius = 20
+        reloadButton.addTarget(self, action: #selector(reloadButtonPressed), for: .touchUpInside)
+
+        NSLayoutConstraint.activate([
+            errorView.topAnchor.constraint(equalTo: view.topAnchor),
+            errorView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            errorLabel.centerYAnchor.constraint(equalTo: errorView.centerYAnchor),
+            errorLabel.centerXAnchor.constraint(equalTo: errorView.centerXAnchor),
+            errorLabel.leadingAnchor.constraint(equalTo: errorView.leadingAnchor),
+            errorLabel.trailingAnchor.constraint(equalTo: errorView.trailingAnchor),
+            errorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(30)),
+
+            reloadButton.bottomAnchor.constraint(equalTo: errorView.bottomAnchor, constant: CGFloat(-80)),
+            reloadButton.centerXAnchor.constraint(equalTo: errorView.centerXAnchor),
+            reloadButton.widthAnchor.constraint(equalToConstant: CGFloat(200)),
+            reloadButton.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(40))
+        ])
+    }
+
+    @objc func reloadButtonPressed() {
+        presentAnimation(.reloadLoader)
+        errorLabel.isHidden = true
+        reloadButton.isHidden = true
+        reloadButton.isEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.fetchTrendingGames()
+        }
     }
 
     @objc func rightNavBarButtonPressed() {
@@ -304,7 +364,12 @@ extension ExploreViewController {
                 }
                 print("Load TrendingGames sucessfully")
             case .failure(let error):
-                print(error)
+                DispatchQueue.main.async {
+                    self.animationView?.stop()
+                    self.animationView?.isHidden = true
+                    self.presentErrorView()
+                }
+                print("Server out of Service")
             }
         }
     }
@@ -334,6 +399,8 @@ extension ExploreViewController {
                     self.animationView?.stop()
                     self.collectionView.isHidden = false
                     self.collectionView.allowsSelection = true
+                    self.searchBar.isHidden = false
+                    self.tabBarController?.tabBar.isHidden = false
                     self.reloadData()
                 }
                 print("Load PopularGames sucessfully")
