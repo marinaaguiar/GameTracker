@@ -17,8 +17,10 @@ class GameDetail: Codable, Hashable {
     let yearPublished: Int
     let players: String
     let playtime: String
+    let rulesUrl: String
+    let officialUrl: String
 
-    init(id: String, name: String, price: String, minAge: Int, description: String, descriptionPreview: String, year: Int, players: String, playtime: String) {
+    init(id: String, name: String, price: String, minAge: Int, description: String, descriptionPreview: String, year: Int, players: String, playtime: String, rulesUrl: String, officialUrl: String) {
         self.id = id
         self.name = name
         self.price = price
@@ -28,6 +30,8 @@ class GameDetail: Codable, Hashable {
         self.yearPublished = year
         self.players = players
         self.playtime = playtime
+        self.rulesUrl = rulesUrl
+        self.officialUrl = officialUrl
     }
 
     convenience init(gameResponse: GameResponse) {
@@ -39,8 +43,10 @@ class GameDetail: Codable, Hashable {
             description: gameResponse.description,
             descriptionPreview: gameResponse.descriptionPreview,
             year: gameResponse.yearPublished ?? 0,
-            players: gameResponse.players!,
-            playtime: gameResponse.playtime!
+            players: gameResponse.players ?? "",
+            playtime: gameResponse.playtime ?? "",
+            rulesUrl: gameResponse.rulesUrl ?? "",
+            officialUrl: gameResponse.officialUrl ?? ""
         )
     }
 

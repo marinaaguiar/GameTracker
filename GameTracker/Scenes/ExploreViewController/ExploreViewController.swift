@@ -53,22 +53,22 @@ class ExploreViewController: UIViewController {
 
     private var errorView = UIView()
     private var errorLabel = UILabel()
-    private var reloadButton = UIButton()
+    private var reloadButton = UIButton(type: .system)
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupNavBar()
+        tabBarController?.tabBar.isHidden = false
         navigationItem.largeTitleDisplayMode = .never
         searchBar.resignFirstResponder()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.isHidden = true
-        tabBarController?.tabBar.isHidden = true
+        tabBarController?.tabBar.isUserInteractionEnabled = false
+        presentAnimation(.entryLoader)
+        setupNavBar()
         setupCollectionView()
         collectionView.isHidden = true
-        presentAnimation(.entryLoader)
         fetchTrendingGames()
         searchBar.delegate = self
     }
@@ -120,6 +120,10 @@ class ExploreViewController: UIViewController {
     }
 
     func presentAnimation(_ loaderAnimation: LoaderAnimation) {
+        searchBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
+        animationView?.isHidden = false
+
         animationView = .init(name: loaderAnimation.rawValue)
 
         guard let animationView = animationView else { return }
@@ -148,6 +152,7 @@ class ExploreViewController: UIViewController {
     }
 
     func presentErrorView() {
+        tabBarController?.tabBar.isHidden = true
         collectionView.isHidden = true
         errorLabel.isHidden = false
         reloadButton.isHidden = false
@@ -159,7 +164,7 @@ class ExploreViewController: UIViewController {
 
         errorView.addSubview(errorLabel)
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        errorLabel.text = "Sorry! \n Failed to reach server. \n Please, try again later."
+        errorLabel.text = "Sorry! \n Unable to connect the server. \n Please, try connecting again later."
         errorLabel.numberOfLines = 0
         errorLabel.textAlignment = .center
         errorLabel.textColor = DSColor.darkGray
@@ -187,7 +192,7 @@ class ExploreViewController: UIViewController {
             reloadButton.bottomAnchor.constraint(equalTo: errorView.bottomAnchor, constant: CGFloat(-80)),
             reloadButton.centerXAnchor.constraint(equalTo: errorView.centerXAnchor),
             reloadButton.widthAnchor.constraint(equalToConstant: CGFloat(200)),
-            reloadButton.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(40))
+            reloadButton.heightAnchor.constraint(equalToConstant: CGFloat(40))
         ])
     }
 
@@ -397,9 +402,12 @@ extension ExploreViewController {
                 DispatchQueue.main.async {
                     self.games[.topRated] = data.games
                     self.animationView?.stop()
+                    self.animationView?.isHidden == true
                     self.collectionView.isHidden = false
                     self.collectionView.allowsSelection = true
                     self.searchBar.isHidden = false
+                    self.errorView.isHidden = true
+                    self.tabBarController?.tabBar.isUserInteractionEnabled = true
                     self.tabBarController?.tabBar.isHidden = false
                     self.reloadData()
                 }

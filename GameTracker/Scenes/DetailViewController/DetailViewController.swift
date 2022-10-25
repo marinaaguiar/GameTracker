@@ -10,17 +10,19 @@ import SafariServices
 import RealmSwift
 
 class DetailViewController: UIViewController {
-    private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
     static let reuseIdentifier = "DetailViewController"
+
+    private typealias DataSource = UICollectionViewDiffableDataSource<SectionType, ItemType>
     private var dataSource: DataSource?
-    private let apiService = APIService()
-    let realm = try! Realm()
+
     private var collectionView: UICollectionView!
+    private let apiService = APIService()
     private lazy var activityIndicator = UIActivityIndicatorView(style: .medium)
     private var gameImages: [GameImageResponse] = []
     private var gameVideos: [GameVideoResponse] = []
+    private var wishlistGames: [String] = []
+    let realm = try! Realm()
 
-    var wishlistGames: [String] = []
     var gameDetail: GameDetail! {
         didSet {
             gameDetailDescriptionModel = .init(gameDetail: gameDetail)
@@ -32,6 +34,7 @@ class DetailViewController: UIViewController {
         case gameImages = 0
         case gameInfos
         case description
+        case gameLinks
         case gameVideos
 
         var title: String {
@@ -42,6 +45,8 @@ class DetailViewController: UIViewController {
                 return ""
             case .description:
                 return "Description"
+            case .gameLinks:
+                return ""
             case .gameVideos:
                 return "Videos"
             }
@@ -52,6 +57,7 @@ class DetailViewController: UIViewController {
         case gameImages(GameImageResponse)
         case gameInfo(GameInfoType)
         case gameDescription(GameDetailDescriptionModel)
+        case gameLinks(GameLinkType)
         case gameVideos(GameVideoResponse)
 
         func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
@@ -62,6 +68,8 @@ class DetailViewController: UIViewController {
                 return GameDetailInfosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameInfoDetail)
             case let .gameDescription(gameDetail):
                 return GameDetailDescriptionCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
+            case let .gameLinks(gameDetail):
+                return GameDetailLinksCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
             case let .gameVideos(gameVideos):
                 return  GameDetailVideosCell.dequeue(in: collectionView, indexPath: indexPath, model: gameVideos)
             }
@@ -102,7 +110,7 @@ class DetailViewController: UIViewController {
             rightNavBarButton.tintColor = .systemBlue
             navigationItem.rightBarButtonItems = [rightNavBarButton]
         }
-else {
+        else {
             let rightNavBarButton = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: self, action: #selector(rightNavBarButtonPressed))
             rightNavBarButton.tintColor = .systemBlue
             navigationItem.rightBarButtonItems = [rightNavBarButton]
@@ -155,10 +163,10 @@ else {
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-        collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
         createDataSource()
@@ -176,26 +184,30 @@ else {
         ])
     }
 
-
     func registerCells() {
-        collectionView.register(SectionHeaderView.self,
+        collectionView.register(
+            SectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
-
-        collectionView.register(GameDetailImagesCell.self,
+        collectionView.register(
+            GameDetailImagesCell.self,
             forCellWithReuseIdentifier: GameDetailImagesCell.reuseIdentifier
         )
-
-        collectionView.register(GameDetailDescriptionCell.self,
+        collectionView.register(
+            GameDetailLinksCell.self,
+            forCellWithReuseIdentifier: GameDetailLinksCell.reuseIdentifier
+        )
+        collectionView.register(
+            GameDetailDescriptionCell.self,
             forCellWithReuseIdentifier: GameDetailDescriptionCell.reuseIdentifier
         )
-
-        collectionView.register(GameDetailVideosCell.self,
+        collectionView.register(
+            GameDetailVideosCell.self,
             forCellWithReuseIdentifier: GameDetailVideosCell.reuseIdentifier
         )
-
-        collectionView.register(GameDetailInfosCell.self,
+        collectionView.register(
+            GameDetailInfosCell.self,
             forCellWithReuseIdentifier: GameDetailInfosCell.reuseIdentifier
         )
     }
@@ -211,6 +223,8 @@ else {
                 return SectionLayoutBuilder.infoLayoutSection()
             case .description:
                 return SectionLayoutBuilder.descriptionLayoutSection()
+            case .gameLinks:
+                return SectionLayoutBuilder.buttonsLayoutSection()
             case .gameVideos:
                 return SectionLayoutBuilder.videosLayoutSection()
             case .none:
@@ -256,7 +270,7 @@ extension DetailViewController {
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<SectionType, ItemType>()
 
-        let sections: [SectionType] = [.gameImages, .gameInfos, .description, .gameVideos]
+        let sections: [SectionType] = SectionType.allCases
         snapshot.appendSections(sections)
 
         for section in sections {
@@ -268,18 +282,15 @@ extension DetailViewController {
                 }
                 snapshot.appendItems(gameImages, toSection: section)
             case .gameInfos:
-
-
                 let gameInfoDetail = GameInfoType.allCases(with: gameDetail).map({ gameInfoDetail in
                     ItemType.gameInfo(gameInfoDetail)
                 })
-
-//                let gameInfoDetail = gameDetail.map { gameDetailResponse in
-//                    ItemType.gameInfo(gameDetailResponse)
-//                }
                 snapshot.appendItems(gameInfoDetail.compactMap { $0 }, toSection: section)
-
-
+            case .gameLinks:
+                let gameDetail = GameLinkType.allCases().map({ gameDetail in
+                    ItemType.gameLinks(gameDetail)
+                })
+                snapshot.appendItems(gameDetail.compactMap { $0 }, toSection: section)
             case .description:
                 let gameDetail = gameDetailDescriptionModel.map { gameDetailResponse in
                     ItemType.gameDescription(gameDetailResponse)
@@ -291,9 +302,9 @@ extension DetailViewController {
                 }
                 snapshot.appendItems(gameVideos, toSection: section)
             }
-        }
 
-        dataSource?.apply(snapshot)
+            dataSource?.apply(snapshot)
+        }
     }
 }
 
@@ -306,6 +317,30 @@ extension DetailViewController: UICollectionViewDelegate {
         guard let section = SectionType(rawValue: indexPath.section) else { return }
 
         switch section {
+        case .gameLinks:
+            if indexPath.item == 0 {
+                if let url = URL(string: gameDetail.rulesUrl) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        let safariVC = SFSafariViewController(url: url)
+                        present(safariVC, animated: true, completion: nil)
+                    } else {
+                        Alert.showBasics(title: "Invalid url", message: "", vc: self)
+                    }
+                } else {
+                    Alert.showBasics(title: "Sorry! \n Link not available.", message: "", vc: self)
+                }
+            } else {
+                if let url = URL(string: gameDetail.officialUrl) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        let safariVC = SFSafariViewController(url: url)
+                        present(safariVC, animated: true, completion: nil)
+                    } else {
+                        Alert.showBasics(title: "Invalid url", message: "", vc: self)
+                    }
+                } else {
+                    Alert.showBasics(title: "Sorry! \n Link not available.", message: "", vc: self)
+                }
+            }
         case .description:
             print("selected description")
             if gameDetailDescriptionModel.isDescriptionExpanded == false {

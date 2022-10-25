@@ -40,12 +40,19 @@ class SearchViewController: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = true 
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         setupSearchBar()
         setupCollectionView()
-        setupBackgroundImage()
+        setupBackgroundImage(image: DSImages.searchImageBackground)
+        hideKeyboardWhenTappedAround()
     }
 
     func setupSearchBar() {
@@ -70,17 +77,18 @@ class SearchViewController: UIViewController {
         print("backSelected")
     }
 
-    func setupBackgroundImage() {
+    func setupBackgroundImage(image: UIImage!) {
         view.addSubview(imageView)
+        view.backgroundColor = DSColor.backgroundColor
         imageView.isHidden = false
         imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
-
-        imageView.image = DSImages.searchImageBackground
+        imageView.image = image
 
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: CGFloat(-75)),
             imageView.heightAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(280)),
             imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: CGFloat(290))
         ])
@@ -191,35 +199,42 @@ extension SearchViewController: UISearchBarDelegate {
         if searchText == "" {
             games[.gameInfo] = []
             reloadData()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.imageView.isHidden = false
-            }
+            collectionView.isHidden = true
+            imageView.isHidden = false
         } else {
+            collectionView.isHidden = false
             fetchFilteredList(by: searchText)
             imageView.isHidden = true
         }
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
+        if games[.gameInfo] == [] {
+            imageView.isHidden = false
+            collectionView.isHidden = true
+            setupBackgroundImage(image: DSImages.noImageFoundBackground)
+        }
         searchBar.resignFirstResponder()
     }
 }
 
-// MARK: - UITextFieldDelegate
+// MARK: - HideKeyboard
 
 extension SearchViewController {
-
     func hideKeyboardWhenTappedAround() {
-        let tapGesture = UITapGestureRecognizer(target: self,
-                         action: #selector(hideKeyboard))
-        view.addGestureRecognizer(tapGesture)
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
 
-    @objc func hideKeyboard() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
+        searchBar.resignFirstResponder()
     }
 }
-
 
 //MARK: - UICollectionViewDelegate
 

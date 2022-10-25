@@ -55,6 +55,7 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
         label.clipsToBounds = true
         label.contentMode = .topLeft
         label.textAlignment = .justified
+        label.font = .preferredFont(forTextStyle: .body, compatibleWith: .none)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
     }

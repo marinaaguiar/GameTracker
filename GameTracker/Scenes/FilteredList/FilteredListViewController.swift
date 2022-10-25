@@ -41,19 +41,20 @@ class FilteredListViewController: UIViewController {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupCollectionView()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         title = sectionTitle
-        navigationController?.isNavigationBarHidden = false 
+        navigationController?.isNavigationBarHidden = false
+        tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupCollectionView()
         collectionView.isHidden = true
         setupActivityIndicator()
     }
-    
+
     func setupCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

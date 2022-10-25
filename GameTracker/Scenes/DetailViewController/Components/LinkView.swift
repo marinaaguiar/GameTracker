@@ -1,67 +1,45 @@
 //
-//  ChipView.swift
+//  LinkView.swift
 //  GameTracker
 //
-//  Created by Marina Aguiar on 10/5/22.
+//  Created by Marina Aguiar on 10/24/22.
 //
 
 import UIKit
 
-class ChipView: UIView {
+class LinkView: UIView {
 
     let view = UIView()
     let stackView = UIStackView()
     let label = UILabel()
     let imageView = UIImageView()
 
-    var size: Size
-
-    enum Size {
-        case small, medium
+    enum `Type` {
+        case rule, website
     }
 
-    init(frame: CGRect, size: Size) {
-        self.size = size
+    override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout(size: size)
+        setupLayout()
     }
 
-    private func setupLayout(size: Size) {
+    private func setupLayout() {
         self.addSubview(view)
 
-        let imageHeight: CGFloat
-        let fontSize: CGFloat
-        let imageMinWidth: CGFloat
-        let imageMaxWidth: CGFloat
-        let cornerRadius: CGFloat
-        let backgroundColor: UIColor
-        let spacing: CGFloat
+        let imageHeight: CGFloat = 22
+        let fontSize: CGFloat = 16
+        let imageMinWidth: CGFloat = 18
+        let imageMaxWidth: CGFloat = 22
+        let cornerRadius: CGFloat = 8
+        let spacing: CGFloat = 0
 
-        switch size {
-        case .small:
-            imageHeight = 14
-            imageMinWidth = 8
-            imageMaxWidth = 16
-            fontSize = 11
-            cornerRadius = 12
-            backgroundColor = DSColor.light!
-            spacing = 5
-        case .medium:
-            imageHeight = 16
-            imageMinWidth = 14
-            imageMaxWidth = 18
-            fontSize = 15
-            cornerRadius = 16
-            backgroundColor = .white
-            spacing = 8
-        }
-
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = .cyan
         view.layer.cornerRadius = cornerRadius
         view.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(stackView)
         stackView.axis = .horizontal
+        stackView.alignment = .center
         stackView.distribution = .fill
         stackView.spacing = spacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +53,7 @@ class ChipView: UIView {
 
         label.clipsToBounds = true
         label.font = .systemFont(ofSize: fontSize)
-        label.textColor = .darkGray
+        label.textColor = DSColor.light
         label.numberOfLines = 1
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,10 +62,10 @@ class ChipView: UIView {
             view.topAnchor.constraint(equalTo: self.topAnchor),
             view.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             view.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            view.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: CGFloat(-12)),
 
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CGFloat(10)),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: CGFloat(-10)),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: CGFloat(18)),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: CGFloat(-18)),
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 
             imageView.heightAnchor.constraint(equalToConstant: imageHeight),
@@ -98,14 +76,18 @@ class ChipView: UIView {
         ])
     }
 
-    func updateText(_ text: String?) {
-        guard let text = text else { return }
-        label.text = text
-    }
+    func updateCell(type: `Type`) {
 
-    func updateImage(_ image: UIImage?) {
-        guard let image = image else { return }
-        imageView.image = image
+        switch type {
+        case .rule:
+            view.backgroundColor = DSColor.purple
+            label.text = "Game Rules"
+            imageView.image = DSImages.dices
+        case .website:
+            view.backgroundColor = DSColor.blue
+            label.text = "More Info"
+            imageView.image = DSImages.website
+        }
     }
 
     required init?(coder: NSCoder) {

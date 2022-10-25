@@ -13,8 +13,6 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
 
     private let chipView = ChipView(frame: .zero, size: .medium)
 
-    @objc private let seeMoreButton = UIButton(type: .system)
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

@@ -12,7 +12,10 @@ class DSImages {
     static let playtimeIcon = UIImage(named: "PlaytimeIcon")
     static let minAgeIcon = UIImage(named: "AgeIcon")
     static let playerIcon = UIImage(named: "PlayerIcon")
-    static let searchImageBackground = UIImage(named: "SearchImage")
+    static let searchImageBackground = UIImage(named: "BackgroundImageSearchView")
+    static let website = UIImage(named: "Website")
+    static let dices = UIImage(named: "Dices")
+    static let noImageFoundBackground = UIImage(named: "BackgroundImageNoImgFound")
 }
 
 

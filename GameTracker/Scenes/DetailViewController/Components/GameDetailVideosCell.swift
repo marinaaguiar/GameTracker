@@ -54,11 +54,9 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
         stackView.distribution = .fill
 
         stackView.addArrangedSubview(containerViewA)
-        stackView.addArrangedSubview(containerViewB)
         containerViewA.translatesAutoresizingMaskIntoConstraints = false
         containerViewA.layer.cornerRadius = 5
         containerViewA.clipsToBounds = true
-        containerViewB.translatesAutoresizingMaskIntoConstraints = false
 
 //        containerViewA.backgroundColor = .yellow
 //        containerViewB.backgroundColor = .red
@@ -76,6 +74,8 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
         playerImageView.alpha = 0.6
         playerImageView.layer.masksToBounds = false
 
+        stackView.addArrangedSubview(containerViewB)
+        containerViewB.translatesAutoresizingMaskIntoConstraints = false
         containerViewB.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.clipsToBounds = true
