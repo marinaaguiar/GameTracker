@@ -286,7 +286,7 @@ extension DetailViewController {
                     ItemType.gameInfo(gameInfoDetail)
                 })
                 snapshot.appendItems(gameInfoDetail.compactMap { $0 }, toSection: section)
-            case .gameLinks
+            case .gameLinks:
                 let gameDetail = GameLinkType.allCases().map({ gameDetail in
                     ItemType.gameLinks(gameDetail)
                 })

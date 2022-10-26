@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MarkdownKit
 
 final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguringCell {
     typealias CellModel = GameDetailDescriptionModel
@@ -89,27 +90,41 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
             label.numberOfLines = 10
             arrowImage.image = UIImage(named: "ArrowDown")
         }
-        label.text = formattingString(item.gameDetail.description)
+        label.attributedText = formattingString(item.gameDetail.description)
     }
 
-    func formattingString(_ text: String) -> String {
+    func formattingString(_ text: String) -> NSAttributedString? {
         let htmlDescription  = text
         let data = Data(htmlDescription.utf8)
 
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .justified
+
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 16)
+            .font: UIFont.systemFont(ofSize: 16),
+            .foregroundColor: DSColor.darkGray!,
+            .paragraphStyle: paragraphStyle
         ]
 
         if let attributedString = try?
-            NSAttributedString(
+            NSMutableAttributedString(
                 data: data,
-                options: [.documentType: NSAttributedString.DocumentType.html],
+                options: [
+                    .documentType: NSAttributedString.DocumentType.html,
+                    .characterEncoding: NSUTF8StringEncoding
+                ],
                 documentAttributes: nil
             ) {
-            let formattedString = attributedString.string
+
+            attributedString.addAttributes(
+                attributes,
+                range: NSRange.init(location: 0, length: attributedString.length)
+            )
+
+            let formattedString = attributedString
             return formattedString
         }
-        return ""
+        return NSAttributedString(string: "")
     }
 
     required init?(coder: NSCoder) {
