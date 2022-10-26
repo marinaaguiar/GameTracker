@@ -47,7 +47,6 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
     private func addStackViewToContentView() {
         contentView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.backgroundColor = .cyan
         stackView.spacing = 5
         stackView.alignment = .leading
         stackView.axis = .vertical
@@ -57,9 +56,6 @@ final class GameDetailVideosCell: UICollectionViewCell, StandardConfiguringCell 
         containerViewA.translatesAutoresizingMaskIntoConstraints = false
         containerViewA.layer.cornerRadius = 5
         containerViewA.clipsToBounds = true
-
-//        containerViewA.backgroundColor = .yellow
-//        containerViewB.backgroundColor = .red
 
         containerViewA.addSubview(videoImageView)
         videoImageView.translatesAutoresizingMaskIntoConstraints = false

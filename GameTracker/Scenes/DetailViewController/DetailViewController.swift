@@ -270,11 +270,11 @@ extension DetailViewController {
     func reloadData() {
         var snapshot = NSDiffableDataSourceSnapshot<SectionType, ItemType>()
 
-        let sections: [SectionType] = SectionType.allCases
+        var sections: [SectionType] = SectionType.allCases
+
         snapshot.appendSections(sections)
 
         for section in sections {
-
             switch section {
             case .gameImages:
                 let gameImages = gameImages.map { gameImageResponse in
@@ -286,7 +286,7 @@ extension DetailViewController {
                     ItemType.gameInfo(gameInfoDetail)
                 })
                 snapshot.appendItems(gameInfoDetail.compactMap { $0 }, toSection: section)
-            case .gameLinks:
+            case .gameLinks
                 let gameDetail = GameLinkType.allCases().map({ gameDetail in
                     ItemType.gameLinks(gameDetail)
                 })
@@ -296,13 +296,16 @@ extension DetailViewController {
                     ItemType.gameDescription(gameDetailResponse)
                 }
                 snapshot.appendItems([gameDetail].compactMap { $0 }, toSection: section)
-            case .gameVideos:
+            case .gameVideos where !gameVideos.isEmpty:
                 let gameVideos = gameVideos.map { gameVideoResponse in
                     ItemType.gameVideos(gameVideoResponse)
                 }
                 snapshot.appendItems(gameVideos, toSection: section)
+            case .gameVideos where gameVideos.isEmpty:
+                snapshot.deleteSections([.gameVideos])
+            default:
+                break
             }
-
             dataSource?.apply(snapshot)
         }
     }

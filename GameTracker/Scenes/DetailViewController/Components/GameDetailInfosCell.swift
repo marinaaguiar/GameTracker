@@ -39,14 +39,26 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
 
         switch item {
         case .numberOfPlayers(let gameDetail):
-            chipView.updateText(gameDetail.players)
-            chipView.updateImage(DSImages.playersIcon)
+            if gameDetail.players != "" {
+                chipView.updateText(gameDetail.players)
+                chipView.updateImage(DSImages.playersIcon)
+            } else {
+                chipView.isHidden = true
+            }
         case .playtime(let gameDetail):
-            chipView.updateText("\(gameDetail.playtime) min")
-            chipView.updateImage(DSImages.playtimeIcon)
+            if gameDetail.playtime != "" {
+                chipView.updateText("\(gameDetail.playtime) min")
+                chipView.updateImage(DSImages.playtimeIcon)
+            } else {
+                chipView.isHidden = true
+            }
         case .minAge(let gameDetail):
-            chipView.updateText("+\(gameDetail.minAge)")
-            chipView.updateImage(DSImages.minAgeIcon)
+            if gameDetail.minAge != 0 {
+                chipView.updateText("+\(gameDetail.minAge)")
+                chipView.updateImage(DSImages.minAgeIcon)
+            } else {
+                chipView.isHidden = true
+            }
         }
     }
 
