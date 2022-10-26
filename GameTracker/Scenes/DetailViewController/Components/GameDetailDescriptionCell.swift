@@ -83,12 +83,16 @@ final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguring
     }
 
     func configure(with item: GameDetailDescriptionModel) {
-        if item.isDescriptionExpanded {
-            label.numberOfLines = 0
-            arrowImage.image = UIImage(named: "ArrowUp")
+        if item.gameDetail.descriptionPreview == "" {
+            arrowImage.isHidden = true
         } else {
-            label.numberOfLines = 10
-            arrowImage.image = UIImage(named: "ArrowDown")
+            if item.isDescriptionExpanded {
+                label.numberOfLines = 0
+                arrowImage.image = UIImage(named: "ArrowUp")
+            } else {
+                label.numberOfLines = 10
+                arrowImage.image = UIImage(named: "ArrowDown")
+            }
         }
         label.attributedText = formattingString(item.gameDetail.description)
     }

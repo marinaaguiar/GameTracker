@@ -261,7 +261,7 @@ extension DetailViewController {
 
             if let section = self?.dataSource?.snapshot()
                 .sectionIdentifiers[indexPath.section] {
-                view.label.text = section.title
+                    view.label.text = section.title
             }
             return view
         }
@@ -273,6 +273,10 @@ extension DetailViewController {
         var sections: [SectionType] = SectionType.allCases
 
         snapshot.appendSections(sections)
+
+        if gameVideos.isEmpty {
+            snapshot.deleteSections([.gameVideos])
+        }
 
         for section in sections {
             switch section {
@@ -296,13 +300,14 @@ extension DetailViewController {
                     ItemType.gameDescription(gameDetailResponse)
                 }
                 snapshot.appendItems([gameDetail].compactMap { $0 }, toSection: section)
+            case .gameVideos where gameVideos.isEmpty:
+                snapshot.deleteSections([.gameVideos])
+
             case .gameVideos where !gameVideos.isEmpty:
                 let gameVideos = gameVideos.map { gameVideoResponse in
                     ItemType.gameVideos(gameVideoResponse)
                 }
                 snapshot.appendItems(gameVideos, toSection: section)
-            case .gameVideos where gameVideos.isEmpty:
-                snapshot.deleteSections([.gameVideos])
             default:
                 break
             }
