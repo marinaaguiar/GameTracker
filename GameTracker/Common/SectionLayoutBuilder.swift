@@ -183,6 +183,28 @@ class SectionLayoutBuilder {
         return section
     }
 
+    static func titleLayoutSection() -> NSCollectionLayoutSection {
+        let item = CompositionalLayout.createItem(
+            width: .fractionalWidth(1),
+            height: .estimated(20),
+            spacing: 0)
+        let group = CompositionalLayout.createGroup(
+            aligment: .horizontal,
+            width: item.layoutSize.widthDimension,
+            height: item.layoutSize.heightDimension,
+            items: [.init(layoutSize: item.layoutSize)]
+        )
+
+        let section = NSCollectionLayoutSection(group: group)
+
+        let sectionHeader = createSectionHeader()
+        section.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+        section.boundarySupplementaryItems = [sectionHeader]
+
+        return section
+    }
+
+
     static func buttonsLayoutSection() -> NSCollectionLayoutSection {
         let item = CompositionalLayout.createItem(
             width: .fractionalWidth(1/2),

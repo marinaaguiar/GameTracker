@@ -31,7 +31,8 @@ class DetailViewController: UIViewController {
     var gameDetailDescriptionModel: GameDetailDescriptionModel!
 
     enum SectionType: Int, CaseIterable {
-        case gameImages = 0
+        case gameTitle = 0
+        case gameImages
         case gameInfos
         case description
         case gameLinks
@@ -39,6 +40,8 @@ class DetailViewController: UIViewController {
 
         var title: String {
             switch self {
+            case .gameTitle:
+                return ""
             case .gameImages:
                 return ""
             case .gameInfos:
@@ -54,6 +57,7 @@ class DetailViewController: UIViewController {
     }
 
     enum ItemType: Hashable {
+        case gameTitle(GameDetailDescriptionModel)
         case gameImages(GameImageResponse)
         case gameInfo(GameInfoType)
         case gameDescription(GameDetailDescriptionModel)
@@ -62,6 +66,8 @@ class DetailViewController: UIViewController {
 
         func cell(in collectionView: UICollectionView, at indexPath: IndexPath) -> UICollectionViewCell {
             switch self {
+            case let .gameTitle(gameDetail):
+                return GameDetailTitleCell.dequeue(in: collectionView, indexPath: indexPath, model: gameDetail)
             case let .gameImages(gameImageResponse):
                 return GameDetailImagesCell.dequeue(in: collectionView, indexPath: indexPath, model: gameImageResponse)
             case let .gameInfo(gameInfoDetail):
@@ -95,7 +101,7 @@ class DetailViewController: UIViewController {
     }
 
     func setupTitle() {
-        title = "\(gameDetail.name) (\(gameDetail.yearPublished))"
+        title = (gameDetail.name).components(separatedBy: ":").first
     }
 
     func setupNavBar() {
@@ -155,7 +161,7 @@ class DetailViewController: UIViewController {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = DSColor.backgroundColor
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: -12, left: 0, bottom: 30, right: 0)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isUserInteractionEnabled = true
         collectionView.delegate = self
@@ -191,6 +197,10 @@ class DetailViewController: UIViewController {
             withReuseIdentifier: SectionHeaderView.reuseIdentifier
         )
         collectionView.register(
+            GameDetailTitleCell.self,
+            forCellWithReuseIdentifier: GameDetailTitleCell.reuseIdentifier
+        )
+        collectionView.register(
             GameDetailImagesCell.self,
             forCellWithReuseIdentifier: GameDetailImagesCell.reuseIdentifier
         )
@@ -217,6 +227,8 @@ class DetailViewController: UIViewController {
             let section = SectionType(rawValue: sectionIndex)
 
             switch section {
+            case .gameTitle:
+                return SectionLayoutBuilder.titleLayoutSection()
             case .gameImages:
                 return SectionLayoutBuilder.imagesLayoutSection()
             case .gameInfos:
@@ -280,6 +292,11 @@ extension DetailViewController {
 
         for section in sections {
             switch section {
+            case .gameTitle:
+                let gameDetail = gameDetailDescriptionModel.map { gameDetailResponse in
+                    ItemType.gameTitle(gameDetailResponse)
+                }
+                snapshot.appendItems([gameDetail].compactMap { $0 }, toSection: section)
             case .gameImages:
                 let gameImages = gameImages.map { gameImageResponse in
                     ItemType.gameImages(gameImageResponse)
@@ -325,6 +342,8 @@ extension DetailViewController: UICollectionViewDelegate {
         guard let section = SectionType(rawValue: indexPath.section) else { return }
 
         switch section {
+        case .gameTitle:
+            break
         case .gameLinks:
             if indexPath.item == 0 {
                 if let url = URL(string: gameDetail.rulesUrl) {

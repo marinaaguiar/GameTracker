@@ -22,8 +22,6 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
         contentView.addSubview(chipView)
         chipView.translatesAutoresizingMaskIntoConstraints = false
 
-        contentView.backgroundColor = .yellow
-        chipView.backgroundColor = .cyan
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
             chipView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
