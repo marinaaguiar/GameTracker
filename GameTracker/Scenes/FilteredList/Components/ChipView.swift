@@ -43,7 +43,7 @@ class ChipView: UIView {
             imageMinWidth = 8
             imageMaxWidth = 16
             fontSize = 11
-            cornerRadius = 12
+            cornerRadius = 10
             backgroundColor = DSColor.light!
             spacing = 5
         case .medium:
@@ -51,7 +51,7 @@ class ChipView: UIView {
             imageMinWidth = 14
             imageMaxWidth = 18
             fontSize = 15
-            cornerRadius = 16
+            cornerRadius = 12
             backgroundColor = .white
             spacing = 8
         }
@@ -62,8 +62,8 @@ class ChipView: UIView {
 
         view.addSubview(stackView)
         stackView.axis = .horizontal
-        stackView.distribution = .fill
         stackView.spacing = spacing
+        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.addArrangedSubview(imageView)

@@ -19,13 +19,11 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
     }
 
     private func setup() {
-        configureBigStackView()
-    }
-
-    private func configureBigStackView() {
         contentView.addSubview(chipView)
         chipView.translatesAutoresizingMaskIntoConstraints = false
 
+        contentView.backgroundColor = .yellow
+        chipView.backgroundColor = .cyan
         let inset = CGFloat(12)
         NSLayoutConstraint.activate([
             chipView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -45,6 +43,7 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
                 chipView.updateImage(DSImages.playtimeIcon)
             } else {
                 chipView.isHidden = true
+//                chipView.removeFromSuperview()
             }
         case .numberOfPlayers(let gameDetail):
             if gameDetail.players != "" {
@@ -53,6 +52,7 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
                 chipView.updateImage(DSImages.playersIcon)
             } else {
                 chipView.isHidden = true
+//                chipView.removeFromSuperview()
             }
         case .minAge(let gameDetail):
             if gameDetail.minAge != 0 {
@@ -61,6 +61,7 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
                 chipView.updateImage(DSImages.minAgeIcon)
             } else {
                 chipView.isHidden = true
+//                chipView.removeFromSuperview()
             }
         }
     }

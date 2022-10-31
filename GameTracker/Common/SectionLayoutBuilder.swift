@@ -162,9 +162,9 @@ class SectionLayoutBuilder {
 
     static func infoLayoutSection() -> NSCollectionLayoutSection {
         let item = CompositionalLayout.createItem(
-            width: .estimated(200),
+            width: .estimated(5),
             height: .absolute(30),
-            spacing: 0)
+            spacing: 4)
         let group = CompositionalLayout.createGroup(
             aligment: .horizontal,
             width: item.layoutSize.widthDimension,
@@ -177,7 +177,7 @@ class SectionLayoutBuilder {
         let sectionHeader = createSectionHeader()
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 0)
-        section.interGroupSpacing = 8
+        section.interGroupSpacing = 4
         section.boundarySupplementaryItems = [sectionHeader]
 
         return section
