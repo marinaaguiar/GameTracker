@@ -101,7 +101,15 @@ class DetailViewController: UIViewController {
     }
 
     func setupTitle() {
-        title = (gameDetail.name).components(separatedBy: ":").first
+        if gameDetail.name.localizedStandardContains(":") {
+            let gameName = (gameDetail.name).components(separatedBy: ":")
+            let titleName = gameName[0]
+            let subtitleName = gameName[1]
+            title = "\(titleName):"
+        } else {
+            let gameName = gameDetail.name
+            title = gameName
+        }
     }
 
     func setupNavBar() {
