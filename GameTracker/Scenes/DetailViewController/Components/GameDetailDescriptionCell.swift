@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import MarkdownKit
 
 final class GameDetailDescriptionCell: UICollectionViewCell, StandardConfiguringCell {
     typealias CellModel = GameDetailDescriptionModel
