@@ -6,6 +6,10 @@ The Game Tracker app allows users to search for board games, through different c
 
 Xcode version 14.1
 
+Swift version 5.7
+
+Minimum deployment iOS 15.5
+
 ## Usage
 
 The application uses Board Game Atlas Api Key. [Get a API Key](https://www.boardgameatlas.com/api/docs/apps)	 before running the project. 
