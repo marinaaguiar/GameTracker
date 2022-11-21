@@ -27,8 +27,6 @@ final class GameDetailTitleCell: UICollectionViewCell, StandardConfiguringCell {
 
 extension GameDetailTitleCell {
     func setup() {
-//        backgroundColor = .white
-
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.distribution = .fill

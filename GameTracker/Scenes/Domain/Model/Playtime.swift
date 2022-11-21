@@ -10,7 +10,7 @@ import Foundation
 enum Playtime: Int, CaseIterable {
     case fifteenMin = 0
     case thirtyMin
-    case fortyfiveMin
+    case fortyFiveMin
     case sixtyMin
     case ninetyMin
     case oneHundredTwentyMin
@@ -29,7 +29,7 @@ enum Playtime: Int, CaseIterable {
             return 15
         case .thirtyMin:
             return 30
-        case .fortyfiveMin:
+        case .fortyFiveMin:
             return 45
         case .sixtyMin:
             return 60
@@ -48,7 +48,7 @@ enum Playtime: Int, CaseIterable {
             return "15 min"
         case .thirtyMin:
             return "30 min"
-        case .fortyfiveMin:
+        case .fortyFiveMin:
             return "45 min"
         case .sixtyMin:
             return "60 min"

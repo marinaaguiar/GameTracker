@@ -60,7 +60,7 @@ class SectionLayoutBuilder {
             spacing: 0)
 
         let group = CompositionalLayout.createGroup(
-            aligment: .horizontal,
+            alignment: .horizontal,
             width: item.layoutSize.widthDimension,
             height: item.layoutSize.heightDimension,
             items: [.init(layoutSize: item.layoutSize)]
@@ -83,7 +83,7 @@ class SectionLayoutBuilder {
             height: .estimated(120),
             spacing: 0)
         let group = CompositionalLayout.createGroup(
-            aligment: .vertical,
+            alignment: .vertical,
             width: item.layoutSize.widthDimension,
             height: item.layoutSize.heightDimension,
             items: [.init(layoutSize: item.layoutSize)]
@@ -103,7 +103,7 @@ class SectionLayoutBuilder {
             height: .absolute(100),
             spacing: 10)
         let group = CompositionalLayout.createGroup(
-            aligment: .vertical,
+            alignment: .vertical,
             width: item.layoutSize.widthDimension,
             height: item.layoutSize.heightDimension,
             items: [.init(layoutSize: item.layoutSize)]
@@ -166,7 +166,7 @@ class SectionLayoutBuilder {
             height: .absolute(30),
             spacing: 4)
         let group = CompositionalLayout.createGroup(
-            aligment: .horizontal,
+            alignment: .horizontal,
             width: item.layoutSize.widthDimension,
             height: item.layoutSize.heightDimension,
             items: [.init(layoutSize: item.layoutSize)]
@@ -189,7 +189,7 @@ class SectionLayoutBuilder {
             height: .estimated(20),
             spacing: 0)
         let group = CompositionalLayout.createGroup(
-            aligment: .horizontal,
+            alignment: .horizontal,
             width: item.layoutSize.widthDimension,
             height: item.layoutSize.heightDimension,
             items: [.init(layoutSize: item.layoutSize)]
@@ -211,7 +211,7 @@ class SectionLayoutBuilder {
             height: .absolute(50),
             spacing: 0)
         let group = CompositionalLayout.createGroup(
-            aligment: .horizontal,
+            alignment: .horizontal,
             width: .fractionalWidth(1),
             height: item.layoutSize.heightDimension,
             items: [item]

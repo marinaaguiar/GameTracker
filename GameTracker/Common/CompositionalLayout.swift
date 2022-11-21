@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-enum CompositionalGroupAligment {
+enum CompositionalGroupAlignment {
     case vertical
     case horizontal
 }
@@ -30,13 +30,13 @@ struct CompositionalLayout {
     }
 
     static func createGroup(
-        aligment: CompositionalGroupAligment,
+        alignment: CompositionalGroupAlignment,
         width: NSCollectionLayoutDimension,
         height: NSCollectionLayoutDimension,
         items: [NSCollectionLayoutItem]
     ) -> NSCollectionLayoutGroup {
 
-        switch aligment {
+        switch alignment {
 
         case .vertical:
             return NSCollectionLayoutGroup.vertical(
@@ -56,7 +56,7 @@ struct CompositionalLayout {
     }
 
     static func createGroup(
-        aligment: CompositionalGroupAligment,
+        aligment: CompositionalGroupAlignment,
         width: NSCollectionLayoutDimension,
         height: NSCollectionLayoutDimension,
         item: NSCollectionLayoutItem,

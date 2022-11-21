@@ -50,7 +50,6 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
                 chipView.updateImage(DSImages.playersIcon)
             } else {
                 chipView.isHidden = true
-//                chipView.removeFromSuperview()
             }
         case .minAge(let gameDetail):
             if gameDetail.minAge != 0 {
@@ -59,7 +58,6 @@ final class GameDetailInfosCell: UICollectionViewCell, StandardConfiguringCell {
                 chipView.updateImage(DSImages.minAgeIcon)
             } else {
                 chipView.isHidden = true
-//                chipView.removeFromSuperview()
             }
         }
     }
