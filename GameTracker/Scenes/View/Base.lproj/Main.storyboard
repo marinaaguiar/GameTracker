@@ -146,6 +146,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uZg-nC-VYB">
                         <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="DarkGray"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
