@@ -415,9 +415,11 @@ extension DetailViewController {
                     self.gameImages = data.images
                     self.fetchVideos()
                 }
-                print("Load Game Images Sucessfully")
+                print("Load Game Images Successfully")
             case .failure(let error):
                 print(error)
+                Alert.showBasics(title: "Sorry \n Not able to connect", message: "Check your internet connection", vc: self)
+                self.fetchImages()
             }
         }
     }
@@ -433,9 +435,11 @@ extension DetailViewController {
                     self.activityIndicator.isHidden = true
                     self.collectionView.isHidden = false
                 }
-                print("Load Game Videos Sucessfully")
+                print("Load Game Videos Successfully")
             case .failure(let error):
                 print(error)
+                Alert.showBasics(title: "Sorry \n Not able to connect", message: "Check your internet connection", vc: self)
+                self.fetchImages()
             }
         }
     }

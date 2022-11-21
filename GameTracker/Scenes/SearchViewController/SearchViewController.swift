@@ -269,8 +269,9 @@ extension SearchViewController {
                     self.games[.gameInfo] = data.games
                     self.reloadData()
                 }
-                print("Load filtered list sucessfully")
+                print("Load filtered list successfully")
             case .failure(let error):
+                Alert.showBasics(title: "Sorry \n Not able to connect", message: "Check your internet connection", vc: self)
                 print(error)
             }
         }
